@@ -33,6 +33,7 @@ services:
           - db:db
         environment:
             ENV: ${ENV}
+        user: ${USER}
     phpmyadmin:
         container_name: ${COMPOSE_PROJECT_NAME}_phpmyadmin_con
         image: phpmyadmin/phpmyadmin:latest
