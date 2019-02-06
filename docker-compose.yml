@@ -11,14 +11,15 @@ services:
             - ${APACHE_EXPOSED_PORT}:80
         links:
             - php
-    mysql:
+    db:
         container_name: ${COMPOSE_PROJECT_NAME}_mysql_con
         image: mysql:5.6
         volumes:
             - ./var/logs/mysql:/var/log/mysql
             - ./database:/var/lib/mysql
         environment:
-            - MYSQL_ROOT_PASSWORD=mysql
+            MYSQL_ROOT_PASSWORD: mysql
+            MYSQL_DATABASE: ${COMPOSE_PROJECT_NAME}
     php:
         container_name: ${COMPOSE_PROJECT_NAME}_php_con
         image: logomotion/php:7.2
@@ -29,17 +30,15 @@ services:
         ports:
           - 9000:9000
         links:
-          - mysql:mysql
+          - db:db
     phpmyadmin:
         container_name: ${COMPOSE_PROJECT_NAME}_phpmyadmin_con
         image: phpmyadmin/phpmyadmin:latest
         ports:
             - ${PHPMYADMIN_EXPOSED_PORT}:80
-        links:
-            - mysql:db
     node:
         container_name: ${COMPOSE_PROJECT_NAME}_node_con
-        image: 10.15.1-slim
+        image: node:10.15.1-slim
     elk:
         image: willdurand/elk
         ports:
