@@ -1,0 +1,19 @@
+#!/bin/bash
+set -e
+ 
+if ! [[ -d ./var/logs/apache ]]; then
+    mkdir -p ./var/logs/apache
+fi
+ 
+if ! [[ -d ./var/logs/mysql ]]; then
+    mkdir -p ./var/logs/mysql
+fi
+ 
+if ! [[ -d ./database ]]; then
+    mkdir ./database
+fi
+ 
+docker-compose up -d --build
+ 
+docker-compose exec apache chown -R root:www-data /usr/local/apache2/logs
+docker-compose exec php chown -R root:www-data /usr/local/etc/logs

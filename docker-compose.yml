@@ -1,0 +1,50 @@
+version: '3'
+ 
+services:
+    apache:
+        container_name: ${COMPOSE_PROJECT_NAME}_apache_con
+        image: logomotion/httpd
+        volumes:
+            - ./var/logs/apache:/usr/local/apache2/logs
+            - .:/usr/local/apache2/htdocs
+        ports:
+            - ${APACHE_EXPOSED_PORT}:80
+        links:
+            - php
+    mysql:
+        container_name: ${COMPOSE_PROJECT_NAME}_mysql_con
+        image: mysql:5.6
+        volumes:
+            - ./var/logs/mysql:/var/log/mysql
+            - ./database:/var/lib/mysql
+        environment:
+            - MYSQL_ROOT_PASSWORD=mysql
+    php:
+        container_name: ${COMPOSE_PROJECT_NAME}_php_con
+        image: logomotion/php:7.2
+        working_dir: /srv/app
+        volumes:
+            - .:/srv/app
+            - ./var/logs/php:/usr/local/etc/logs
+        ports:
+          - 9000:9000
+        links:
+          - mysql:mysql
+    phpmyadmin:
+        container_name: ${COMPOSE_PROJECT_NAME}_phpmyadmin_con
+        image: phpmyadmin/phpmyadmin:latest
+        ports:
+            - ${PHPMYADMIN_EXPOSED_PORT}:80
+        links:
+            - mysql:db
+    node:
+        container_name: ${COMPOSE_PROJECT_NAME}_node_con
+        image: 10.15.1-slim
+    elk:
+        image: willdurand/elk
+        ports:
+            - ${ELK_EXPOSED_PORT}:80
+        volumes:
+            - ./elk/logstash:/etc/logstash
+            - ./elk/logstash/patterns:/opt/logstash/patterns
+            - ./var/logs:/var/logs
