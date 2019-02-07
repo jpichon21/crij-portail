@@ -26,6 +26,11 @@ Rentrer dans le conteneur mysql
 ### Commandes
 
 Exécuter une commande Symfony  
-`script/sf command`  
+`script/sf <command>`  
 (ex: `script/sf cache:clear`)
+
+Exécuter composer
+`script/composer <command>`  
+(ex: `script/composer install`)
+
 
