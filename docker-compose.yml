@@ -27,6 +27,7 @@ services:
         volumes:
             - .:/srv/app
             - ./var/logs/php:/usr/local/etc/logs
+            - ./var/cache/composer:/var/www/.composer/cache
         ports:
           - 9000:9000
         links:
