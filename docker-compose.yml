@@ -41,3 +41,9 @@ services:
     node:
         container_name: ${COMPOSE_PROJECT_NAME}_node_con
         image: node:10.15.1-slim
+        ports:
+            - "${DEV_SERVER_PORT:-8080}:8080"
+        volumes: 
+            - .:/app
+        working_dir: /app
+        command: ["yarn", "encore", "dev", "--watch"]
