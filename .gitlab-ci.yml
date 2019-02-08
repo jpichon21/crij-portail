@@ -1,0 +1,7 @@
+
+cq:
+  image: logomotion/code-quality
+  script: 
+    - phpcs --standard=Symfony ./src
+    - security-checker security:check
+    - phpcpd src
