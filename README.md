@@ -5,6 +5,13 @@
 * docker-compose
 * php-cs
 
+## Setup
+* `cp .env.dist .env`
+* Adapter le fichier `.env`
+* `echo "127.0.0.1 crij.local" >> /etc/hosts`
+* `script/bootstrap`
+* `script/start`
+
 ## Développement
 * Démarrer le serveur `script/start`
 * Arrêter le serveur `script/stop`
@@ -13,7 +20,6 @@
 * Emplacement des logs var/logs
 
 ## Boîte à outils
-### Accès aux serveurs
 
 ### Accès aux conteneurs
 
@@ -22,6 +28,14 @@ Rentrer dans le conteneur php (ex. pour utiliser composer)
 `composer update`   
 Rentrer dans le conteneur mysql  
 `docker-compose exec mysql bash` 
+
+### PhpMyAdmin
+L'interface est disponible ici http://localhost:9001    
+Login: root    
+Mot de passe: mysql    
+Pour changer le port, modifier `PHPMYADMIN_EXPOSED_PORT` dans le fichier `.env`
+
+
 
 ### Commandes
 
