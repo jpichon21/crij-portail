@@ -33,4 +33,7 @@ Exécuter composer
 `script/composer <command>`  
 (ex: `script/composer install`)
 
+Exécuter yarb
+`script/yarn <command>`  
+(ex: `script/yarn add package`)
 
