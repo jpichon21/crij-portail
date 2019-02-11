@@ -1,4 +1,8 @@
 <?php
+/* Copyright (C) Logomotion - All Rights Reserved
+ * Unauthorized copying of this file, via any medium is strictly prohibited
+ * Proprietary and confidential
+ */
 
 namespace AppBundle\Controller;
 
@@ -6,10 +10,17 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
+/**
+ * Default Controller
+ */
 class DefaultController extends Controller
 {
     /**
-     * @Route("/", name="homepage")
+     * Default homepage
+     *
+     * @param Request $request
+     *
+     * @return void
      */
     public function indexAction(Request $request)
     {
