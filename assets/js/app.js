@@ -1,3 +1,3 @@
-window.onload = function() {
-  console.log('Hello friend');
+window.onload = function () {
+  console.log('Hello friend')
 }
