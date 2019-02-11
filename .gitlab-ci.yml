@@ -5,3 +5,4 @@ cq:
     - phpcs --standard=Symfony ./src
     - security-checker security:check
     - phpcpd src
+    - standard "assets/js/**/*.js"

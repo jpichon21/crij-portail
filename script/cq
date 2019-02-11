@@ -1,11 +1,14 @@
 #!/bin/sh
 set -e
 
-echo "Running Symfony's coding standards tests"
+# Symfony's coding standards tests
 docker run --rm -v $PWD:/code:ro logomotion/code-quality phpcs --standard=Symfony ./src &&
 
-echo "Running security checks"
+# php security checks
 docker run --rm -v $PWD:/code:ro logomotion/code-quality security-checker security:check composer.lock &&
 
-echo "Running copy paste checks"
-docker run --rm -v $PWD:/code:ro logomotion/code-quality phpcpd src
+# php copy paste checks
+docker run --rm -v $PWD:/code:ro logomotion/code-quality phpcpd src &&
+
+# javascript's standard checks
+docker run --rm -v $PWD:/code:ro logomotion/code-quality standard "assets/js/**/*.js"
