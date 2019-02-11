@@ -12,3 +12,10 @@ docker run --rm -v $PWD:/code:ro logomotion/code-quality phpcpd src &&
 
 # javascript's standard checks
 docker run --rm -v $PWD:/code:ro logomotion/code-quality standard "assets/js/**/*.js"
+
+# javascript's security checks
+docker run --rm -v $PWD:/code:ro logomotion/code-quality yarn audit
+
+# javascript's copy paste checks
+docker run --rm -v $PWD:/code logomotion/code-quality jscpd "assets/js"
+rm -rf .jscpd/

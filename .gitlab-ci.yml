@@ -6,3 +6,5 @@ cq:
     - security-checker security:check
     - phpcpd src
     - standard "assets/js/**/*.js"
+    - yarn audit
+    - jscpd "assets/js"
