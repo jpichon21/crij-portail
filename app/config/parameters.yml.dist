@@ -6,8 +6,8 @@ parameters:
     database_password: mysql
 
     mailer_transport: smtp
-    mailer_host: 127.0.0.1
-    mailer_user: ~
-    mailer_password: ~
+    mailer_host: smtp:2525
+    mailer_user: smtp
+    mailer_password: smtp
 
     secret: ThisTokenIsNotSoSecretChangeIt

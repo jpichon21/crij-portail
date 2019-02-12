@@ -38,6 +38,10 @@ Login: root
 Mot de passe: mysql    
 Pour changer le port, modifier `PHPMYADMIN_EXPOSED_PORT` dans le fichier `.env`
 
+### Faketools
+L'interface est disponible ici http://localhost:8083    
+Pour changer le port, modifier `FAKETOOLS_EXPOSED_PORT` dans le fichier `.env`
+
 ### Commandes
 
 Exécuter une commande Symfony  
