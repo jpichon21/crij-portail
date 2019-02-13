@@ -18,6 +18,8 @@ class DefaultController extends Controller
     /**
      * Default homepage
      *
+     *  @Route("/")
+     * 
      * @param Request $request
      *
      * @return void
