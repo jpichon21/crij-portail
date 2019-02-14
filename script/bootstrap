@@ -31,3 +31,16 @@ docker-compose exec php composer install
 if [ $phprunning = 0 ]; then
     docker-compose down
 fi
+
+echo "==> Installing Node dependencies…"
+noderunning=0
+if [ -z `docker ps -q --no-trunc | grep $(docker-compose ps -q node)` ]; then
+    docker-compose up -d --build node
+else
+    noderunning=1
+fi
+docker-compose exec node yarn install
+
+if [ $noderunning = 0 ]; then
+    docker-compose down
+fi

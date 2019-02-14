@@ -1,6 +1,21 @@
 #!/bin/sh
 set -e
 
-docker run --rm -v $PWD:/code:ro logomotion/code-quality phpcs --standard=Symfony ./src
-docker run --rm -v $PWD:/code:ro logomotion/code-quality security-checker security:check composer.lock
-docker run --rm -v $PWD:/code:ro logomotion/code-quality phpcpd src
+# Symfony's coding standards tests
+docker run --rm -v $PWD:/code:ro logomotion/code-quality phpcs --standard=Symfony ./src &&
+
+# php security checks
+docker run --rm -v $PWD:/code:ro logomotion/code-quality security-checker security:check composer.lock &&
+
+# php copy paste checks
+docker run --rm -v $PWD:/code:ro logomotion/code-quality phpcpd src &&
+
+# javascript's standard checks
+docker run --rm -v $PWD:/code:ro logomotion/code-quality standard "assets/js/**/*.js"
+
+# javascript's security checks
+docker run --rm -v $PWD:/code:ro logomotion/code-quality yarn audit
+
+# javascript's copy paste checks
+docker run --rm -v $PWD:/code logomotion/code-quality jscpd "assets/js"
+rm -rf .jscpd/

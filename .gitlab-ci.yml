@@ -1,3 +1,10 @@
+
 cq:
+  image: logomotion/code-quality
   script: 
-    - docker run --rm -v $PWD:/code:ro logomotion/code-quality phpcs --standard=Symfony ./src
+    - phpcs --standard=Symfony ./src
+    - security-checker security:check
+    - phpcpd src
+    - standard "assets/js/**/*.js"
+    - yarn audit
+    - jscpd "assets/js"
