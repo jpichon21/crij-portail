@@ -1,7 +1,8 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import BeerForm from './BeerForm'
-import { addBeer } from '../actions'
+import BeerList from './BeerList'
+import { addBeer, fetchBeers } from '../actions'
 
 class BeerView extends React.Component {
   constructor (props) {
@@ -11,6 +12,16 @@ class BeerView extends React.Component {
     }
     this.handleAddBeer = this.handleAddBeer.bind(this)
   }
+
+  componentDidMount () {
+    this.props.dispatch(fetchBeers())
+  }
+
+  componentWillReceiveProps (newProps) {
+    if (newProps.beers !== this.state.beers) {
+      this.setState({ beers: newProps.beers })
+    }
+  }
   handleAddBeer (name, imageUrl) {
     this.props.dispatch(addBeer({ name: name, imageUrl: imageUrl }))
   }
@@ -18,6 +29,7 @@ class BeerView extends React.Component {
     return (
       <div>
         <BeerForm handleSubmit={this.handleAddBeer} />
+        <BeerList beers={this.state.beers} />
       </div>
     )
   }

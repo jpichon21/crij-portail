@@ -11,3 +11,26 @@ export function addBeer (attributes) {
     })
   }
 }
+
+export function fetchBeers () {
+  return dispatch => {
+    dispatch({
+      type: 'FETCH_BEERS' })
+    return window.fetch('https://api.punkapi.com/v2/beers')
+      .then(handleErrors)
+      .then(res => res.json())
+      .then(json => {
+        dispatch({ type: 'FETCH_BEERS_SUCCESS', data: json })
+        return json
+      })
+      .catch(error => dispatch({ type: 'FEETCH_BEERS_ERROR', data: error }))
+  }
+}
+
+function handleErrors (response) {
+  if (!response.ok) {
+    console.error(response.statusText)
+    throw Error(response.statusText)
+  }
+  return response
+}

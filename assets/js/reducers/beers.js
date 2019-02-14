@@ -1,7 +1,13 @@
 export default function beers (state, action) {
-  console.log(state)
-  console.log(action.data)
   switch (action.type) {
+    case 'FETCH_BEERS_SUCCESS':
+      return {
+        ...state,
+        beers: action.data.map(item => {
+          item.imageUrl = item.image_url
+          return item
+        })
+      }
     case 'GET_BEERS':
       return [
         ...state,

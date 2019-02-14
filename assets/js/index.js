@@ -1,18 +1,15 @@
 import React from 'react'
 import { render } from 'react-dom'
 import { Provider } from 'react-redux'
-import { configureStore } from './store'
-// import rootReducer from './reducers'
+import { store, persistor } from './store'
 import App from './components/App'
-
-// const store = createStore(rootReducer, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
-// )
-const store = configureStore({})
-window.store = store
+import { PersistGate } from 'redux-persist/integration/react'
 
 render(
   <Provider store={store}>
-    <App />
+    <PersistGate loading={null} persistor={persistor}>
+      <App />
+    </PersistGate>
   </Provider>,
   document.getElementById('app')
 )
