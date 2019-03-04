@@ -19,6 +19,7 @@ class AppKernel extends Kernel
             new Symfony\WebpackEncoreBundle\WebpackEncoreBundle(),
             new FOS\RestBundle\FOSRestBundle(),
             new JMS\SerializerBundle\JMSSerializerBundle(),
+            new Nelmio\CorsBundle\NelmioCorsBundle(),
             new AppBundle\AppBundle(),
         ];
 

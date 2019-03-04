@@ -11,3 +11,5 @@ parameters:
     mailer_password: smtp
 
     secret: ThisTokenIsNotSoSecretChangeIt
+
+    admin_password: $2y$10$h4X.KOEB5QG5Nr27zSUi7uO3CmxF6/dpD09WQ6RddUCcTkP6rWqrO #admin

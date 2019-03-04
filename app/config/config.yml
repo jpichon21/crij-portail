@@ -72,3 +72,24 @@ sensio_framework_extra:
         annotations: false
 webpack_encore:
     output_path: '%kernel.project_dir%/web/build'
+fos_rest:
+    param_fetcher_listener: true
+    body_listener: true
+    routing_loader:
+        default_format: json
+    format_listener:
+        enabled: true
+        rules:
+            - { path: '^/api/(?!login)', priorities: ['json'], fallback_format: 'html' }
+            - { path: '^/', priorities: [ 'html', '*/*'], fallback_format: ~, prefer_extension: true }
+    view:
+        view_response_listener: 'force'
+
+nelmio_cors:
+    paths:
+      '^/(login|logout)':
+          allow_origin: ['*']
+          allow_headers: ['Content-Type']
+          allow_methods: ['OPTIONS', 'POST', 'GET']
+          allow_credentials: true
+          max_age: 3600
