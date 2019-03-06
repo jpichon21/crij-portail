@@ -31,6 +31,7 @@
         "twig/twig": "^1.0||^2.0"
     },
     "require-dev": {
+        "brainmaestro/composer-git-hooks": "^2.6",
         "jakub-onderka/php-parallel-lint": "^1.0",
         "sensio/generator-bundle": "^3.0",
         "symfony/phpunit-bridge": "^3.0"
@@ -45,11 +46,14 @@
             "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::prepareDeploymentTarget"
         ],
         "post-install-cmd": [
-            "@symfony-scripts"
+            "@symfony-scripts",
+            "vendor/bin/cghooks add --ignore-lock"
         ],
         "post-update-cmd": [
-            "@symfony-scripts"
-        ]
+            "@symfony-scripts",
+            "vendor/bin/cghooks update"
+        ],
+        "cghooks": "vendor/bin/cghooks"
     },
     "config": {
         "platform": {
@@ -69,6 +73,12 @@
         },
         "branch-alias": {
             "dev-master": "3.4-dev"
+        },
+        "hooks": {
+            "pre-push": [
+                "script/cq"
+            ],
+            "post-merge": "composer update"
         }
     }
 }

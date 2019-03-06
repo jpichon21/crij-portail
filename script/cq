@@ -18,4 +18,4 @@ docker run --rm -v $PWD:/code:ro logomotion/code-quality yarn audit
 
 # javascript's copy paste checks
 docker run --rm -v $PWD:/code logomotion/code-quality jscpd "assets/js"
-rm -rf .jscpd/
+# rm -rf .jscpd/
