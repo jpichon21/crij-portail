@@ -1,16 +1,6 @@
 version: '3'
  
 services:
-    apache:
-        container_name: ${COMPOSE_PROJECT_NAME}_apache_con
-        image: logomotion/httpd
-        volumes:
-            - ./var/logs/apache:/var/log/apache
-            - .:/home/wwwroot
-        ports:
-            - ${APACHE_EXPOSED_PORT}:80
-        environment:
-            SERVER_HOST_NAME: ${SERVER_HOST_NAME}
     db:
         container_name: ${COMPOSE_PROJECT_NAME}_mysql_con
         image: mysql:5.6
@@ -22,27 +12,28 @@ services:
             MYSQL_DATABASE: ${COMPOSE_PROJECT_NAME}
     php:
         container_name: ${COMPOSE_PROJECT_NAME}_php_con
-        build: php
-        working_dir: /home/wwwroot
+        image: thecodingmachine/php:7.2-v2-apache
         volumes:
-            - .:/home/wwwroot
+            - .:/var/www/html/:rw
             - ./var/logs/php:/usr/local/etc/logs
             - ./var/cache/composer:/var/www/.composer/cache
         links:
           - db:db
           - smtp:smtp
         environment:
-            ENV: ${ENV}
+            APACHE_DOCUMENT_ROOT: web/
+            PHP_INI_ERROR_REPORTING: E_ALL & ~E_NOTICE
+            APP_ENV: dev
+        ports:
+            - ${APACHE_EXPOSED_PORT}:80
         user: ${LOCAL_USER}
-        deploy:
-            resources:
-                limits:
-                    memory: 8g
     phpmyadmin:
         container_name: ${COMPOSE_PROJECT_NAME}_phpmyadmin_con
         image: phpmyadmin/phpmyadmin:latest
         ports:
             - ${PHPMYADMIN_EXPOSED_PORT}:80
+        links:
+            - db:db
     node:
         container_name: ${COMPOSE_PROJECT_NAME}_node_con
         image: node:10.15.1-slim
