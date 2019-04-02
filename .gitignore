@@ -20,3 +20,5 @@
 .env
 .jscpd
 cghooks.lock
+.vscode/
+!.vscode/settings.json
