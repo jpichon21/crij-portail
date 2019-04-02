@@ -42,7 +42,7 @@ services:
         volumes: 
             - .:/app
         working_dir: /app
-        command: ["yarn", "encore", "dev", "--watch"]
+        command: bash -c "yarn install && yarn encore dev --watch"
     smtp:
         container_name: ${COMPOSE_PROJECT_NAME}_smtp_con
         image: bornholm/fake-smtp
