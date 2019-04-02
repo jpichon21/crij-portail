@@ -2,13 +2,16 @@
 set -e
 
 # Symfony's coding standards tests
-docker run --rm -v $PWD:/code:ro logomotion/code-quality phpcs --standard=Symfony ./src &&
+docker run --rm -v $PWD:/code:ro logomotion/code-quality phpcs --standard=PSR2 ./src &&
 
 # php security checks
 docker run --rm -v $PWD:/code:ro logomotion/code-quality security-checker security:check composer.lock &&
 
 # php copy paste checks
 docker run --rm -v $PWD:/code:ro logomotion/code-quality phpcpd src &&
+
+# php unused code check
+docker run --rm -v $PWD:/code:ro logomotion/code-quality phpmd src text unusedcode
 
 # javascript's standard checks
 docker run --rm -v $PWD:/code:ro logomotion/code-quality standard "assets/js/**/*.js"
