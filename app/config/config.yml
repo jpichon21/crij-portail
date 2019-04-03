@@ -6,7 +6,19 @@ imports:
 # Put parameters here that don't need to change on each machine where the app is deployed
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
-    locale: en
+    locale: fr
+
+stof_doctrine_extensions:
+    default_locale: fr_FR
+    # Only used if you activated the Uploadable extension
+    orm:
+        default:
+            uploadable: true
+            timestampable: true
+    uploadable:
+        default_file_path:       "%kernel.root_dir%/../web/uploads"
+        mime_type_guesser_class: Stof\DoctrineExtensionsBundle\Uploadable\MimeTypeGuesserAdapter
+        default_file_info_class: Stof\DoctrineExtensionsBundle\Uploadable\UploadedFileInfo
 
 framework:
     #esi: ~
@@ -58,6 +70,10 @@ doctrine:
         auto_generate_proxy_classes: '%kernel.debug%'
         naming_strategy: doctrine.orm.naming_strategy.underscore
         auto_mapping: true
+        filters:
+            softdeleteable:
+                class: Gedmo\SoftDeleteable\Filter\SoftDeleteableFilter
+                enabled: true
 
 # Swiftmailer Configuration
 swiftmailer:
@@ -93,6 +109,15 @@ nelmio_cors:
           allow_methods: ['OPTIONS', 'POST', 'GET']
           allow_credentials: true
           max_age: 3600
+
+sonata_admin:
+    title: Crij 
+    dashboard:
+        blocks:
+            -
+                position: left
+                type: sonata.admin.block.admin_list
+
 
 sonata_block:
     blocks:

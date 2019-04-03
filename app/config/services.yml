@@ -33,3 +33,39 @@ services:
     # AppBundle\Service\ExampleService:
     #     arguments:
     #         $someArgument: 'some_value'
+    
+    gedmo.listener.softdeleteable:
+        class: Gedmo\SoftDeleteable\SoftDeleteableListener
+        tags:
+            - { name: doctrine.event_subscriber, connection: default }
+
+    app.admin.Category:
+        class: AppBundle\Admin\CategoryAdmin
+        arguments: [~, AppBundle\Entity\Category, ~]
+        tags:
+            - name: sonata.admin
+              manager_type: orm
+              group: "CMS"
+              label: "Catégorie"
+        public: true
+
+    app.admin.Section:
+        class: AppBundle\Admin\SectionAdmin
+        arguments: [~, AppBundle\Entity\Section, ~]
+        tags:
+            - name: sonata.admin
+              manager_type: orm
+              group: "CMS"
+              label: "Rubrique"
+        public: true
+
+    admin.media:
+        class: AppBundle\Admin\MediaAdmin
+        arguments: [~, AppBundle\Entity\Media, ~]
+        tags:
+            - name: sonata.admin
+              manager_type: orm
+              group: "CMS"
+              show_in_dashboard: false
+              label: Media
+        public: false
