@@ -81,7 +81,7 @@ class Content
      */
     public function __toString()
     {
-        return $this->getTitle();
+        return $this->getIntro();
     }
 
     /**
@@ -183,6 +183,54 @@ class Content
     public function setLogoId(?int $logoId): self
     {
         $this->logoId = $logoId;
+
+        return $this;
+    }
+
+    /**
+     * Get backgroundId.
+     *
+     * @return int
+     */
+    public function getBackgroundId(): ?int
+    {
+        return $this->backgroundId;
+    }
+
+    /**
+     * Set backgroundId.
+     *
+     * @param int $backgroundId
+     *
+     * @return Section
+     */
+    public function setBackgroundId(?int $backgroundId): self
+    {
+        $this->backgroundId = $backgroundId;
+
+        return $this;
+    }
+
+    /**
+     * Get background.
+     *
+     * @return Media
+     */
+    public function getBackground(): ?Media
+    {
+        return $this->background;
+    }
+
+    /**
+     * Set background.
+     *
+     * @param Media $background
+     *
+     * @return Section
+     */
+    public function setBackground(?Media $background): self
+    {
+        $this->background = $background;
 
         return $this;
     }

@@ -31,38 +31,46 @@ final class SectionAdmin extends AbstractAdmin
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
-            ->add('title', TextType::class, [
-                'label' => 'Titre',
-            ])
-            ->add('intro', TextareaType::class, [
-                'label' => 'Introduction',
-            ])
-            ->add('link', TextType::class, [
-                'label' => 'Lien',
-            ])
-            ->add('slug', TextType::class, [
-                'label' => 'Slug',
-            ])
-            ->add('color', ColorType::class, [
-                'label' => 'Couleur',
-            ])
-            ->add('thumb', TextType::class, [
-                'label' => 'Pouce',
-            ])
-            ->add('logo', ModelType::class, [
-                'label' => 'Logo',
-                'required' => false,
-            ])
-            ->add('background', ModelType::class, [
-                'label' => 'Arriére-Plan',
-                'required' => false,
-            ])
-            ->add('category', EntityType::class, [
-                'class' => Category::class,
-                'choice_label' => 'title',
-                'label' => 'Catégorie',
-                'required' => false,
-            ]);
+            ->tab('Configuration')
+                ->add('title', TextType::class, [
+                    'label' => 'Titre',
+                ])
+                ->add('intro', TextareaType::class, [
+                    'label' => 'Introduction',
+                ])
+                ->add('color', ColorType::class, [
+                    'label' => 'Couleur',
+                ])
+            ->end()
+            ->end()
+            ->tab('Métadonnée')
+                ->add('link', TextType::class, [
+                    'label' => 'Lien',
+                    'required' => false,
+                ])
+            ->end()
+            ->end()
+            ->tab('Média')
+                ->add('logo', ModelType::class, [
+                    'label' => 'Logo',
+                    'required' => false,
+                ])
+                ->add('background', ModelType::class, [
+                    'label' => 'Arriére-Plan',
+                    'required' => false,
+                ])
+                ->add('thumb', ModelType::class, [
+                    'label' => 'Miniature',
+                    'required' => false,
+                ])
+            ->end()
+            ->end()
+            ->tab('Catégorie')
+                ->add('category', EntityType::class, [
+                    'class' => Category::class,
+                    'label' => 'Catégorie',
+                    'required' => false,
+                ]);
     }
 
     /**
@@ -76,6 +84,9 @@ final class SectionAdmin extends AbstractAdmin
         $datagridMapper
             ->add('title', null, [
                     'label' => 'Titre',
+            ])
+            ->add('category', null, [
+                'label' => 'Catégorie',
             ]);
     }
 

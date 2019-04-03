@@ -9,14 +9,15 @@ use Sonata\AdminBundle\Admin\AbstractAdmin;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Form\FormMapper;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Sonata\AdminBundle\Form\Type\ModelType;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use AppBundle\Entity\Section;
 
 /**
- * Category Admin class
+ * Content Admin class
  */
-final class CategoryAdmin extends AbstractAdmin
+final class ContentAdmin extends AbstractAdmin
 {
     /**
      * Configure admin form.
@@ -28,31 +29,26 @@ final class CategoryAdmin extends AbstractAdmin
     {
         $formMapper
             ->tab('Configuration')
-                ->add('title', TextType::class, [
-                    'label' => 'titre',
-                ])
                 ->add('intro', TextareaType::class, [
                     'label' => 'Introduction',
-                ])
-                ->add('footer', TextAreaType::class, [
-                    'label' => 'Pied de page',
-                ])
-            ->end()
-            ->end()
-            ->tab('Métadonnées')
-                ->add('link', TextType::class, [
-                    'label' => 'Lien',
-                    'required' => false,
-                ])
-                ->add('domain', TextType::class, [
-                    'label' => 'Domaine',
-                    'required' => false,
                 ])
             ->end()
             ->end()
             ->tab('Média')
                 ->add('logo', ModelType::class, [
                     'label' => 'Logo',
+                    'required' => false,
+                ])
+                ->add('background', ModelType::class, [
+                    'label' => 'Arriére-Plan',
+                    'required' => false,
+                ])
+            ->end()
+            ->end()
+            ->tab('Rubrique')
+                ->add('section', EntityType::class, [
+                    'class' => Section::class,
+                    'label' => 'section',
                     'required' => false,
                 ]);
     }
@@ -66,8 +62,11 @@ final class CategoryAdmin extends AbstractAdmin
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)
     {
         $datagridMapper
-            ->add('title', null, [
-                'label' => 'Titre',
+            ->add('intro', null, [
+                'label' => 'Introduction',
+            ])
+            ->add('section', null, [
+                'label' => 'Rubrique',
             ]);
     }
 
@@ -80,8 +79,8 @@ final class CategoryAdmin extends AbstractAdmin
     protected function configureListFields(ListMapper $listMapper)
     {
         $listMapper
-            ->addIdentifier('title', null, [
-                'label' => 'Titre',
+            ->addIdentifier('intro', null, [
+                'label' => 'Introduction',
             ]);
     }
 }

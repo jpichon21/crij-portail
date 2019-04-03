@@ -18,6 +18,28 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 final class MediaAdmin extends AbstractAdmin
 {
     /**
+     * Hook prePersist event to set media in a child form.
+     *
+     * @param Media $media
+     *
+     */
+    public function prePersist($media)
+    {
+        $this->manageFileUpload($media);
+    }
+
+    /**
+     *  Hook prePersist event to set media in a child form.
+     *
+     * @param Media $media
+     *
+     */
+    public function preUpdate($media)
+    {
+        $this->manageFileUpload($media);
+    }
+
+    /**
      * Configure admin form.
      *
      * @param FormMapper $formMapper
@@ -27,7 +49,7 @@ final class MediaAdmin extends AbstractAdmin
     {
         $formMapper
             ->add('file', FileType::class, [
-                'required' => false,
+                'required' => true,
             ]);
     }
 

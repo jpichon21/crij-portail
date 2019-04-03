@@ -44,14 +44,14 @@ class Category
     /**
      * @var string
      *
-     * @ORM\Column(name="link", type="string", length=255)
+     * @ORM\Column(name="link", type="string", length=255, nullable=true)
      */
     private $link;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="domain", type="string", length=255)
+     * @ORM\Column(name="domain", type="string", length=255, nullable=true)
      */
     private $domain;
 
