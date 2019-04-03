@@ -44,12 +44,14 @@ class Section
     /**
      * @var string
      *
-     * @ORM\Column(name="link", type="string", length=255)
+     * @ORM\Column(name="link", type="string", length=255, nullable=true)
      */
     private $link;
 
     /**
      * @var string
+     *
+     * @Gedmo\Slug(fields={"title"})
      *
      * @ORM\Column(name="slug", type="string", length=255)
      */
@@ -65,7 +67,7 @@ class Section
     /**
      * @var string
      *
-     * @ORM\Column(name="thumb", type="string", length=255)
+     * @ORM\ManyToOne(targetEntity="Media", cascade={"persist"})
      */
     private $thumb;
 
@@ -94,17 +96,17 @@ class Section
     private $category;
 
     /**
-     * @ORM\OneToMany(targetEntity="Content", mappedBy="section")
+     * @ORM\OneToMany(targetEntity="Content", mappedBy="section", cascade={"persist"})
     */
     private $content;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Media", cascade={"persist", "remove"})
+     * @ORM\ManyToOne(targetEntity="Media", cascade={"persist"})
      */
     private $background;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Media", cascade={"persist", "remove"})
+     * @ORM\ManyToOne(targetEntity="Media", cascade={"persist"})
      */
     private $logo;
 
@@ -122,6 +124,14 @@ class Section
     public function __toString()
     {
         return $this->getTitle();
+    }
+
+    /**
+     * Constructor
+    */
+    public function __construct()
+    {
+        $this->content = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -207,20 +217,6 @@ class Section
     }
 
     /**
-     * Set slug.
-     *
-     * @param string $slug
-     *
-     * @return Section
-     */
-    public function setSlug($slug)
-    {
-        $this->slug = $slug;
-
-        return $this;
-    }
-
-    /**
      * Get slug.
      *
      * @return string
@@ -255,15 +251,25 @@ class Section
     }
 
     /**
-     * Set thumb.
+     * Get thumbId.
      *
-     * @param string $thumb
+     * @return int
+     */
+    public function getThumbId(): ?int
+    {
+        return $this->thumbId;
+    }
+
+    /**
+     * Set thumbId.
+     *
+     * @param int $thumbId
      *
      * @return Section
      */
-    public function setThumb($thumb)
+    public function setThumbId(?int $thumbId): self
     {
-        $this->thumb = $thumb;
+        $this->thumbId = $thumbId;
 
         return $this;
     }
@@ -271,11 +277,25 @@ class Section
     /**
      * Get thumb.
      *
-     * @return string
+     * @return Media
      */
-    public function getThumb()
+    public function getThumb(): ?Media
     {
         return $this->thumb;
+    }
+
+    /**
+     * Set thumb.
+     *
+     * @param Media $thumb
+     *
+     * @return Section
+     */
+    public function setThumb(?Media $thumb): self
+    {
+        $this->thumb = $thumb;
+
+        return $this;
     }
 
     /**
@@ -309,8 +329,9 @@ class Section
      *
      * @return Category
      */
-    public function addContent(\AppBundle\Entity\content $content)
+    public function addContent(\AppBundle\Entity\Content $content)
     {
+        $content->setSection($this);
         $this->content[] = $content;
 
         return $this;

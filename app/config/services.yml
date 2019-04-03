@@ -39,6 +39,13 @@ services:
         tags:
             - { name: doctrine.event_subscriber, connection: default }
 
+    gedmo.listener.sluggable:
+        class: Gedmo\Sluggable\SluggableListener
+        tags:
+            - { name: doctrine.event_subscriber, connection: default }
+        calls:
+            - [ setAnnotationReader, [ "@annotation_reader" ] ]
+
     app.admin.Category:
         class: AppBundle\Admin\CategoryAdmin
         arguments: [~, AppBundle\Entity\Category, ~]
@@ -59,6 +66,16 @@ services:
               label: "Rubrique"
         public: true
 
+    app.admin.Content:
+        class: AppBundle\Admin\ContentAdmin
+        arguments: [~, AppBundle\Entity\Content, ~]
+        tags:
+            - name: sonata.admin
+              manager_type: orm
+              group: "CMS"
+              label: "Sous Rubrique"
+        public: true
+
     admin.media:
         class: AppBundle\Admin\MediaAdmin
         arguments: [~, AppBundle\Entity\Media, ~]
@@ -67,5 +84,5 @@ services:
               manager_type: orm
               group: "CMS"
               show_in_dashboard: false
-              label: Media
+              label: "Media"
         public: false

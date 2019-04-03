@@ -10,7 +10,6 @@ parameters:
 
 stof_doctrine_extensions:
     default_locale: fr_FR
-    # Only used if you activated the Uploadable extension
     orm:
         default:
             uploadable: true
