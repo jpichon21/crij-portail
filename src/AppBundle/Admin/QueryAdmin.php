@@ -45,17 +45,17 @@ final class QueryAdmin extends AbstractAdmin
                         'AND' => 'AND',
                         'OR' => 'OR',
                     ],
+                ])
+                ->add('filters', CollectionType::class, [
+                    'label' => 'Filtre',
+                    'required' => false,
+                    'type_options' => [
+                        'delete' => true,
+                    ],
+                ], [
+                    'edit' => 'inline',
+                    'inline' => 'table',
                 ]);
-                // ->add('filters', CollectionType::class, [
-                //     'label' => 'Filtre',
-                //     'required' => false,
-                //     'type_options' => [
-                //         'delete' => true,
-                //     ],
-                // ], [
-                //     'edit' => 'inline',
-                //     'inline' => 'table',
-                // ]);
     }
 
     /**

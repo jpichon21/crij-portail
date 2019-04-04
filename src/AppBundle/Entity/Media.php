@@ -12,7 +12,12 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * @ORM\Entity
  *
- * @Gedmo\Uploadable(callback="myCallbackMethod", allowOverwrite=true, filenameGenerator="ALPHANUMERIC", appendNumber=true, allowedTypes="image/jpeg,image/jpg,image/pjpeg,image/png,image/x-png")
+ * @Gedmo\Uploadable(callback="myCallbackMethod",
+ *  allowOverwrite=true,
+ *  filenameGenerator="ALPHANUMERIC",
+ *  appendNumber=true,
+ *  allowedTypes="image/jpeg,image/jpg,image/pjpeg,image/png,image/x-png"
+ * )
  */
 class Media
 {

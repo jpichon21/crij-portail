@@ -91,7 +91,9 @@ final class MediaAdmin extends AbstractAdmin
     {
         $uploadedFile = $this->getForm()->get('file')->getData();
 
-        $uploadableManager = $this->getConfigurationPool()->getContainer()->get('stof_doctrine_extensions.uploadable.manager');
+        $uploadableManager = $this->getConfigurationPool()
+                                ->getContainer()
+                                ->get('stof_doctrine_extensions.uploadable.manager');
 
         $media->file = $uploadedFile;
 
