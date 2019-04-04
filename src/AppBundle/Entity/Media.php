@@ -80,6 +80,7 @@ class Media
      *
      * @param array $info
      *
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      * Interfaced void
      */
     public function myCallbackMethod(array $info)
@@ -94,6 +95,46 @@ class Media
     public function __toString()
     {
         return (string) $this->name;
+    }
+
+    /**
+     * Get path.
+     *
+     * @return string
+     */
+    public function getPath()
+    {
+        return $this->path;
+    }
+
+    /**
+     * Get id.
+     *
+     * @return int
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Get mimeType.
+     *
+     * @return string
+     */
+    public function getMimeType()
+    {
+        return $this->mimeType;
+    }
+
+    /**
+     * Get size.
+     *
+     * @return Double
+     */
+    public function getSize()
+    {
+        return $this->size;
     }
 
     /**
