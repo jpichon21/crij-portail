@@ -27,9 +27,9 @@ final class CategoryAdmin extends AbstractAdmin
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
-            ->tab('Configuration')
+            ->tab($this->trans('Configuration'))
                 ->add('title', TextType::class, [
-                    'label' => 'titre',
+                    'label' => 'Titre',
                 ])
                 ->add('intro', TextareaType::class, [
                     'label' => 'Introduction',
@@ -45,7 +45,7 @@ final class CategoryAdmin extends AbstractAdmin
                     'required' => false,
                 ])
                 ->add('domain', TextType::class, [
-                    'label' => 'Domaine',
+                    'label' => 'Nom de domaine',
                     'required' => false,
                 ])
             ->end()

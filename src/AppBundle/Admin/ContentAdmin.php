@@ -49,7 +49,7 @@ final class ContentAdmin extends AbstractAdmin
                     'required' => false,
                 ])
                 ->add('background', ModelType::class, [
-                    'label' => 'Arriére-Plan',
+                    'label' => 'Arrière-plan',
                     'required' => false,
                 ])
             ->end()

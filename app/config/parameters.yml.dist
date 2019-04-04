@@ -4,7 +4,7 @@ parameters:
     database_name: crij
     database_user: root
     database_password: mysql
-
+    locale: fr
     mailer_transport: smtp
     mailer_host: smtp:2525
     mailer_user: smtp

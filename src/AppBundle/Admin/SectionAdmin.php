@@ -56,7 +56,7 @@ final class SectionAdmin extends AbstractAdmin
                     'required' => false,
                 ])
                 ->add('background', ModelType::class, [
-                    'label' => 'Arriére-Plan',
+                    'label' => 'Arrière-plan',
                     'required' => false,
                 ])
                 ->add('thumb', ModelType::class, [
