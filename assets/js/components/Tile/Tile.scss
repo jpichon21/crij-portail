@@ -11,12 +11,13 @@
     text-decoration: none;
     border-radius: 10px;
     &:hover {
-        svg {
-            font-size: 100px;
+        img {
+            transform: scale(1.2);
         }
     }
-    svg {
-        font-size: 80px;
+    img {
+        max-width: 80px;
+        max-height: 80px;
         margin-bottom: 20px;
         transition: 0.2s;
     }

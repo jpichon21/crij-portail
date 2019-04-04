@@ -26,61 +26,61 @@ export const news = [
 export const links = [
   {
     title: 'Catégorie 1',
-    icon: 'theater-masks',
+    icon: 'http://via.placeholder.com/80x80',
     color: '#ef7f44',
     link: '#'
   },
   {
     title: 'Catégorie 2',
-    icon: 'allergies',
+    icon: 'http://via.placeholder.com/80x80',
     color: '#ef7f44',
     link: '#'
   },
   {
     title: 'Catégorie 3',
-    icon: 'baby-carriage',
+    icon: 'http://via.placeholder.com/80x80',
     color: '#ef7f44',
     link: '#'
   },
   {
     title: 'Catégorie 4',
-    icon: 'baby-carriage',
+    icon: 'http://via.placeholder.com/80x80',
     color: '#ef7f44',
     link: '#'
   },
   {
     title: 'Catégorie 5',
-    icon: 'baby-carriage',
+    icon: 'http://via.placeholder.com/80x80',
     color: '#ef7f44',
     link: '#'
   },
   {
     title: 'Site 1',
-    icon: 'baby-carriage',
+    icon: 'http://via.placeholder.com/80x80',
     color: '#457525',
     link: '#'
   },
   {
     title: 'Site 2',
-    icon: 'baby-carriage',
+    icon: 'http://via.placeholder.com/80x80',
     color: '#457525',
     link: '#'
   },
   {
     title: 'Site 3',
-    icon: 'baby-carriage',
+    icon: 'http://via.placeholder.com/80x80',
     color: '#457525',
     link: '#'
   },
   {
     title: 'Site 4',
-    icon: 'baby-carriage',
+    icon: 'http://via.placeholder.com/80x80',
     color: '#457525',
     link: '#'
   },
   {
     title: 'Catégorie 6',
-    icon: 'baby-carriage',
+    icon: 'http://via.placeholder.com/80x80',
     color: '#ef7f44',
     link: '#'
   }
