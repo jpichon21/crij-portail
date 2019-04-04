@@ -1,1 +1,1 @@
-["pre-commit","post-merge"]
+["pre-push","post-merge"]

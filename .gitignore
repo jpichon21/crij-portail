@@ -18,4 +18,4 @@
 /web/build
 /node_modules/
 .env
-.jscpd
+.jscpdcghooks.lock
