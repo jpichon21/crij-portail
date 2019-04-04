@@ -10,15 +10,14 @@
     color: #ffffff;
     text-decoration: none;
     border-radius: 10px;
+    transition: 0.2s;
     &:hover {
-        img {
-            transform: scale(1.2);
-        }
+        transform: scale(1.05);
+        box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.5);
     }
     img {
         max-width: 80px;
         max-height: 80px;
         margin-bottom: 20px;
-        transition: 0.2s;
     }
 }
