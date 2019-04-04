@@ -8,8 +8,8 @@ export class Footer extends React.Component {
       <div id={'footer'}>
         <div className={'logo'}>
           {
-            Sample.logoFooter.map(logo => (
-              <a href={logo.url}>
+            Sample.logoFooter.map((logo, index) => (
+              <a key={index} href={logo.url}>
                 <img src={logo.image} alt={logo.title} />
               </a>
             ))
@@ -17,8 +17,8 @@ export class Footer extends React.Component {
         </div>
         <ul className={'menu'}>
           {
-            Sample.menuFooter.map(item => (
-              <li><a href={item.url}>{item.title}</a></li>
+            Sample.menuFooter.map((item, index) => (
+              <li key={index}><a href={item.url}>{item.title}</a></li>
             ))
           }
         </ul>
