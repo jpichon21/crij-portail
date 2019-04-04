@@ -117,6 +117,11 @@ class Section
     private $deletedAt;
 
     /**
+     * @ORM\OneToMany(targetEntity="News", mappedBy="section", cascade={"persist"})
+    */
+    private $news;
+
+    /**
      * to string method
      *
      * @return string
@@ -132,6 +137,7 @@ class Section
     public function __construct()
     {
         $this->content = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->news = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -473,5 +479,103 @@ class Section
     public function setDeletedAt($deletedAt)
     {
         $this->deletedAt = $deletedAt;
+    }
+
+    /**
+     * Set slug.
+     *
+     * @param string $slug
+     *
+     * @return Section
+     */
+    public function setSlug($slug)
+    {
+        $this->slug = $slug;
+
+        return $this;
+    }
+
+    /**
+     * Set created.
+     *
+     * @param \DateTime $created
+     *
+     * @return Section
+     */
+    public function setCreated($created)
+    {
+        $this->created = $created;
+
+        return $this;
+    }
+
+    /**
+     * Get created.
+     *
+     * @return \DateTime
+     */
+    public function getCreated()
+    {
+        return $this->created;
+    }
+
+    /**
+     * Set updated.
+     *
+     * @param \DateTime|null $updated
+     *
+     * @return Section
+     */
+    public function setUpdated($updated = null)
+    {
+        $this->updated = $updated;
+
+        return $this;
+    }
+
+    /**
+     * Get updated.
+     *
+     * @return \DateTime|null
+     */
+    public function getUpdated()
+    {
+        return $this->updated;
+    }
+
+    /**
+     * Add news.
+     *
+     * @param \AppBundle\Entity\News $news
+     *
+     * @return Section
+     */
+    public function addNews(\AppBundle\Entity\News $news)
+    {
+        $this->news[] = $news;
+
+        return $this;
+    }
+
+    /**
+     * Remove news.
+     *
+     * @param \AppBundle\Entity\News $news
+     *
+     * @return boolean TRUE if this collection contained the specified element, FALSE otherwise.
+     */
+    public function removeNews(\AppBundle\Entity\News $news)
+    {
+        return $this->news->removeElement($news);
+    }
+
+    /**
+     * Get news.
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getNews()
+    {
+        return $this->news;
     }
 }
