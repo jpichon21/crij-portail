@@ -1,5 +1,5 @@
 import React from 'react'
-// import { connect } from 'react-redux'
+import { connect } from 'react-redux'
 
 export class Tile extends React.Component {
   render () {
@@ -14,5 +14,4 @@ export class Tile extends React.Component {
 
 require('./Tile.scss')
 
-// export default connect()(Tile)
-export default Tile
+export default connect()(Tile)

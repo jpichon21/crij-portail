@@ -1,5 +1,5 @@
 import React from 'react'
-// import { connect } from 'react-redux'
+import { connect } from 'react-redux'
 import Glide from '@glidejs/glide'
 
 export class Slider extends React.Component {
@@ -8,7 +8,7 @@ export class Slider extends React.Component {
       type: 'carousel',
       gap: 0,
       dots: true,
-      // autoplay: 5000,
+      autoplay: 5000,
       animationDuration: 1500
     }).mount()
   }
@@ -50,5 +50,4 @@ export class Slider extends React.Component {
 
 require('./Slider.scss')
 
-// export default connect()(Slider)
-export default Slider
+export default connect()(Slider)

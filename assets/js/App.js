@@ -1,5 +1,5 @@
 import React from 'react'
-// import { connect } from 'react-redux'
+import { connect } from 'react-redux'
 import '@fortawesome/fontawesome-free/js/all'
 import Home from './containers/Home/Home'
 
@@ -13,5 +13,4 @@ export class App extends React.Component {
 
 require('./App.scss')
 
-// export default connect()(App)
-export default App
+export default connect()(App)
