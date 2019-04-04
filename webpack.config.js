@@ -15,4 +15,9 @@ Encore
 
   .enableSassLoader()
 
+  .copyFiles({
+    from: './assets/img',
+    to: 'img/[path][name].[ext]'
+  })
+
 module.exports = Encore.getWebpackConfig()
