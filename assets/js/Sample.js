@@ -1,3 +1,7 @@
+export const logo_crij = 'build/img/logo_crij.png'
+
+export const logo_ij = 'build/img/logo-ij-bfc.png'
+
 export const news = [
   {
     title: 'Titre 1',

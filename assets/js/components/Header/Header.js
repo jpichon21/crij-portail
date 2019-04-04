@@ -1,12 +1,13 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import * as Sample from '../../Sample'
 
 export class Header extends React.Component {
   render () {
     return (
       <header id={'header'}>
         <div className={'left'}>
-          <img src={'build/img/logo_crij.png'} alt='CRIJ' />
+          <img src={Sample.logo_crij} alt='CRIJ' />
         </div>
         <div className={'right'}>
           <ul className={'links'}>
@@ -20,7 +21,7 @@ export class Header extends React.Component {
             <li><a href={'#'}><i style={{ color: '#00acee' }} className='fab fa-twitter' /></a></li>
             <li><a href={'#'}><i style={{ color: '#c61689' }} className='fab fa-instagram' /></a></li>
           </ul>
-          <a href={'#'}><img className={'logo-ij'} src={'build/img/logo-ij-bfc.png'} alt={'Information Jeunesse Bourgogne Franche Comte'} /></a>
+          <a href={'#'}><img className={'logo-ij'} src={Sample.logo_ij} alt={'Information Jeunesse Bourgogne Franche Comte'} /></a>
         </div>
       </header>
     )
