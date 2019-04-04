@@ -21,7 +21,7 @@ export class Slider extends React.Component {
               this.props.items.map((item, index) => (
                 <li key={index} className={'glide__slide'} style={{ backgroundImage: `url(${item.image})` }}>
                   <div className={'glide__overlay'}>
-                    <a href={item.link}>
+                    <a href={item.url}>
                       <h2 className={'glide__title'}>{item.title}</h2>
                       <div className={'glide__excerpt'}>{item.excerpt}</div>
                     </a>

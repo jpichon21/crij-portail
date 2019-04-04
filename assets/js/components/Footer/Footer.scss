@@ -5,9 +5,10 @@
     .logo {
         display: flex;
         justify-content: center;
-        margin-bottom: 40px;
+        padding: 0 50px;
+        margin-bottom: 50px;
         a {
-            margin-right: 20px;
+            margin-right: 50px;
             &:last-child {
                 margin-right: 0;
             }
@@ -40,7 +41,6 @@
 #rgpd {
     margin-top: 50px;
     padding: 20px;
-    font-size: 14px;
     background-color: #34455c;
     p {
         max-width: $max-width;

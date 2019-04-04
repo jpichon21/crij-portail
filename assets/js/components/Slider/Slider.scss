@@ -4,7 +4,7 @@
 
 #glide {
     position: relative;
-    padding: 180px 0 50px;
+    padding: 180px 0 80px;
     .glide__track {
         position: absolute;
         top: 0;
@@ -17,9 +17,7 @@
             background-size: cover;
             background-position: center;
             .glide__overlay {
-                padding-top: 50px;
-                max-width: $max-width;
-                margin: 0 auto;
+                padding: 50px;
                 a {
                     display: block;
                     max-width: 500px;
@@ -38,8 +36,7 @@
     }
     .glide__bullets {
         position: relative;
-        max-width: $max-width;
-        margin: 0 auto;
+        padding: 0 50px;
         z-index: 0;
         .glide__bullet {
             width: 10px;

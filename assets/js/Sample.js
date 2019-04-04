@@ -58,61 +58,61 @@ export const menuFooter = [
 export const tilesHome = [
   {
     title: 'Catégorie 1',
-    icon: 'http://via.placeholder.com/80x80',
+    icon: 'http://via.placeholder.com/60x60',
     color: '#ef7f44',
     url: 'https://www.google.fr'
   },
   {
     title: 'Catégorie 2',
-    icon: 'http://via.placeholder.com/80x80',
+    icon: 'http://via.placeholder.com/60x60',
     color: '#ef7f44',
     url: 'https://www.google.fr'
   },
   {
     title: 'Catégorie 3',
-    icon: 'http://via.placeholder.com/80x80',
+    icon: 'http://via.placeholder.com/60x60',
     color: '#ef7f44',
     url: 'https://www.google.fr'
   },
   {
     title: 'Catégorie 4',
-    icon: 'http://via.placeholder.com/80x80',
+    icon: 'http://via.placeholder.com/60x60',
     color: '#ef7f44',
     url: 'https://www.google.fr'
   },
   {
     title: 'Catégorie 5',
-    icon: 'http://via.placeholder.com/80x80',
+    icon: 'http://via.placeholder.com/60x60',
     color: '#ef7f44',
     url: 'https://www.google.fr'
   },
   {
     title: 'Site 1',
-    icon: 'http://via.placeholder.com/80x80',
+    icon: 'http://via.placeholder.com/60x60',
     color: '#457525',
     url: 'https://www.google.fr'
   },
   {
     title: 'Site 2',
-    icon: 'http://via.placeholder.com/80x80',
+    icon: 'http://via.placeholder.com/60x60',
     color: '#457525',
     url: 'https://www.google.fr'
   },
   {
     title: 'Site 3',
-    icon: 'http://via.placeholder.com/80x80',
+    icon: 'http://via.placeholder.com/60x60',
     color: '#457525',
     url: 'https://www.google.fr'
   },
   {
     title: 'Site 4',
-    icon: 'http://via.placeholder.com/80x80',
+    icon: 'http://via.placeholder.com/60x60',
     color: '#457525',
     url: 'https://www.google.fr'
   },
   {
     title: 'Catégorie 6',
-    icon: 'http://via.placeholder.com/80x80',
+    icon: 'http://via.placeholder.com/60x60',
     color: '#ef7f44',
     url: 'https://www.google.fr'
   }

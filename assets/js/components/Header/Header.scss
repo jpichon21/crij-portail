@@ -3,9 +3,7 @@
 
 #header {
     display: flex;
-    max-width: $max-width;
-    margin: 0 auto;
-    padding: 20px 0;
+    padding: 0 50px;
     .left,
     .right {
         display: flex;
@@ -23,24 +21,18 @@
             display: flex;
             margin-right: 40px;
             li {
-                margin-right: 20px;
-                padding-right: 20px;
-                border-right: 1px #cccccc solid;
-                &:last-child {
-                    margin-right: 0;
-                    padding-right: 0;
-                    border-right: none;
-                }
                 a {
                     display: block;
+                    padding: 20px;
                     color: #999999;
                     text-decoration: none;
                     text-align: center;
                     transition: 0.2s;
                     &:hover {
-                        color: #000000;
+                        background: $color-orange;
+                        color: #ffffff;
                         svg {
-                            transform: scale(1.2);
+                            color: #ffffff;
                         }
                     }
                     svg {

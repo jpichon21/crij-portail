@@ -12,21 +12,20 @@
             flex: 1;
             display: flex;
             flex-direction: column;
-            max-width: $max-width;
-            margin: 0 auto;
             .row {
                 flex: 1;
                 display: flex;
-                justify-content: space-between;
-                align-items: center;
+                justify-content: center;
             }
             .search {
                 width: 100%;
+                height: 40px;
                 max-width: 500px;
                 margin: 50px auto;
-                padding: 10px;
                 text-align: center;
                 outline: none;
+                border: none;
+                border-radius: 20px;
             }
         }
     }
