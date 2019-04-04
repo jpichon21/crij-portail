@@ -1,5 +1,5 @@
 import React from 'react'
-// import { connect } from 'react-redux'
+import { connect } from 'react-redux'
 import Header from '../../components/Header/Header'
 import Slider from '../../components/Slider/Slider'
 import Tile from '../../components/Tile/Tile'
@@ -49,5 +49,4 @@ export class Home extends React.Component {
 
 require('./Home.scss')
 
-// export default connect()(Home)
-export default Home
+export default connect()(Home)

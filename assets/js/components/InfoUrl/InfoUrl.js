@@ -1,5 +1,5 @@
 import React from 'react'
-// import { connect } from 'react-redux'
+import { connect } from 'react-redux'
 
 export class InfoUrl extends React.Component {
   render () {
@@ -14,5 +14,4 @@ export class InfoUrl extends React.Component {
 
 require('./InfoUrl.scss')
 
-// export default connect()(InfoUrl)
-export default InfoUrl
+export default connect()(InfoUrl)

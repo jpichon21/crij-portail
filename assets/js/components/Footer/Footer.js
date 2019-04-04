@@ -1,5 +1,5 @@
 import React from 'react'
-// import { connect } from 'react-redux'
+import { connect } from 'react-redux'
 
 export class Footer extends React.Component {
   render () {
@@ -15,5 +15,4 @@ export class Footer extends React.Component {
 
 require('./Footer.scss')
 
-// export default connect()(Footer)
-export default Footer
+export default connect()(Footer)
