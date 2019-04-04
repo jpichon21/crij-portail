@@ -1,9 +1,9 @@
-@import '../../Colors';
+@import '~include-media/dist/_include-media';
 @import '../../Settings';
 
 #header {
     display: flex;
-    padding: 0 50px;
+    padding: 0 40px;
     .left,
     .right {
         display: flex;
@@ -67,7 +67,7 @@
             }
         }
         .logo-ij {
-            height: 50px;
+            height: 40px;
         }
     }
 }
