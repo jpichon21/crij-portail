@@ -7,7 +7,7 @@ export class Header extends React.Component {
     return (
       <header id={'header'}>
         <div className={'left'}>
-          <img src={Sample.logo_crij} alt='CRIJ' />
+          <img src={Sample.logoCRIJ} alt='CRIJ' />
         </div>
         <div className={'right'}>
           <ul className={'links'}>
@@ -24,7 +24,7 @@ export class Header extends React.Component {
               <li><a href={'#'}><i style={{ color: '#c61689' }} className='fab fa-instagram' /></a></li>
             </ul>
           </div>
-          <a href={'#'}><img className={'logo-ij'} src={Sample.logo_ij} alt={'Information Jeunesse Bourgogne Franche Comte'} /></a>
+          <a href={'#'}><img className={'logo-ij'} src={Sample.logoIJ} alt={'Information Jeunesse Bourgogne Franche Comte'} /></a>
         </div>
       </header>
     )

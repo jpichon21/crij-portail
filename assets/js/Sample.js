@@ -1,6 +1,6 @@
-export const logo_crij = 'build/img/logo_crij.png'
+export const logoCRIJ = 'build/img/logo-crij.png'
 
-export const logo_ij = 'build/img/logo-ij-bfc.png'
+export const logoIJ = 'build/img/logo-ij-bfc.png'
 
 export const news = [
   {
