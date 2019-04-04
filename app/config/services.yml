@@ -76,6 +76,37 @@ services:
               label: "Sous Rubrique"
         public: true
 
+    app.admin.ContentBlock:
+        class: AppBundle\Admin\ContentBlockAdmin
+        arguments: [~, AppBundle\Entity\ContentBlock, ~]
+        tags:
+            - name: sonata.admin
+              manager_type: orm
+              group: "CMS"
+              label: "Contenus"
+        public: true
+
+    app.admin.Query:
+        class: AppBundle\Admin\QueryAdmin
+        arguments: [~, AppBundle\Entity\Query, ~]
+        tags:
+            - name: sonata.admin
+              manager_type: orm
+              group: "CMS"
+              label: "Requète"
+        public: true
+
+    app.admin.QueryFilter:
+        class: AppBundle\Admin\QueryFilterAdmin
+        arguments: [~, AppBundle\Entity\QueryFilter, ~]
+        tags:
+            - name: sonata.admin
+              manager_type: orm
+              group: "CMS"
+              label: "Filtre"
+        public: true
+
+
     admin.media:
         class: AppBundle\Admin\MediaAdmin
         arguments: [~, AppBundle\Entity\Media, ~]
