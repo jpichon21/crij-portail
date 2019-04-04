@@ -9,7 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Organism
  *
  * @Gedmo\SoftDeleteable(fieldName="deletedAt")
- * 
+ *
  * @ORM\Table(name="organism")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\OrganismRepository")
  */
