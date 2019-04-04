@@ -18,8 +18,36 @@ export const news = [
   {
     title: 'Titre 3',
     excerpt: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna...',
-    link: '#',
-    image: 'https://picsum.photos/1920/1080/?random'
+
+export const logoFooter = [
+  {
+    title: 'Bourgogne Franche Comte',
+    image: 'build/img/logo-bfc.png',
+    url: 'https://www.bourgognefranchecomte.fr'
+  },
+  {
+    title: 'Ministère de l\'Education National et dela Jeunesse',
+    image: 'build/img/logo-mdenedlj.jpg',
+    url: 'https://www.education.gouv.fr'
+  }
+]
+
+export const menuFooter = [
+  {
+    title: 'Qui sommes nous ?',
+    url: 'https://www.google.fr'
+  },
+  {
+    title: 'Le réseau information jeunesse en Bourgogne-Franche-Comté',
+    url: 'https://www.google.fr'
+  },
+  {
+    title: 'Nous contacter',
+    url: 'https://www.google.fr'
+  },
+  {
+    title: 'Mentions légales',
+    url: 'https://www.google.fr'
   }
 ]
 

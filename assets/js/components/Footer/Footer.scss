@@ -1,10 +1,46 @@
 @import '../../Settings';
 
 #footer {
-
+    padding-top: 50px;
+    .logo {
+        display: flex;
+        justify-content: center;
+        margin-bottom: 40px;
+        a {
+            margin-right: 20px;
+            &:last-child {
+                margin-right: 0;
+            }
+            img {
+                height: 80px;
+            }
+        }
+    }
+    .menu {
+        display: flex;
+        justify-content: center;
+        max-width: $max-width;
+        margin: 0 auto;
+        li {
+            font-size: 12px;
+            &:after {
+                content: '-';
+                margin: 0 10px;
+            }
+            &:last-child:after {
+                content: none;
+            }
+            a {
+                color: #000000;
+                text-decoration: none;
+            }
+        }
+    }
 }
 #rgpd {
+    margin-top: 50px;
     padding: 20px;
+    font-size: 14px;
     background-color: #34455c;
     p {
         max-width: $max-width;
