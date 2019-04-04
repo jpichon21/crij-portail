@@ -1,0 +1,62 @@
+@import '~@glidejs/glide/src/assets/sass/glide.core';
+@import '../../Colors';
+@import '../../Settings';
+
+#glide {
+    position: relative;
+    padding: 180px 0 50px;
+    .glide__track {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        z-index: 0;
+        .glide__slides {
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            .glide__overlay {
+                padding-top: 50px;
+                max-width: $max-width;
+                margin: 0 auto;
+                a {
+                    display: block;
+                    max-width: 500px;
+                    padding: 20px;
+                    color: #ffffff;
+                    text-decoration: none;
+                    background-color: rgba(0, 0, 0, 0.7);
+                    .glide__title {
+                        margin-bottom: 20px;
+                        font-size: 28px;
+                        font-weight: 700;
+                    }
+                }
+            }
+        }
+    }
+    .glide__bullets {
+        position: relative;
+        max-width: $max-width;
+        margin: 0 auto;
+        z-index: 0;
+        .glide__bullet {
+            width: 10px;
+            height: 10px;
+            margin-right: 5px;
+            padding: 0;
+            border-radius: 100%;
+            border: none;
+            outline: none;
+            &.glide__bullet--active {
+                background-color: $color-orange;
+            }
+        }
+    }
+    .glide__content {
+        position: relative;
+        padding-top: 50px;
+        z-index: 1;
+    }
+}

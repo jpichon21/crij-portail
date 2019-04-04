@@ -8,9 +8,12 @@
   },
   "dependencies": {
     "@babel/preset-react": "^7.0.0",
+    "@fortawesome/fontawesome-free": "^5.8.1",
+    "@glidejs/glide": "^3.2.7",
     "axios": "^0.18.0",
     "babel-preset-react": "^6.24.1",
     "node-sass": "^4.11.0",
+    "purecss": "^1.0.0",
     "react": "^16.8.1",
     "react-dom": "^16.8.1",
     "react-redux": "^6.0.0",
@@ -20,6 +23,7 @@
     "redux": "^4.0.1",
     "redux-persist": "^5.10.0",
     "redux-thunk": "^2.3.0",
+    "reset-css": "^4.0.1",
     "sass-loader": "^7.1.0"
   }
 }

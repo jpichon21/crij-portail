@@ -1,0 +1,15 @@
+@import '../../Settings';
+
+#footer {
+
+}
+#rgpd {
+    padding: 20px;
+    background-color: #ff00ff;
+    p {
+        max-width: $max-width;
+        margin: 0 auto;
+        color: #ffffff;
+        text-align: center;
+    }
+}

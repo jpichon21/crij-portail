@@ -1,0 +1,23 @@
+@import '../../Colors';
+
+.tile {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 200px;
+    height: 200px;
+    color: #ffffff;
+    text-decoration: none;
+    border-radius: 10px;
+    &:hover {
+        svg {
+            font-size: 100px;
+        }
+    }
+    svg {
+        font-size: 80px;
+        margin-bottom: 20px;
+        transition: 0.2s;
+    }
+}

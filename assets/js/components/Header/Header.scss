@@ -1,0 +1,69 @@
+@import '../../Colors';
+@import '../../Settings';
+
+#header {
+    display: flex;
+    max-width: $max-width;
+    margin: 0 auto;
+    padding: 20px 0;
+    .left,
+    .right {
+        display: flex;
+        align-items: center;
+    }
+    .left {
+        img {
+            height: 60px;
+        }
+    }
+    .right {
+        flex: 1;
+        justify-content: flex-end;
+        .links {
+            display: flex;
+            margin-right: 40px;
+            li {
+                margin-right: 20px;
+                padding-right: 20px;
+                border-right: 1px #cccccc solid;
+                &:last-child {
+                    margin-right: 0;
+                    padding-right: 0;
+                    border-right: none;
+                }
+                a {
+                    display: block;
+                    color: #999999;
+                    text-decoration: none;
+                    text-align: center;
+                    transition: 0.2s;
+                    &:hover {
+                        color: #000000;
+                    }
+                    svg {
+                        display: block;
+                        margin: 0 auto 10px;
+                        font-size: 30px;
+                        color: $color-orange;
+                    }
+                }
+            }
+        }
+        .socials {
+            display: flex;
+            margin-right: 40px;
+            li {
+                margin-right: 10px;
+                &:last-child {
+                    margin-right: 0;
+                }
+                svg {
+                    font-size: 25px
+                }
+            }
+        }
+        .logo-ij {
+            height: 50px;
+        }
+    }
+}

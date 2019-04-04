@@ -666,6 +666,16 @@
     lodash "^4.17.11"
     to-fast-properties "^2.0.0"
 
+"@fortawesome/fontawesome-free@^5.8.1":
+  version "5.8.1"
+  resolved "http://registry.npm.taobao.org/@fortawesome/fontawesome-free/download/@fortawesome/fontawesome-free-5.8.1.tgz#cbafbfe8894c4e3e3c3a9da6774e249ac1f2da8b"
+  integrity sha1-y6+/6IlMTj48Op2md04kmsHy2os=
+
+"@glidejs/glide@^3.2.7":
+  version "3.2.7"
+  resolved "http://registry.npm.taobao.org/@glidejs/glide/download/@glidejs/glide-3.2.7.tgz#00511dacef58f371d4084d015dc8413bee352a7d"
+  integrity sha1-AFEdrO9Y83HUCE0BXchBO+41Kn0=
+
 "@symfony/webpack-encore@^0.23.0":
   version "0.23.0"
   resolved "https://registry.yarnpkg.com/@symfony/webpack-encore/-/webpack-encore-0.23.0.tgz#7a2dd7e4fa5cf2d86203641f036500bed8be8d00"
@@ -5910,6 +5920,11 @@ punycode@^2.1.0:
   resolved "https://registry.yarnpkg.com/punycode/-/punycode-2.1.1.tgz#b58b010ac40c22c5657616c8d2c2c02c7bf479ec"
   integrity sha512-XRsRjdf+j5ml+y/6GKHPZbrF/8p2Yga0JPtdqTIY2Xe5ohJPD9saDJJLPvp9+NSBprVvevdXZybnj2cv8OEd0A==
 
+purecss@^1.0.0:
+  version "1.0.0"
+  resolved "http://registry.npm.taobao.org/purecss/download/purecss-1.0.0.tgz#3dbcd9e2a7592448a69acb705cce16311bf4b785"
+  integrity sha1-PbzZ4qdZJEimmstwXM4WMRv0t4U=
+
 q@^1.1.2:
   version "1.5.1"
   resolved "https://registry.yarnpkg.com/q/-/q-1.5.1.tgz#7e32f75b41381291d04611f1bf14109ac00651d7"
@@ -6311,6 +6326,11 @@ requires-port@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/requires-port/-/requires-port-1.0.0.tgz#925d2601d39ac485e091cf0da5c6e694dc3dcaff"
   integrity sha1-kl0mAdOaxIXgkc8NpcbmlNw9yv8=
+
+reset-css@^4.0.1:
+  version "4.0.1"
+  resolved "http://registry.npm.taobao.org/reset-css/download/reset-css-4.0.1.tgz#1f8456a8be478bc435ce9775b7878ec82cca6b05"
+  integrity sha1-H4RWqL5Hi8Q1zpd1t4eOyCzKawU=
 
 resolve-cwd@^2.0.0:
   version "2.0.0"
