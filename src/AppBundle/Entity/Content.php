@@ -35,6 +35,13 @@ class Content
     private $intro;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="type", type="string", length=255)
+     */
+    private $type;
+
+    /**
      * @var datetime $created
      *
      * @Gedmo\Timestampable(on="create")
@@ -75,6 +82,11 @@ class Content
     private $deletedAt;
 
     /**
+     * @ORM\OneToMany(targetEntity="ContentBlock", mappedBy="content", cascade={"persist"})
+    */
+    private $contentBlock;
+
+    /**
      * to string method
      *
      * @return string
@@ -99,7 +111,7 @@ class Content
      *
      * @param string $intro
      *
-     * @return Section
+     * @return Content
      */
     public function setIntro($intro)
     {
@@ -116,6 +128,30 @@ class Content
     public function getIntro()
     {
         return $this->intro;
+    }
+
+    /**
+     * Set type.
+     *
+     * @param string $type
+     *
+     * @return Content
+     */
+    public function setType($type)
+    {
+        $this->type = $type;
+
+        return $this;
+    }
+
+    /**
+     * Get type.
+     *
+     * @return string
+     */
+    public function getType()
+    {
+        return $this->type;
     }
 
     /**
@@ -202,7 +238,7 @@ class Content
      *
      * @param int $backgroundId
      *
-     * @return Section
+     * @return Content
      */
     public function setBackgroundId(?int $backgroundId): self
     {
@@ -226,7 +262,7 @@ class Content
      *
      * @param Media $background
      *
-     * @return Section
+     * @return Content
      */
     public function setBackground(?Media $background): self
     {
@@ -257,5 +293,60 @@ class Content
         $this->logo = $logo;
 
         return $this;
+    }
+
+    /**
+     * Add contentBlock
+     *
+     * @param \AppBundle\Entity\ContentBlock $contentBlock
+     *
+     * @return Category
+     */
+    public function addContentBlock(\AppBundle\Entity\ContentBlock $contentBlock)
+    {
+        $contentBlock->setContent($this);
+        $this->contentBlock[] = $contentBlock;
+
+        return $this;
+    }
+
+    /**
+     * Remove contentBlock
+     *
+     * @param \AppBundle\Entity\ContentBlock $contentBlock
+     *
+     * @return ContentBlock
+     */
+    public function removeContentBlock(\AppBundle\Entity\ContentBlock $contentBlock)
+    {
+        if ($this->contentBlock->contains($contentBlock)) {
+            $this->contentBlock->removeElement($contentBlock);
+        }
+
+        return $this;
+    }
+
+    /**
+     * Set contentBlock.
+     *
+     * @param string $contentBlock
+     *
+     * @return Content
+     */
+    public function setContentBlock($contentBlock)
+    {
+        $this->contentBlock = $contentBlock;
+
+        return $this;
+    }
+
+    /**
+     * Get contentBlock
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getContentBlock()
+    {
+        return $this->contentBlock;
     }
 }

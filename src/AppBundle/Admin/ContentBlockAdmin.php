@@ -11,15 +11,16 @@ use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Sonata\AdminBundle\Form\Type\ModelType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
-use AppBundle\Entity\Section;
+use Sonata\AdminBundle\Form\Type\ModelType;
+use AppBundle\Entity\Content;
 
 /**
- * Content Admin class
+ * ContentBlock Admin class
  */
-final class ContentAdmin extends AbstractAdmin
+final class ContentBlockAdmin extends AbstractAdmin
 {
+
     /**
      * Configure admin form.
      *
@@ -30,9 +31,6 @@ final class ContentAdmin extends AbstractAdmin
     {
         $formMapper
             ->tab('Configuration')
-                ->add('intro', TextareaType::class, [
-                    'label' => 'Introduction',
-                ])
                 ->add('type', ChoiceType::class, [
                     'label' => 'Type de sous_rubrique',
                     'choices' => [
@@ -41,23 +39,24 @@ final class ContentAdmin extends AbstractAdmin
                         'Type 3' => 'type_3',
                     ],
                 ])
-            ->end()
-            ->end()
-            ->tab('Média')
-                ->add('logo', ModelType::class, [
-                    'label' => 'Logo',
-                    'required' => false,
-                ])
-                ->add('background', ModelType::class, [
-                    'label' => 'Arriére-Plan',
+                ->add('text', TextareaType::class, [
+                    'label' => 'Texte du contenu',
                     'required' => false,
                 ])
             ->end()
             ->end()
-            ->tab('Rubrique')
-                ->add('section', EntityType::class, [
-                    'class' => Section::class,
-                    'label' => 'section',
+            ->tab('Requète')
+                ->add('queries', ModelType::class, [
+                    'multiple' => true,
+                    'label' => 'Requète',
+                    'required' => false,
+                ])
+            ->end()
+            ->end()
+            ->tab('Sous-Rubrique')
+                ->add('content', EntityType::class, [
+                    'class' => Content::class,
+                    'label' => 'Sous-Rubrique',
                     'required' => false,
                 ]);
     }
@@ -71,11 +70,8 @@ final class ContentAdmin extends AbstractAdmin
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)
     {
         $datagridMapper
-            ->add('intro', null, [
-                'label' => 'Introduction',
-            ])
-            ->add('section', null, [
-                'label' => 'Rubrique',
+            ->add('type', null, [
+                'label' => 'Type',
             ]);
     }
 
@@ -88,8 +84,8 @@ final class ContentAdmin extends AbstractAdmin
     protected function configureListFields(ListMapper $listMapper)
     {
         $listMapper
-            ->addIdentifier('intro', null, [
-                'label' => 'Introduction',
+            ->addIdentifier('type', null, [
+                'label' => 'Type',
             ]);
     }
 }
