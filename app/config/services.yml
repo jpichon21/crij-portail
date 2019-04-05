@@ -92,7 +92,7 @@ services:
         tags:
             - name: sonata.admin
               manager_type: orm
-              group: "Contenu"
+              group: "Données Flora"
               label: "Requêtes"
         public: true
 
@@ -102,7 +102,7 @@ services:
         tags:
             - name: sonata.admin
               manager_type: orm
-              group: "Contenu"
+              group: "Données Flora"
               label: "Filtres"
         calls:
             - [ setTemplate, [edit, 'AppBundle/QueryFilterAdmin/edit.html.twig']]
@@ -124,7 +124,7 @@ services:
         tags:
             - name: sonata.admin
               manager_type: orm
-              group: "Contenu"
+              group: "Données Flora"
               label: "Organismes"
         public: true
 
@@ -134,7 +134,7 @@ services:
         tags:
             - name: sonata.admin
               manager_type: orm
-              group: "Contenu"
+              group: "Données Flora"
               label: "Activités"
         public: true
 
