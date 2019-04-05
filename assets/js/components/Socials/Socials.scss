@@ -1,0 +1,22 @@
+.socials {
+    margin-right: 40px;
+    span {
+        display: block;
+        margin-bottom: 10px;
+        color: #999999;
+        text-align: center;
+    }
+    ul {
+        display: flex;
+        justify-content: center;
+        li {
+            margin-right: 10px;
+            &:last-child {
+                margin-right: 0;
+            }
+            svg {
+                font-size: 25px;
+            }
+        }
+    }
+}

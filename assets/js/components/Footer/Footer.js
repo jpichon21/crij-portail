@@ -1,5 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import Socials from '../Socials/Socials'
 import * as Sample from '../../Sample'
 
 export class Footer extends React.Component {
@@ -22,6 +23,7 @@ export class Footer extends React.Component {
             ))
           }
         </ul>
+        <Socials />
         <div id={'rgpd'}>
           <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
         </div>
