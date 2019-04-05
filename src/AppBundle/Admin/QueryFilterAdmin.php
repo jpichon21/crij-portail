@@ -17,7 +17,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
  */
 final class QueryFilterAdmin extends AbstractAdmin
 {
-
+   
     /**
      * Configure admin form.
      *
@@ -26,23 +26,15 @@ final class QueryFilterAdmin extends AbstractAdmin
      */
     protected function configureFormFields(FormMapper $formMapper)
     {
+        $this->arrayOfFields = $this->getConfigurationPool()->getContainer()->getParameter('entityField');
         $formMapper
             ->tab('Configuration')
                 ->add('entity', ChoiceType::class, [
-                    'label' => 'Entité',
-                    'choices' => [
-                        'Entity 1' => 'Entity 1',
-                        'Entity 2' => 'Entity 2',
-                        'Entity 3' => 'Entity 3',
-                    ],
+                    'choices' => $this->getConfigurationPool()->getContainer()->getParameter('entity'),
                 ])
                 ->add('field', ChoiceType::class, [
-                    'label' => 'Champ',
-                    'choices' => [
-                        'Field 1' => 'Field 1',
-                        'Field 2' => 'Field 2',
-                        'Field 3' => 'Field 3',
-                    ],
+                    'label' => 'field',
+                    'choices' => $this->arrayOfFields
                 ])
                 ->add('value', TextType::class, [
                     'label' => 'Value',

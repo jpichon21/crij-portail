@@ -104,6 +104,8 @@ services:
               manager_type: orm
               group: "Contenu"
               label: "Filtre"
+        calls:
+            - [ setTemplate, [edit, 'AppBundle/QueryFilterAdmin/edit.html.twig']]
         public: true
 
     app.admin.News:

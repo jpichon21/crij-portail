@@ -1,0 +1,4 @@
+parameters:
+  entity:
+     Organisme: organism
+     Activité: activity
