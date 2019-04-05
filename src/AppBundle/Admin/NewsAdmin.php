@@ -10,11 +10,11 @@ use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use AppBundle\Entity\Section;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Sonata\AdminBundle\Form\Type\ModelType;
+use Sonata\FormatterBundle\Form\Type\SimpleFormatterType;
 
 /**
  * News Admin class
@@ -35,13 +35,21 @@ final class NewsAdmin extends AbstractAdmin
                 ->add('title', TextType::class, [
                     'label' => 'Titre',
                 ])
-                ->add('introduction', TextareaType::class, [
+                ->add('introduction', SimpleFormatterType::class, [
                     'label' => 'Introduction',
                     'required' => false,
+                    'format' => 'richtml',
+                    'attr' => [
+                        'class' => 'ckeditor'
+                    ],
                 ])
-                ->add('content', TextareaType::class, [
+                ->add('content', SimpleFormatterType::class, [
                     'label' => 'Contenu',
                     'required' => false,
+                    'format' => 'richtml',
+                    'attr' => [
+                        'class' => 'ckeditor'
+                    ],
                 ])
                 ->add('archived', DateType::class, [
                     'label' => 'Date d\'archivage',

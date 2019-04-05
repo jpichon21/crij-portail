@@ -11,10 +11,10 @@ use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\ColorType;
-use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Sonata\AdminBundle\Form\Type\ModelType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use AppBundle\Entity\Category;
+use Sonata\FormatterBundle\Form\Type\SimpleFormatterType;
 
 /**
  * Section Admin class
@@ -35,8 +35,12 @@ final class SectionAdmin extends AbstractAdmin
                 ->add('title', TextType::class, [
                     'label' => 'Titre',
                 ])
-                ->add('intro', TextareaType::class, [
+                ->add('intro', SimpleFormatterType::class, [
                     'label' => 'Introduction',
+                    'format' => 'richtml',
+                    'attr' => [
+                        'class' => 'ckeditor'
+                    ],
                 ])
                 ->add('color', ColorType::class, [
                     'label' => 'Couleur',

@@ -10,8 +10,8 @@ use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Sonata\AdminBundle\Form\Type\ModelType;
+use Sonata\FormatterBundle\Form\Type\SimpleFormatterType;
 
 /**
  * Category Admin class
@@ -31,11 +31,19 @@ final class CategoryAdmin extends AbstractAdmin
                 ->add('title', TextType::class, [
                     'label' => 'Titre',
                 ])
-                ->add('intro', TextareaType::class, [
+                ->add('intro', SimpleFormatterType::class, [
+                    'format' => 'richtml',
+                    'attr' => [
+                        'class' => 'ckeditor'
+                    ],
                     'label' => 'Introduction',
                 ])
-                ->add('footer', TextAreaType::class, [
+                ->add('footer', SimpleFormatterType::class, [
+                    'format' => 'richtml',
                     'label' => 'Pied de page',
+                    'attr' => [
+                        'class' => 'ckeditor'
+                    ]
                 ])
             ->end()
             ->end()

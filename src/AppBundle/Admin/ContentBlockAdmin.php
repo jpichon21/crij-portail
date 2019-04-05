@@ -9,11 +9,11 @@ use Sonata\AdminBundle\Admin\AbstractAdmin;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Form\FormMapper;
-use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Sonata\AdminBundle\Form\Type\ModelType;
 use AppBundle\Entity\Content;
+use Sonata\FormatterBundle\Form\Type\SimpleFormatterType;
 
 /**
  * ContentBlock Admin class
@@ -39,9 +39,13 @@ final class ContentBlockAdmin extends AbstractAdmin
                         'Type 3' => 'type_3',
                     ],
                 ])
-                ->add('text', TextareaType::class, [
+                ->add('text', SimpleFormatterType::class, [
                     'label' => 'Texte du contenu',
                     'required' => false,
+                    'format' => 'richtml',
+                    'attr' => [
+                        'class' => 'ckeditor'
+                    ],
                 ])
             ->end()
             ->end()

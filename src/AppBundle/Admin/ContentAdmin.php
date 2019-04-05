@@ -9,11 +9,11 @@ use Sonata\AdminBundle\Admin\AbstractAdmin;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Form\FormMapper;
-use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Sonata\AdminBundle\Form\Type\ModelType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use AppBundle\Entity\Section;
+use Sonata\FormatterBundle\Form\Type\SimpleFormatterType;
 
 /**
  * Content Admin class
@@ -30,8 +30,12 @@ final class ContentAdmin extends AbstractAdmin
     {
         $formMapper
             ->tab('Configuration')
-                ->add('intro', TextareaType::class, [
+                ->add('intro', SimpleFormatterType::class, [
                     'label' => 'Introduction',
+                    'format' => 'richtml',
+                    'attr' => [
+                        'class' => 'ckeditor'
+                    ],
                 ])
                 ->add('type', ChoiceType::class, [
                     'label' => 'Type de sous_rubrique',
