@@ -176,3 +176,13 @@ sonata_formatter:
         templates:
             browser: 'SonataFormatterBundle:Ckeditor:browser.html.twig'
             upload: 'SonataFormatterBundle:Ckeditor:upload.html.twig'
+cmf_routing:
+    chain:
+        routers_by_id:
+            router.default: 200
+            cmf_routing.dynamic_router: 100
+    dynamic:
+        persistence:
+            orm:
+                enabled: true
+        generic_controller: AppBundle:Default:route

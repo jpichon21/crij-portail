@@ -10,6 +10,7 @@ use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Sonata\AdminBundle\Form\Type\ModelType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use AppBundle\Entity\Section;
@@ -30,6 +31,9 @@ final class ContentAdmin extends AbstractAdmin
     {
         $formMapper
             ->tab('Configuration')
+                ->add('title', TextType::class, [
+                    'label' => 'Titre',
+                ])
                 ->add('intro', SimpleFormatterType::class, [
                     'label' => 'Introduction',
                     'format' => 'richtml',

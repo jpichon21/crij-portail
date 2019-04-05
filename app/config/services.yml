@@ -148,3 +148,10 @@ services:
               show_in_dashboard: false
               label: "Medias"
         public: false
+        label: "Media"
+        public: false
+    AppBundle\EventListener\ContentListener:
+        tags:
+            - { name: doctrine.event_listener, event: onFlush }
+    AppBundle\Service\ContentService:
+        arguments: ['@cmf_routing.route_provider', '@cmf_routing.content_repository']

@@ -5,8 +5,11 @@
  */
 namespace AppBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
+use Symfony\Cmf\Component\Routing\RouteObjectInterface;
+use Symfony\Cmf\Component\Routing\RouteReferrersInterface;
 
 /**
  * Category
@@ -16,7 +19,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
  *
  * @Gedmo\SoftDeleteable(fieldName="deletedAt")
  */
-class Category
+class Category implements RouteReferrersInterface
 {
     /**
      * @var int
@@ -77,6 +80,14 @@ class Category
      */
     private $logo;
 
+
+    /**
+     * @var RouteObjectInterface[]|ArrayCollection
+     *
+     * @ORM\ManyToMany(targetEntity="Symfony\Cmf\Bundle\RoutingBundle\Doctrine\Orm\Route", cascade={"all"})
+    */
+    private $routes;
+
     /**
      * @var string
      *
@@ -91,7 +102,8 @@ class Category
     */
     public function __construct()
     {
-        $this->section = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->section = new ArrayCollection();
+        $this->routes = new ArrayCollection();
     }
 
     /**
@@ -358,6 +370,52 @@ class Category
     {
         $this->slug = $slug;
 
+        return $this;
+    }
+
+    /**
+     * Get routes collection
+     *
+     * @return RouteObjectInterface[]|ArrayCollection
+     */
+    public function getRoutes()
+    {
+        return $this->routes;
+    }
+
+    /**
+     * Set routes collection
+     *
+     * @param RouteObjectInterface[]|ArrayCollection $routes
+     * @return $this
+     */
+    public function setRoutes($routes)
+    {
+        $this->routes = $routes;
+        return $this;
+    }
+
+    /**
+     * Add route to routes collection
+     *
+     * @param RouteObjectInterface $route
+     * @return $this
+     */
+    public function addRoute($route)
+    {
+        $this->routes[] = $route;
+        return $this;
+    }
+
+    /**
+     * Remove route from routes collection
+     *
+     * @param RouteObjectInterface $route
+     * @return $this
+     */
+    public function removeRoute($route)
+    {
+        $this->routes->removeElement($route);
         return $this;
     }
 }

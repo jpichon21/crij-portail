@@ -5,8 +5,11 @@
  */
 namespace AppBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
+use Symfony\Cmf\Component\Routing\RouteObjectInterface;
+use Symfony\Cmf\Component\Routing\RouteReferrersInterface;
 
 /**
  * Content
@@ -16,7 +19,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
  * @ORM\Table(name="content")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\ContentRepository")
  */
-class Content
+class Content implements RouteReferrersInterface
 {
     /**
      * @var int
@@ -26,6 +29,13 @@ class Content
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="title", type="string", length=255)
+     */
+    private $title;
 
     /**
      * @var string
@@ -40,6 +50,15 @@ class Content
      * @ORM\Column(name="type", type="string", length=255)
      */
     private $type;
+
+    /**
+     * @var string
+     *
+     * @Gedmo\Slug(fields={"title"}, updatable=false, unique=false)
+     *
+     * @ORM\Column(name="slug", type="string", length=255, unique=false)
+     */
+    private $slug;
 
     /**
      * @var datetime $created
@@ -81,6 +100,21 @@ class Content
      */
     private $deletedAt;
 
+       /**
+     * @var RouteObjectInterface[]|ArrayCollection
+     *
+     * @ORM\ManyToMany(targetEntity="Symfony\Cmf\Bundle\RoutingBundle\Doctrine\Orm\Route",
+     *  cascade={"persist", "remove"})
+    */
+    private $routes;
+
+    /**
+     * Constructor
+    */
+    public function __construct()
+    {
+        $this->routes = new ArrayCollection();
+    }
     /**
      * @ORM\OneToMany(targetEntity="ContentBlock", mappedBy="content", cascade={"persist"})
     */
@@ -106,6 +140,30 @@ class Content
         return $this->id;
     }
 
+    /**
+     * Set title.
+     *
+     * @param string $title
+     *
+     * @return Section
+     */
+    public function setTitle($title)
+    {
+        $this->title = $title;
+
+        return $this;
+    }
+
+    /**
+     * Get title.
+     *
+     * @return string
+     */
+    public function getTitle()
+    {
+        return $this->title;
+    }
+    
     /**
      * Set intro.
      *
@@ -152,6 +210,30 @@ class Content
     public function getType()
     {
         return $this->type;
+    }
+
+    /**
+     * Set slug.
+     *
+     * @param string $slug
+     *
+     * @return Content
+     */
+    public function setSlug($slug)
+    {
+        $this->slug = $slug;
+
+        return $this;
+    }
+
+    /**
+     * Get slug.
+     *
+     * @return string
+     */
+    public function getSlug()
+    {
+        return $this->slug;
     }
 
     /**
@@ -348,5 +430,52 @@ class Content
     public function getContentBlock()
     {
         return $this->contentBlock;
+    }
+
+
+    /**
+     * Get routes collection
+     *
+     * @return RouteObjectInterface[]|ArrayCollection
+     */
+    public function getRoutes()
+    {
+        return $this->routes;
+    }
+
+    /**
+     * Set routes collection
+     *
+     * @param RouteObjectInterface[]|ArrayCollection $routes
+     * @return $this
+     */
+    public function setRoutes($routes)
+    {
+        $this->routes = $routes;
+        return $this;
+    }
+
+    /**
+     * Add route to routes collection
+     *
+     * @param RouteObjectInterface $route
+     * @return $this
+     */
+    public function addRoute($route)
+    {
+        $this->routes[] = $route;
+        return $this;
+    }
+
+    /**
+     * Remove route from routes collection
+     *
+     * @param RouteObjectInterface $route
+     * @return $this
+     */
+    public function removeRoute($route)
+    {
+        $this->routes->removeElement($route);
+        return $this;
     }
 }

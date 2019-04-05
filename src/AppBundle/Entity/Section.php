@@ -5,8 +5,11 @@
  */
 namespace AppBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
+use Symfony\Cmf\Component\Routing\RouteObjectInterface;
+use Symfony\Cmf\Component\Routing\RouteReferrersInterface;
 
 /**
  * Section
@@ -16,7 +19,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
  * @ORM\Table(name="section")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\SectionRepository")
  */
-class Section
+class Section implements RouteReferrersInterface
 {
     /**
      * @var int
@@ -110,7 +113,6 @@ class Section
      */
     private $logo;
 
-
     /**
      * @ORM\Column(name="deletedAt", type="datetime", nullable=true)
      */
@@ -120,6 +122,13 @@ class Section
      * @ORM\OneToMany(targetEntity="News", mappedBy="section", cascade={"persist"})
     */
     private $news;
+
+    /**
+     * @var RouteObjectInterface[]|ArrayCollection
+     *
+     * @ORM\ManyToMany(targetEntity="Symfony\Cmf\Bundle\RoutingBundle\Doctrine\Orm\Route", cascade={"all"})
+    */
+    private $routes;
 
     /**
      * to string method
@@ -138,6 +147,7 @@ class Section
     {
         $this->content = new \Doctrine\Common\Collections\ArrayCollection();
         $this->news = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->routes = new ArrayCollection();
     }
 
     /**
@@ -577,5 +587,52 @@ class Section
     public function getNews()
     {
         return $this->news;
+    }
+
+
+    /**
+     * Get routes collection
+     *
+     * @return RouteObjectInterface[]|ArrayCollection
+     */
+    public function getRoutes()
+    {
+        return $this->routes;
+    }
+
+    /**
+     * Set routes collection
+     *
+     * @param RouteObjectInterface[]|ArrayCollection $routes
+     * @return $this
+     */
+    public function setRoutes($routes)
+    {
+        $this->routes = $routes;
+        return $this;
+    }
+
+    /**
+     * Add route to routes collection
+     *
+     * @param RouteObjectInterface $route
+     * @return $this
+     */
+    public function addRoute($route)
+    {
+        $this->routes[] = $route;
+        return $this;
+    }
+
+    /**
+     * Remove route from routes collection
+     *
+     * @param RouteObjectInterface $route
+     * @return $this
+     */
+    public function removeRoute($route)
+    {
+        $this->routes->removeElement($route);
+        return $this;
     }
 }
