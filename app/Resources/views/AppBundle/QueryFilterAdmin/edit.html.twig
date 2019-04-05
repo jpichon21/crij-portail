@@ -4,21 +4,17 @@
 <script>
     document.addEventListener('DOMContentLoaded', function(event) {
         var entity  = document.querySelector('#sbeb0efee26_entity')
-        entity.onchange=changeEventHandler;
+        entity.onchange=changeEventHandler
 
         function changeEventHandler(event) {
                 var optEntity = event.target.value
                 var listOfField = JSON.parse('{{ admin.arrayOfFields|json_encode()|raw }}')
-                var field  = document.querySelector('#sbeb0efee26_field')
-                for (i = field.length - 1; i >= 0; i--) {
-                    field.remove(i);
-                }
-                for (const [key, value] of Object.entries(listOfField[event.target.value])) {
-                    let opt = document.createElement('option')
-                    opt.value = value
-                    opt.appendChild( document.createTextNode(key) )
-                    field.appendChild(opt)
-                }
+                var optionsGroup  = document.querySelectorAll('#sbeb0efee26_field optgroup')
+                optionsGroup.forEach(optionGroup => {
+                    if (optionGroup.getAttribute('label') !== optEntity) {
+                        optionGroup.setAttribute('style', 'display:none;')
+                    }
+                })
             }
         });
     </script>
