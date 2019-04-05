@@ -53,7 +53,7 @@ services:
             - name: sonata.admin
               manager_type: orm
               group: "Contenu"
-              label: "Catégorie"
+              label: "Catégories"
         public: true
 
     app.admin.Section:
@@ -63,7 +63,7 @@ services:
             - name: sonata.admin
               manager_type: orm
               group: "Contenu"
-              label: "Rubrique"
+              label: "Rubriques"
         public: true
 
     app.admin.Content:
@@ -73,7 +73,7 @@ services:
             - name: sonata.admin
               manager_type: orm
               group: "Contenu"
-              label: "Sous Rubrique"
+              label: "Sous-Rubriques"
         public: true
 
     app.admin.ContentBlock:
@@ -93,7 +93,7 @@ services:
             - name: sonata.admin
               manager_type: orm
               group: "Contenu"
-              label: "Requète"
+              label: "Requêtes"
         public: true
 
     app.admin.QueryFilter:
@@ -103,7 +103,7 @@ services:
             - name: sonata.admin
               manager_type: orm
               group: "Contenu"
-              label: "Filtre"
+              label: "Filtres"
         calls:
             - [ setTemplate, [edit, 'AppBundle/QueryFilterAdmin/edit.html.twig']]
         public: true
@@ -125,7 +125,7 @@ services:
             - name: sonata.admin
               manager_type: orm
               group: "Contenu"
-              label: "Organisme"
+              label: "Organismes"
         public: true
 
     app.admin.Activity:
@@ -135,7 +135,7 @@ services:
             - name: sonata.admin
               manager_type: orm
               group: "Contenu"
-              label: "Activité"
+              label: "Activités"
         public: true
 
     admin.media:
@@ -146,5 +146,5 @@ services:
               manager_type: orm
               group: "Contenu"
               show_in_dashboard: false
-              label: "Media"
+              label: "Medias"
         public: false

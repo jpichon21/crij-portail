@@ -78,6 +78,15 @@ class Category
     private $logo;
 
     /**
+     * @var string
+     *
+     * @Gedmo\Slug(fields={"title"}, updatable=false)
+     *
+     * @ORM\Column(name="slug", type="string", length=255)
+     */
+    private $slug;
+
+    /**
      * Constructor
     */
     public function __construct()
@@ -326,5 +335,15 @@ class Category
         $this->logo = $logo;
 
         return $this;
+    }
+
+    /**
+     * Get slug.
+     *
+     * @return string
+     */
+    public function getSlug()
+    {
+        return $this->slug;
     }
 }
