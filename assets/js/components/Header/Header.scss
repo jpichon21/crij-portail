@@ -11,6 +11,9 @@
             display: none;
         }
     }
+    @include media('<medium') {
+        padding: 0 20px;
+    }
     .left,
     .right {
         display: flex;
@@ -18,7 +21,7 @@
     }
     .left {
         img {
-            height: 60px;
+            height: 50px;
         }
     }
     .right {
@@ -42,6 +45,9 @@
                 &.active {
                     display: flex;
                 }
+            }
+            @include media('<medium') {
+                justify-content: center;
             }
             li {
                 a {
@@ -67,7 +73,7 @@
                     svg {
                         display: block;
                         margin: 0 auto 10px;
-                        font-size: 30px;
+                        font-size: 28px;
                         color: #ffffff;
                         @include media('>=xlarge') {
                             color: $color-orange;
@@ -88,7 +94,7 @@
             svg {
                 display: block;
                 margin: 0 auto 10px;
-                font-size: 30px;
+                font-size: 28px;
                 color: $color-orange;
                 transition: 0.2s;
             }
@@ -97,9 +103,22 @@
             @include media('<xlarge') {
                 margin-right: 40px;
             }
-            img {
-                height: 40px;
+            @include media('<medium') {
+                margin-right: 20px;
             }
+            img {
+                height: 50px;
+                &.desktop {
+                    @include media('<medium') {
+                        display: none;
+                    }
+                }
+                &.mobile {
+                    @include media('>=medium') {
+                        display: none;
+                    }
+                }
+            }            
         }
     }
 }

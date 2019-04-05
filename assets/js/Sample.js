@@ -1,6 +1,9 @@
 export const logoCRIJ = 'build/img/logo-crij.png'
 
-export const logoIJ = 'build/img/logo-ij-bfc.png'
+export const logoIJ = {
+  desktop: 'build/img/logo-ij-bfc.png',
+  mobile: 'build/img/logo-ij-bfc-mobile.png'
+}
 
 export const newsHome = [
   {

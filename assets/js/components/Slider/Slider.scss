@@ -1,9 +1,13 @@
 @import '~@glidejs/glide/src/assets/sass/glide.core';
+@import '~include-media/dist/_include-media';
 @import '../../Settings';
 
 #glide {
     position: relative;
     padding: 180px 0 80px;
+    @include media('<medium') {
+        padding: 140px 0 80px;
+    }
     .glide__track {
         position: absolute;
         top: 0;
@@ -17,6 +21,9 @@
             background-position: center;
             .glide__overlay {
                 padding: 40px;
+                @include media('<medium') {
+                    padding: 20px;
+                }
                 a {
                     display: block;
                     max-width: 500px;
@@ -37,6 +44,9 @@
         position: relative;
         padding: 0 40px;
         z-index: 0;
+        @include media('<medium') {
+            padding: 20px;
+        }
         .glide__bullet {
             width: 10px;
             height: 10px;

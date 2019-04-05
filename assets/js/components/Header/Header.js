@@ -25,7 +25,10 @@ export class Header extends React.Component {
             <li><a href={'#'}><i className='far fa-envelope' />Inscription<br />Newsletter</a></li>
           </ul>
           <Socials />
-          <a href={'#'} className={'logo-ij'}><img src={Sample.logoIJ} alt={'Information Jeunesse Bourgogne Franche Comte'} /></a>
+          <a href={'#'} className={'logo-ij'}>
+            <img src={Sample.logoIJ.desktop} className={'desktop'} alt={'Information Jeunesse Bourgogne Franche Comte'} />
+            <img src={Sample.logoIJ.mobile} className={'mobile'} alt={'Information Jeunesse Bourgogne Franche Comte'} />
+          </a>
           <div className={'toggleMenu'} onClick={() => this.handletoggleMenu()}><i className={'fas fa-bars'} />Menu</div>
         </div>
       </header>
