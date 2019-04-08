@@ -6,7 +6,7 @@
     position: relative;
     padding-top: 210px;
     @include media('<medium') {
-        padding-top: 190px;
+        padding: 190px 0 20px 0;
     }
     .glide__track {
         position: absolute;

@@ -11,8 +11,9 @@ export class Home extends React.Component {
   constructor (props) {
     super(props)
     this.state = {
-      newsHome: Sample.newsHome,
-      tilesHome: Sample.tilesHome
+      news: Sample.newsHome,
+      categories: Sample.categoriesHome,
+      infoUrl: Sample.infoUrl
     }
   }
   render () {
@@ -20,23 +21,18 @@ export class Home extends React.Component {
       <div id={'home'}>
         <Header />
         <div className={'box'}>
-          <Slider className={'slider'} items={this.state.newsHome}>
+          <Slider className={'slider'} items={this.state.news}>
             <div className={'content'}>
-              <Tile item={Sample.tilesHome[0]} />
-              <Tile item={Sample.tilesHome[1]} />
-              <Tile item={Sample.tilesHome[2]} />
-              <Tile item={Sample.tilesHome[3]} />
-              <Tile item={Sample.tilesHome[4]} />
+              {
+                this.state.categories.map((tile, index) => (
+                  <Tile key={index} item={tile} />
+                ))
+              }
               <div className={'search'}><input type={'text'} placeholder={'Rechercher'} /></div>
-              <Tile item={Sample.tilesHome[5]} />
-              <Tile item={Sample.tilesHome[6]} />
-              <Tile item={Sample.tilesHome[7]} />
-              <Tile item={Sample.tilesHome[8]} />
-              <Tile item={Sample.tilesHome[9]} />
             </div>
           </Slider>
         </div>
-        <InfoUrl url={Sample.infoUrl.url} text={Sample.infoUrl.text} />
+        <InfoUrl url={this.state.infoUrl.url} text={this.state.infoUrl.text} />
         <Footer />
       </div>
     )

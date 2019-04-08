@@ -14,7 +14,7 @@
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
-            max-width: 910px;
+            max-width: map-get($breakpoints, large);
             margin: 0 auto;
             .search {
                 position: absolute;
@@ -23,6 +23,7 @@
                 width: 100%;
                 max-width: 300px;
                 z-index: 1;
+                order: 1;
                 @include media('<large') {
                     position: relative;
                     top: auto;
@@ -41,6 +42,9 @@
                     border: none;
                     border-radius: 20px;
                 }
+            }
+            .tile {
+                order: 2;
             }
         }
     }

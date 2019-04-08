@@ -22,6 +22,13 @@
     .left {
         img {
             height: 50px;
+            margin-right: 40px;
+            @include media('<medium') {
+                margin-right: 20px;
+            }
+            &:last-of-type {
+                margin-right: 0;
+            }
         }
     }
     .right {

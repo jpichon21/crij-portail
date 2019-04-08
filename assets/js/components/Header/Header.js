@@ -17,6 +17,7 @@ export class Header extends React.Component {
       <header id={'header'}>
         <div className={'left'}>
           <img src={Sample.logoCRIJ} alt='CRIJ' />
+          <img src={Sample.logoCategory} alt='CRIJ Category' />
         </div>
         <div className={'right'}>
           <ul className={`menu ${this.state.toggled ? 'active' : ''}`}>

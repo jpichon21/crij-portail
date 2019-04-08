@@ -17,7 +17,7 @@
         transform: scale(1.1);
         box-shadow: 0 0 30px 0 rgba(0, 0, 0, 0.2);
     }
-    &:last-child {
+    &:last-of-type {
         margin-right: 0;
     }
     @include media('>=large') {

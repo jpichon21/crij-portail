@@ -5,26 +5,7 @@ export const logoIJ = {
   mobile: 'build/img/logo-ij-bfc-mobile.png'
 }
 
-export const newsHome = [
-  {
-    title: 'Titre 1',
-    excerpt: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna...',
-    image: 'build/img/sample-background-news-home.jpg',
-    url: '#'
-  },
-  {
-    title: 'Titre 2',
-    excerpt: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna...',
-    image: 'build/img/sample-background-news-home.jpg',
-    url: '#'
-  },
-  {
-    title: 'Titre 3',
-    excerpt: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna...',
-    image: 'build/img/sample-background-news-home.jpg',
-    url: '#'
-  }
-]
+export const logoCategory = 'build/img/logo-category.png'
 
 export const logoFooter = [
   {
@@ -58,7 +39,33 @@ export const menuFooter = [
   }
 ]
 
-export const tilesHome = [
+export const infoUrl = {
+  text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
+  url: 'https://www.jeunes-bfc.fr'
+}
+
+export const newsHome = [
+  {
+    title: 'Titre 1',
+    excerpt: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna...',
+    image: 'build/img/sample-background-news-home.jpg',
+    url: '#'
+  },
+  {
+    title: 'Titre 2',
+    excerpt: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna...',
+    image: 'build/img/sample-background-news-home.jpg',
+    url: '#'
+  },
+  {
+    title: 'Titre 3',
+    excerpt: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna...',
+    image: 'build/img/sample-background-news-home.jpg',
+    url: '#'
+  }
+]
+
+export const categoriesHome = [
   {
     title: 'Catégorie 1',
     icon: 'build/img/sample-logo-category.png',
@@ -120,10 +127,6 @@ export const tilesHome = [
     url: '#'
   }
 ]
-export const infoUrl = {
-  text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
-  url: 'https://www.jeunes-bfc.fr'
-}
 
 export const newsCategory = [
   {
@@ -146,7 +149,7 @@ export const newsCategory = [
   }
 ]
 
-export const tilesCategory = [
+export const subCategoriesCategory = [
   {
     title: 'Sous-catégorie 1',
     icon: 'build/img/sample-logo-category.png',

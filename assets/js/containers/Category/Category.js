@@ -11,8 +11,9 @@ export class Category extends React.Component {
   constructor (props) {
     super(props)
     this.state = {
-      newsCategory: Sample.newsCategory,
-      tilesCategory: Sample.tilesCategory
+      news: Sample.newsCategory,
+      categories: Sample.subCategoriesCategory,
+      infoUrl: Sample.infoUrl
     }
   }
   render () {
@@ -20,18 +21,25 @@ export class Category extends React.Component {
       <div id={'category'}>
         <Header />
         <div className={'box'}>
-          <Slider className={'slider'} items={this.state.newsCategory}>
+          <Slider className={'slider'} items={this.state.news}>
             <div className={'content'}>
-              <div className={'search'}><input type={'text'} placeholder={'Rechercher'} /></div>
               {
-                Sample.tilesCategory.map(tile => (
-                  <Tile item={tile} />
+                this.state.categories.map((tile, index) => (
+                  <Tile key={index} item={tile} />
                 ))
               }
+              <div className={'search'}><input type={'text'} placeholder={'Rechercher'} /></div>
             </div>
           </Slider>
         </div>
-        <InfoUrl url={Sample.infoUrl.url} text={Sample.infoUrl.text} />
+        <div className={'stripes'}>
+          {
+            // this.state.categories.map((stripe, index) => (
+            //   // <Stripe key={index} item={stripe} />
+            // ))
+          }
+        </div>
+        <InfoUrl url={this.state.infoUrl.url} text={this.state.infoUrl.text} />
         <Footer />
       </div>
     )
