@@ -14,6 +14,7 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Sonata\AdminBundle\Form\Type\ModelType;
 use AppBundle\Entity\Content;
 use Sonata\FormatterBundle\Form\Type\SimpleFormatterType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 
 /**
  * ContentBlock Admin class
@@ -38,6 +39,10 @@ final class ContentBlockAdmin extends AbstractAdmin
                         'Type 2' => 'type_2',
                         'Type 3' => 'type_3',
                     ],
+                ])
+                ->add('title', TextType::class, [
+                    'label' => 'Titre',
+                    'required' => true,
                 ])
                 ->add('text', SimpleFormatterType::class, [
                     'label' => 'Texte du contenu',
@@ -74,8 +79,8 @@ final class ContentBlockAdmin extends AbstractAdmin
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)
     {
         $datagridMapper
-            ->add('type', null, [
-                'label' => 'Type',
+            ->add('title', null, [
+                'label' => 'Titre',
             ]);
     }
 
@@ -88,8 +93,8 @@ final class ContentBlockAdmin extends AbstractAdmin
     protected function configureListFields(ListMapper $listMapper)
     {
         $listMapper
-            ->addIdentifier('type', null, [
-                'label' => 'Type',
+            ->addIdentifier('title', null, [
+                'label' => 'Titre',
             ]);
     }
 }

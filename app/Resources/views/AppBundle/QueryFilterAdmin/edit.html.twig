@@ -8,11 +8,15 @@
 
         function changeEventHandler(event) {
                 var optEntity = event.target.value
+                var field = document.querySelectorAll('#sbeb0efee26_field')
+                field[0].removeAttribute("disabled")
                 var listOfField = JSON.parse('{{ admin.arrayOfFields|json_encode()|raw }}')
                 var optionsGroup  = document.querySelectorAll('#sbeb0efee26_field optgroup')
                 optionsGroup.forEach(optionGroup => {
                     if (optionGroup.getAttribute('label') !== optEntity) {
                         optionGroup.setAttribute('style', 'display:none;')
+                    } else {
+                        optionGroup.removeAttribute('style', 'display:none;')
                     }
                 })
             }

@@ -85,6 +85,20 @@ class News
     /**
      * @var \DateTime
      *
+     * @ORM\Column(name="published", type="datetime", nullable=true)
+     */
+    private $published;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="unpublished", type="datetime", nullable=true)
+     */
+    private $unpublished;
+
+    /**
+     * @var \DateTime
+     *
      * @ORM\Column(name="deletedAt", type="datetime", nullable=true)
      */
     private $deletedAt;
@@ -299,6 +313,54 @@ class News
     public function getArchived()
     {
         return $this->archived;
+    }
+
+    /**
+     * Set published.
+     *
+     * @param \DateTime $published
+     *
+     * @return News
+     */
+    public function setPublished($published)
+    {
+        $this->published = $published;
+
+        return $this;
+    }
+
+    /**
+     * Get published.
+     *
+     * @return \DateTime
+     */
+    public function getPublished()
+    {
+        return $this->published;
+    }
+
+    /**
+     * Set unpublished.
+     *
+     * @param \DateTime $unpublished
+     *
+     * @return News
+     */
+    public function setUnpublished($unpublished)
+    {
+        $this->unpublished = $unpublished;
+
+        return $this;
+    }
+
+    /**
+     * Get unpublished.
+     *
+     * @return \DateTime
+     */
+    public function getUnpublished()
+    {
+        return $this->unpublished;
     }
 
     /**

@@ -32,20 +32,39 @@ final class SectionAdmin extends AbstractAdmin
     {
         $formMapper
             ->tab('Configuration')
-                ->add('title', TextType::class, [
-                    'label' => 'Titre',
+                ->with('Configuration')
+                    ->add('title', TextType::class, [
+                        'label' => 'Titre',
+                    ])
+                    ->add('intro', SimpleFormatterType::class, [
+                        'label' => 'Introduction',
+                        'format' => 'richtml',
+                        'attr' => [
+                            'class' => 'ckeditor'
+                        ],
+                    ])
+                    ->add('color', ColorType::class, [
+                        'label' => 'Couleur',
+                    ])
+                ->end()
+                ->with('Catégorie', ['class' => 'col-md-6'])
+                    ->add('category', EntityType::class, [
+                        'class' => Category::class,
+                        'label' => 'Catégorie',
+                        'required' => false,
+                    ])
+                ->end();
+        if ($this->getSubject()->getTitle() !== null) {
+            $formMapper
+            ->with('Chemin d\'accès', ['class' => 'col-md-6'])
+                ->add('slug', TextType::class, [
+                    'label' => 'Chemin d\'accès',
+                    'sonata_help' => 'Attention, veuillez vérifier que ce chemin d\'accès est bien unique',
+                    'required' => false,
                 ])
-                ->add('intro', SimpleFormatterType::class, [
-                    'label' => 'Introduction',
-                    'format' => 'richtml',
-                    'attr' => [
-                        'class' => 'ckeditor'
-                    ],
-                ])
-                ->add('color', ColorType::class, [
-                    'label' => 'Couleur',
-                ])
-            ->end()
+            ->end();
+        }
+            $formMapper
             ->end()
             ->tab('Métadonnée')
                 ->add('link', TextType::class, [
@@ -68,13 +87,7 @@ final class SectionAdmin extends AbstractAdmin
                     'required' => false,
                 ])
             ->end()
-            ->end()
-            ->tab('Catégorie')
-                ->add('category', EntityType::class, [
-                    'class' => Category::class,
-                    'label' => 'Catégorie',
-                    'required' => false,
-                ]);
+            ->end();
     }
 
     /**

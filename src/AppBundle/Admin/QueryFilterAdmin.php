@@ -29,12 +29,21 @@ final class QueryFilterAdmin extends AbstractAdmin
         $this->arrayOfFields = $this->getConfigurationPool()->getContainer()->getParameter('entityField');
         $formMapper
             ->tab('Configuration')
+                ->add('name', TextType::class, [
+                    'label' => 'name',
+                ])
+                ->add('description', TextType::class, [
+                    'label' => 'description',
+                ])
                 ->add('entity', ChoiceType::class, [
                     'choices' => $this->getConfigurationPool()->getContainer()->getParameter('entity'),
                 ])
                 ->add('field', ChoiceType::class, [
                     'label' => 'field',
-                    'choices' => $this->arrayOfFields
+                    'choices' => $this->arrayOfFields,
+                    'attr' => [
+                        'disabled' => 'disabled',
+                    ],
                 ])
                 ->add('value', TextType::class, [
                     'label' => 'Value',
@@ -64,8 +73,11 @@ final class QueryFilterAdmin extends AbstractAdmin
     protected function configureListFields(ListMapper $listMapper)
     {
         $listMapper
-            ->addIdentifier('entity', null, [
-                'label' => 'Entité',
+            ->addIdentifier('name', null, [
+                'label' => 'Name',
+            ])
+            ->add('description', null, [
+                'label' => 'Description',
             ]);
     }
 }

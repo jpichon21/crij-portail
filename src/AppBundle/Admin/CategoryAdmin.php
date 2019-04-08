@@ -44,7 +44,14 @@ final class CategoryAdmin extends AbstractAdmin
                     'attr' => [
                         'class' => 'ckeditor'
                     ]
-                ])
+                ]);
+        if ($this->getSubject()->getTitle() !== null) {
+            $formMapper
+            ->add('slug', TextType::class, [
+                'label' => 'Chemin d\'accès',
+            ]);
+        }
+            $formMapper
             ->end()
             ->end()
             ->tab('Métadonnées')

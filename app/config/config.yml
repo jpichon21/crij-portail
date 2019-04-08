@@ -51,6 +51,7 @@ twig:
     form_themes:
         - '@SonataFormatter/Form/formatter.html.twig'
         - '@FOSCKEditor/Form/ckeditor_widget.html.twig'
+        - '@SonataCore/Form/datepicker.html.twig'
 
 # Doctrine Configuration
 doctrine:

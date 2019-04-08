@@ -37,6 +37,13 @@ class ContentBlock
     /**
      * @var string
      *
+     * @ORM\Column(name="title", type="string", length=255)
+     */
+    private $title;
+
+    /**
+     * @var string
+     *
      * @ORM\Column(name="text", type="string", length=255, nullable=true)
      */
     private $text;
@@ -84,7 +91,7 @@ class ContentBlock
      */
     public function __toString()
     {
-        return $this->getType();
+        return $this->getTitle();
     }
 
     /**
@@ -127,6 +134,30 @@ class ContentBlock
     public function getType()
     {
         return $this->type;
+    }
+
+    /**
+     * Set title.
+     *
+     * @param string $title
+     *
+     * @return ContentBlock
+     */
+    public function setTitle($title)
+    {
+        $this->title = $title;
+
+        return $this;
+    }
+
+    /**
+     * Get title.
+     *
+     * @return string
+     */
+    public function getTitle()
+    {
+        return $this->title;
     }
 
     /**

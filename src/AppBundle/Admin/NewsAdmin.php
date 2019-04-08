@@ -12,7 +12,7 @@ use Sonata\AdminBundle\Form\FormMapper;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use AppBundle\Entity\Section;
-use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Sonata\Form\Type\DateTimePickerType;
 use Sonata\AdminBundle\Form\Type\ModelType;
 use Sonata\FormatterBundle\Form\Type\SimpleFormatterType;
 
@@ -51,9 +51,37 @@ final class NewsAdmin extends AbstractAdmin
                         'class' => 'ckeditor'
                     ],
                 ])
-                ->add('archived', DateType::class, [
+                ->add('published', DateTimePickerType::class, [
+                    'label' => 'Date de publication',
+                    'dp_side_by_side'       => true,
+                    'dp_use_current'        => false,
+                    'dp_use_seconds'        => false,
+                    'dp_collapse'           => true,
+                    'dp_calendar_weeks'     => false,
+                    'dp_view_mode'          => 'days',
+                    'dp_min_view_mode'      => 'days',
+                    'required' => false,
+                ])
+                ->add('unpublished', DateTimePickerType::class, [
+                    'label' => 'Date de dépublication',
+                    'dp_side_by_side'       => true,
+                    'dp_use_current'        => false,
+                    'dp_use_seconds'        => false,
+                    'dp_collapse'           => true,
+                    'dp_calendar_weeks'     => false,
+                    'dp_view_mode'          => 'days',
+                    'dp_min_view_mode'      => 'days',
+                    'required' => false,
+                ])
+                ->add('archived', DateTimePickerType::class, [
                     'label' => 'Date d\'archivage',
-                    'widget' => 'choice',
+                    'dp_side_by_side'       => true,
+                    'dp_use_current'        => false,
+                    'dp_use_seconds'        => false,
+                    'dp_collapse'           => true,
+                    'dp_calendar_weeks'     => false,
+                    'dp_view_mode'          => 'days',
+                    'dp_min_view_mode'      => 'days',
                     'required' => false,
                 ])
             ->end()
