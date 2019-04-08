@@ -49,6 +49,10 @@
             @include media('<medium') {
                 justify-content: center;
             }
+            @include media('<small') {
+                flex-direction: column;
+                padding: 20px 0;
+            }
             li {
                 a {
                     display: flex;

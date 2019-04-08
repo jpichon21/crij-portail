@@ -13,16 +13,6 @@
     text-decoration: none;
     border-radius: 20px;
     transition: 0.2s;
-    @include media('<large') {
-        width: 120px;
-        height: 120px;
-        margin-right: 40px;
-    }
-    @include media('<medium') {
-        width: 50%;
-        height: 120px;
-        margin-right: 40px;
-    }
     &:hover {
         transform: scale(1.1);
         box-shadow: 0 0 30px 0 rgba(0, 0, 0, 0.2);
@@ -30,11 +20,30 @@
     &:last-child {
         margin-right: 0;
     }
+    @include media('>=large') {
+        &:nth-of-type(5n) {
+            margin-right: 0;
+        }
+    }
+    @include media('<large', '>=medium') {
+        width: calc(33% - 50px);
+        margin: 0 40px 40px 0;
+        &:nth-of-type(3n) {
+            margin-right: 0;
+        }
+    }
+    @include media('<medium') {
+        width: calc(50% - 30px);
+        margin: 0 20px 20px 0;
+        &:nth-of-type(2n) {
+            margin-right: 0;
+        }
+    }
     img {
         max-width: 60px;
         max-height: 60px;
         margin-bottom: 20px;
-        @include media('<large') {
+        @include media('>=medium', '<large') {
             max-width: 50px;
             max-height: 50px;
             margin-bottom: 10px;

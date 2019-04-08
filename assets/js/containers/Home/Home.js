@@ -22,21 +22,17 @@ export class Home extends React.Component {
         <div className={'box'}>
           <Slider className={'slider'} items={this.state.newsHome}>
             <div className={'content'}>
-              <div className={'row'}>
-                <Tile item={Sample.tilesHome[0]} />
-                <Tile item={Sample.tilesHome[1]} />
-                <Tile item={Sample.tilesHome[2]} />
-                <Tile item={Sample.tilesHome[3]} />
-                <Tile item={Sample.tilesHome[4]} />
-              </div>
-              <input type={'text'} className={'search'} placeholder={'Rechercher'} />
-              <div className={'row'}>
-                <Tile item={Sample.tilesHome[5]} />
-                <Tile item={Sample.tilesHome[6]} />
-                <Tile item={Sample.tilesHome[7]} />
-                <Tile item={Sample.tilesHome[8]} />
-                <Tile item={Sample.tilesHome[9]} />
-              </div>
+              <Tile item={Sample.tilesHome[0]} />
+              <Tile item={Sample.tilesHome[1]} />
+              <Tile item={Sample.tilesHome[2]} />
+              <Tile item={Sample.tilesHome[3]} />
+              <Tile item={Sample.tilesHome[4]} />
+              <div className={'search'}><input type={'text'} placeholder={'Rechercher'} /></div>
+              <Tile item={Sample.tilesHome[5]} />
+              <Tile item={Sample.tilesHome[6]} />
+              <Tile item={Sample.tilesHome[7]} />
+              <Tile item={Sample.tilesHome[8]} />
+              <Tile item={Sample.tilesHome[9]} />
             </div>
           </Slider>
         </div>
