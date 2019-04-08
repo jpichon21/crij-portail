@@ -132,49 +132,72 @@ export const sections = [
   {
     title: 'Section 1',
     icon: 'build/img/sample-logo-section.png',
+    thumb: 'build/img/sample-thumb-section.png',
     color: '#62a438',
     url: 'http://crij.local/#'
   },
   {
     title: 'Section 2',
     icon: 'build/img/sample-logo-section.png',
+    thumb: 'build/img/sample-thumb-section.png',
     color: '#3464bd',
     url: 'http://crij.local/#'
   },
   {
     title: 'Section 3',
     icon: 'build/img/sample-logo-section.png',
+    thumb: 'build/img/sample-thumb-section.png',
     color: '#be4b06',
     url: 'http://crij.local/#'
   },
   {
     title: 'Section 4',
     icon: 'build/img/sample-logo-section.png',
+    thumb: 'build/img/sample-thumb-section.png',
     color: '#62a438',
     url: 'http://crij.local/#'
   },
   {
     title: 'Section 5',
     icon: 'build/img/sample-logo-section.png',
+    thumb: 'build/img/sample-thumb-section.png',
     color: '#3464bd',
     url: 'http://crij.local/#'
   },
   {
     title: 'Section 6',
     icon: 'build/img/sample-logo-section.png',
+    thumb: 'build/img/sample-thumb-section.png',
     color: '#be4b06',
     url: 'http://crij.local/#'
   },
   {
     title: 'Section 7',
     icon: 'build/img/sample-logo-section.png',
+    thumb: 'build/img/sample-thumb-section.png',
     color: '#62a438',
     url: 'http://crij.local/#'
   },
   {
     title: 'Section 8',
     icon: 'build/img/sample-logo-section.png',
+    thumb: 'build/img/sample-thumb-section.png',
     color: '#3464bd',
+    url: 'http://crij.local/#'
+  }
+]
+
+export const contents = [
+  {
+    title: 'Titre 1',
+    url: 'http://crij.local/#'
+  },
+  {
+    title: 'Titre 2',
+    url: 'http://crij.local/#'
+  },
+  {
+    title: 'Titre 3',
     url: 'http://crij.local/#'
   }
 ]

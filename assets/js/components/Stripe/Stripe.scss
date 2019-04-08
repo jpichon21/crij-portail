@@ -1,0 +1,42 @@
+@import '~include-media/dist/_include-media';
+@import '../../Settings';
+
+.stripe {
+    display: flex;
+    align-items: center;
+    padding: 40px;
+    .icon {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        font-size: 22px;
+        color: #ffffff;
+        img {
+            margin-bottom: 20px;
+        }
+    }
+    .menu {
+        flex: 1;
+        padding: 40px 40px 40px 50px;
+        margin-left: 50px;
+        border-left: 1px rgba(0, 0, 0, 0.1) solid;
+        li {
+            margin-bottom: 20px;
+            &:last-of-type {
+                margin-bottom: 0;
+            }
+            a {
+                font-size: 18px;
+                text-decoration: none;
+                color: #ffffff;
+            }
+        }
+    }
+    .thumb {
+        width: 200px;
+        height: 200px;
+        border-radius: 100px;
+        overflow: hidden;
+    }
+}
