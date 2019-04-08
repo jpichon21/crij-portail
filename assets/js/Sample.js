@@ -23,19 +23,19 @@ export const logoFooter = [
 export const menuFooter = [
   {
     title: 'Qui sommes nous ?',
-    url: '#'
+    url: 'http://crij.local/#'
   },
   {
     title: 'Le réseau information jeunesse en Bourgogne-Franche-Comté',
-    url: '#'
+    url: 'http://crij.local/#'
   },
   {
     title: 'Nous contacter',
-    url: '#'
+    url: 'http://crij.local/#'
   },
   {
     title: 'Mentions légales',
-    url: '#'
+    url: 'http://crij.local/#'
   }
 ]
 
@@ -44,152 +44,137 @@ export const infoUrl = {
   url: 'https://www.jeunes-bfc.fr'
 }
 
-export const newsHome = [
-  {
-    title: 'Titre 1',
-    excerpt: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna...',
-    image: 'build/img/sample-background-news-home.jpg',
-    url: '#'
-  },
-  {
-    title: 'Titre 2',
-    excerpt: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna...',
-    image: 'build/img/sample-background-news-home.jpg',
-    url: '#'
-  },
-  {
-    title: 'Titre 3',
-    excerpt: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna...',
-    image: 'build/img/sample-background-news-home.jpg',
-    url: '#'
-  }
-]
-
-export const categoriesHome = [
+export const categories = [
   {
     title: 'Catégorie 1',
     icon: 'build/img/sample-logo-category.png',
     color: '#ef7f44',
-    url: '#'
+    url: 'http://crij.local/#'
   },
   {
     title: 'Catégorie 2',
     icon: 'build/img/sample-logo-category.png',
     color: '#ef7f44',
-    url: '#'
+    url: 'http://crij.local/#'
   },
   {
     title: 'Catégorie 3',
     icon: 'build/img/sample-logo-category.png',
     color: '#ef7f44',
-    url: '#'
+    url: 'http://crij.local/#'
   },
   {
     title: 'Catégorie 4',
     icon: 'build/img/sample-logo-category.png',
     color: '#ef7f44',
-    url: '#'
+    url: 'http://crij.local/#'
   },
   {
     title: 'Catégorie 5',
     icon: 'build/img/sample-logo-category.png',
     color: '#ef7f44',
-    url: '#'
+    url: 'http://crij.local/#'
   },
   {
     title: 'Site 1',
     icon: 'build/img/sample-logo-category.png',
     color: '#457525',
-    url: '#'
+    url: 'http://crij.local/#'
   },
   {
     title: 'Site 2',
     icon: 'build/img/sample-logo-category.png',
     color: '#457525',
-    url: '#'
+    url: 'http://crij.local/#'
   },
   {
     title: 'Site 3',
     icon: 'build/img/sample-logo-category.png',
     color: '#457525',
-    url: '#'
+    url: 'http://crij.local/#'
   },
   {
     title: 'Site 4',
     icon: 'build/img/sample-logo-category.png',
     color: '#457525',
-    url: '#'
+    url: 'http://crij.local/#'
   },
   {
     title: 'Catégorie 6',
     icon: 'build/img/sample-logo-category.png',
     color: '#ef7f44',
-    url: '#'
+    url: 'http://crij.local/#'
   }
 ]
 
-export const newsCategory = [
+export const news = [
   {
     title: 'Titre 1',
     excerpt: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna...',
     image: 'build/img/sample-background-news-home.jpg',
-    url: '#'
+    url: 'http://crij.local/#'
   },
   {
     title: 'Titre 2',
     excerpt: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna...',
     image: 'build/img/sample-background-news-home.jpg',
-    url: '#'
+    url: 'http://crij.local/#'
   },
   {
     title: 'Titre 3',
     excerpt: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna...',
     image: 'build/img/sample-background-news-home.jpg',
-    url: '#'
+    url: 'http://crij.local/#'
   }
 ]
 
-export const subCategoriesCategory = [
+export const sections = [
   {
-    title: 'Sous-catégorie 1',
-    icon: 'build/img/sample-logo-category.png',
+    title: 'Section 1',
+    icon: 'build/img/sample-logo-section.png',
     color: '#62a438',
-    url: '#'
+    url: 'http://crij.local/#'
   },
   {
-    title: 'Sous-catégorie 2',
-    icon: 'build/img/sample-logo-category.png',
+    title: 'Section 2',
+    icon: 'build/img/sample-logo-section.png',
     color: '#3464bd',
-    url: '#'
+    url: 'http://crij.local/#'
   },
   {
-    title: 'Sous-catégorie 3',
-    icon: 'build/img/sample-logo-category.png',
+    title: 'Section 3',
+    icon: 'build/img/sample-logo-section.png',
     color: '#be4b06',
-    url: '#'
+    url: 'http://crij.local/#'
   },
   {
-    title: 'Sous-catégorie 1',
-    icon: 'build/img/sample-logo-category.png',
+    title: 'Section 4',
+    icon: 'build/img/sample-logo-section.png',
     color: '#62a438',
-    url: '#'
+    url: 'http://crij.local/#'
   },
   {
-    title: 'Sous-catégorie 2',
-    icon: 'build/img/sample-logo-category.png',
+    title: 'Section 5',
+    icon: 'build/img/sample-logo-section.png',
     color: '#3464bd',
-    url: '#'
+    url: 'http://crij.local/#'
   },
   {
-    title: 'Sous-catégorie 3',
-    icon: 'build/img/sample-logo-category.png',
+    title: 'Section 6',
+    icon: 'build/img/sample-logo-section.png',
     color: '#be4b06',
-    url: '#'
+    url: 'http://crij.local/#'
   },
   {
-    title: 'Sous-catégorie 1',
-    icon: 'build/img/sample-logo-category.png',
+    title: 'Section 7',
+    icon: 'build/img/sample-logo-section.png',
     color: '#62a438',
-    url: '#'
+    url: 'http://crij.local/#'
+  },
+  {
+    title: 'Section 8',
+    icon: 'build/img/sample-logo-section.png',
+    color: '#3464bd',
+    url: 'http://crij.local/#'
   }
 ]

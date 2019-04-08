@@ -11,8 +11,8 @@ export class Home extends React.Component {
   constructor (props) {
     super(props)
     this.state = {
-      news: Sample.newsHome,
-      categories: Sample.categoriesHome,
+      news: Sample.news,
+      categories: Sample.categories,
       infoUrl: Sample.infoUrl
     }
   }
