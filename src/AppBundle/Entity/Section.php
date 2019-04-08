@@ -122,6 +122,12 @@ class Section
     private $news;
 
     /**
+     * @var bool
+     * @ORM\Column(type="boolean")
+     */
+    private $isPublished;
+
+    /**
      * to string method
      *
      * @return string
@@ -577,5 +583,29 @@ class Section
     public function getNews()
     {
         return $this->news;
+    }
+
+    /**
+     * Set isPublished.
+     *
+     * @param bool $isPublished
+     *
+     * @return Section
+     */
+    public function setIsPublished($isPublished)
+    {
+        $this->isPublished = $isPublished;
+
+        return $this;
+    }
+
+    /**
+     * Get isPublished.
+     *
+     * @return bool
+     */
+    public function getIsPublished()
+    {
+        return $this->isPublished;
     }
 }

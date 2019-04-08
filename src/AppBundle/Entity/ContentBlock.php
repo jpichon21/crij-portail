@@ -85,6 +85,12 @@ class ContentBlock
     private $deletedAt;
 
     /**
+     * @var bool
+     * @ORM\Column(type="boolean")
+     */
+    private $isPublished;
+
+    /**
      * to string method
      *
      * @return string
@@ -312,5 +318,29 @@ class ContentBlock
     public function getQueries()
     {
         return $this->queries;
+    }
+
+    /**
+     * Set isPublished.
+     *
+     * @param bool $isPublished
+     *
+     * @return ContentBlock
+     */
+    public function setIsPublished($isPublished)
+    {
+        $this->isPublished = $isPublished;
+
+        return $this;
+    }
+
+    /**
+     * Get isPublished.
+     *
+     * @return bool
+     */
+    public function getIsPublished()
+    {
+        return $this->isPublished;
     }
 }

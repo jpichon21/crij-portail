@@ -13,6 +13,7 @@ use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Sonata\AdminBundle\Form\Type\ModelType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use AppBundle\Entity\Section;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Sonata\FormatterBundle\Form\Type\SimpleFormatterType;
 
 /**
@@ -44,6 +45,9 @@ final class ContentAdmin extends AbstractAdmin
                         'Type 2' => 'type_2',
                         'Type 3' => 'type_3',
                     ],
+                ])
+                ->add('isPublished', CheckboxType::class, [
+                    'label' => 'Publier',
                 ])
             ->end()
             ->end()

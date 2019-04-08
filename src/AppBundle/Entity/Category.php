@@ -78,6 +78,12 @@ class Category
     private $logo;
 
     /**
+     * @var bool
+     * @ORM\Column(type="boolean")
+     */
+    private $isPublished;
+
+    /**
      * @var string
      *
      * @Gedmo\Slug(fields={"title"}, updatable=false, unique=false)
@@ -359,5 +365,29 @@ class Category
         $this->slug = $slug;
 
         return $this;
+    }
+
+    /**
+     * Set isPublished.
+     *
+     * @param bool $isPublished
+     *
+     * @return Category
+     */
+    public function setIsPublished($isPublished)
+    {
+        $this->isPublished = $isPublished;
+
+        return $this;
+    }
+
+    /**
+     * Get isPublished.
+     *
+     * @return bool
+     */
+    public function getIsPublished()
+    {
+        return $this->isPublished;
     }
 }
