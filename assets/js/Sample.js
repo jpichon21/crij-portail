@@ -9,20 +9,20 @@ export const newsHome = [
   {
     title: 'Titre 1',
     excerpt: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna...',
-    image: 'https://picsum.photos/1920/1080/?random',
-    url: 'https://www.google.fr'
+    image: 'build/img/sample-background-news-home.jpg',
+    url: '#'
   },
   {
     title: 'Titre 2',
     excerpt: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna...',
-    image: 'https://picsum.photos/1920/1080/?random',
-    url: 'https://www.google.fr'
+    image: 'build/img/sample-background-news-home.jpg',
+    url: '#'
   },
   {
     title: 'Titre 3',
     excerpt: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna...',
-    image: 'https://picsum.photos/1920/1080/?random',
-    url: 'https://www.google.fr'
+    image: 'build/img/sample-background-news-home.jpg',
+    url: '#'
   }
 ]
 
@@ -42,82 +42,82 @@ export const logoFooter = [
 export const menuFooter = [
   {
     title: 'Qui sommes nous ?',
-    url: 'https://www.google.fr'
+    url: '#'
   },
   {
     title: 'Le réseau information jeunesse en Bourgogne-Franche-Comté',
-    url: 'https://www.google.fr'
+    url: '#'
   },
   {
     title: 'Nous contacter',
-    url: 'https://www.google.fr'
+    url: '#'
   },
   {
     title: 'Mentions légales',
-    url: 'https://www.google.fr'
+    url: '#'
   }
 ]
 
 export const tilesHome = [
   {
     title: 'Catégorie 1',
-    icon: 'http://via.placeholder.com/60x60',
+    icon: 'build/img/sample-logo-category.png',
     color: '#ef7f44',
-    url: 'https://www.google.fr'
+    url: '#'
   },
   {
     title: 'Catégorie 2',
-    icon: 'http://via.placeholder.com/60x60',
+    icon: 'build/img/sample-logo-category.png',
     color: '#ef7f44',
-    url: 'https://www.google.fr'
+    url: '#'
   },
   {
     title: 'Catégorie 3',
-    icon: 'http://via.placeholder.com/60x60',
+    icon: 'build/img/sample-logo-category.png',
     color: '#ef7f44',
-    url: 'https://www.google.fr'
+    url: '#'
   },
   {
     title: 'Catégorie 4',
-    icon: 'http://via.placeholder.com/60x60',
+    icon: 'build/img/sample-logo-category.png',
     color: '#ef7f44',
-    url: 'https://www.google.fr'
+    url: '#'
   },
   {
     title: 'Catégorie 5',
-    icon: 'http://via.placeholder.com/60x60',
+    icon: 'build/img/sample-logo-category.png',
     color: '#ef7f44',
-    url: 'https://www.google.fr'
+    url: '#'
   },
   {
     title: 'Site 1',
-    icon: 'http://via.placeholder.com/60x60',
+    icon: 'build/img/sample-logo-category.png',
     color: '#457525',
-    url: 'https://www.google.fr'
+    url: '#'
   },
   {
     title: 'Site 2',
-    icon: 'http://via.placeholder.com/60x60',
+    icon: 'build/img/sample-logo-category.png',
     color: '#457525',
-    url: 'https://www.google.fr'
+    url: '#'
   },
   {
     title: 'Site 3',
-    icon: 'http://via.placeholder.com/60x60',
+    icon: 'build/img/sample-logo-category.png',
     color: '#457525',
-    url: 'https://www.google.fr'
+    url: '#'
   },
   {
     title: 'Site 4',
-    icon: 'http://via.placeholder.com/60x60',
+    icon: 'build/img/sample-logo-category.png',
     color: '#457525',
-    url: 'https://www.google.fr'
+    url: '#'
   },
   {
     title: 'Catégorie 6',
-    icon: 'http://via.placeholder.com/60x60',
+    icon: 'build/img/sample-logo-category.png',
     color: '#ef7f44',
-    url: 'https://www.google.fr'
+    url: '#'
   }
 ]
 export const infoUrl = {
