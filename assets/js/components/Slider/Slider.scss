@@ -4,9 +4,9 @@
 
 #glide {
     position: relative;
-    padding: 180px 0 80px;
-    @include media('<large') {
-        padding: 160px 0 20px;
+    padding-top: 210px;
+    @include media('<medium') {
+        padding-top: 190px;
     }
     .glide__track {
         position: absolute;
@@ -28,7 +28,8 @@
                     a {
                         display: block;
                         max-width: 500px;
-                        padding: 20px;
+                        height: 80px;
+                        padding: 40px 20px;
                         color: #ffffff;
                         text-decoration: none;
                         background-color: rgba(0, 0, 0, 0.5);
@@ -47,6 +48,7 @@
     }
     .glide__bullets {
         position: relative;
+        display: flex;
         padding: 0 40px;
         z-index: 0;
         @include media('<medium') {
