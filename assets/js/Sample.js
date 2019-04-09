@@ -189,15 +189,15 @@ export const sections = [
 
 export const contents = [
   {
-    title: 'Titre 1',
+    title: 'Titre 1 Lorem ipsum',
     url: 'http://crij.local/#'
   },
   {
-    title: 'Titre 2',
+    title: 'Titre 2 Dolor sit amet',
     url: 'http://crij.local/#'
   },
   {
-    title: 'Titre 3',
+    title: 'Titre 3 Consectetur adipiscing',
     url: 'http://crij.local/#'
   }
 ]

@@ -3,24 +3,53 @@
 
 .stripe {
     display: flex;
+    justify-content: center;
     align-items: center;
     padding: 40px;
+    @include media('<medium') {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 40px 20px;
+    }
     .icon {
         display: flex;
         flex-direction: column;
         justify-content: center;
         align-items: center;
-        font-size: 22px;
         color: #ffffff;
+        @include media('<medium') {
+            flex-direction: row;
+        }
         img {
+            width: 150px;
+            height: 150px;
             margin-bottom: 20px;
+            @include media('<medium') {
+                width: 80px;
+                height: 80px;
+                margin: 0 20px 0 0;
+            }
+        }
+        h3 {
+            font-size: 22px;
+            @include media('<medium') {
+                font-size: 18px;
+            }
         }
     }
     .menu {
-        flex: 1;
-        padding: 40px 40px 40px 50px;
-        margin-left: 50px;
-        border-left: 1px rgba(0, 0, 0, 0.1) solid;
+        padding: 40px;
+        margin-left: 40px;
+        @include media('>=large') {
+            flex: 1;
+        }
+        @include media('>=medium') {
+            border-left: 1px rgba(0, 0, 0, 0.1) solid;
+        }
+        @include media('<medium') {
+            padding: 40px 0 0;
+            margin-left: 0;
+        }
         li {
             margin-bottom: 20px;
             &:last-of-type {
@@ -30,6 +59,9 @@
                 font-size: 18px;
                 text-decoration: none;
                 color: #ffffff;
+                @include media('<medium') {
+                    font-size: 14px;
+                }
             }
         }
     }
@@ -38,5 +70,8 @@
         height: 200px;
         border-radius: 100px;
         overflow: hidden;
+        @include media('<large') {
+            display: none;
+        }
     }
 }
