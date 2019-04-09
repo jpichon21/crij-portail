@@ -11,7 +11,7 @@
     margin: 0 40px 40px 0;
     color: #ffffff;
     text-decoration: none;
-    border-radius: 20px;
+    border-radius: $border-radius;
     transition: 0.2s;
     &:hover {
         transform: scale(1.1);

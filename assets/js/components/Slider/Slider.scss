@@ -3,8 +3,12 @@
 @import '../../Settings';
 
 #glide {
+    display: flex;
+    flex-direction: column;
     position: relative;
+    min-height: calc(100vh - #{$height-header});
     padding-top: 210px;
+    box-sizing: border-box;
     @include media('<medium') {
         padding: 190px 0 20px 0;
     }
@@ -33,6 +37,7 @@
                         color: #ffffff;
                         text-decoration: none;
                         background-color: rgba(0, 0, 0, 0.5);
+                        border-radius: $border-radius;
                         @include media('<medium') {
                             max-width: none;
                         }
@@ -63,11 +68,15 @@
             border: none;
             outline: none;
             &.glide__bullet--active {
-                background-color: $color-orange;
+                background-color: $color-red;
             }
         }
     }
     .glide__content {
+        flex: 1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
         position: relative;
         padding-top: 40px;
         z-index: 1;

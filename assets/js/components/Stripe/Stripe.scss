@@ -21,8 +21,8 @@
             flex-direction: row;
         }
         img {
-            width: 150px;
-            height: 150px;
+            width: 100px;
+            height: 100px;
             margin-bottom: 20px;
             @include media('<medium') {
                 width: 80px;

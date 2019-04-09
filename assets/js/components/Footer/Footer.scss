@@ -38,7 +38,6 @@
             align-items: center;
         }
         li {
-            font-size: 12px;
             @include media('>=large') {
                 &:after {
                     content: '-';
@@ -50,6 +49,7 @@
             }
             a {
                 display: inline-block;
+                font-size: 13px;
                 color: #000000;
                 text-decoration: none;
                 @include media('<large') {
@@ -63,7 +63,6 @@
         @include media('<xlarge') {
             margin-right: auto;
         }
-        margin-bottom: 40px;
         @include media('>=xlarge') {
             display: none;
         }
