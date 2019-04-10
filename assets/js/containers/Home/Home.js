@@ -32,7 +32,7 @@ export class Home extends React.Component {
             </div>
           </Slider>
         </div>
-        <InfoUrl url={this.state.infoUrl.url} text={this.state.infoUrl.text} />
+        <InfoUrl />
         <Footer />
       </div>
     )

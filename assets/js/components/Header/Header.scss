@@ -79,7 +79,7 @@
                     text-align: center;
                     @include media('>=xlarge') {
                         color: $color-black;
-                        transition: 0.2s;
+                        transition: $animation-duration;
                         &:hover {
                             color: $color-red;
                             svg {
@@ -94,7 +94,7 @@
                         color: #ffffff;
                         @include media('>=xlarge') {
                             color: $color-black;
-                            transition: 0.2s;
+                            transition: $animation-duration;
                         }
                     }
                 }
@@ -120,7 +120,7 @@
                 display: block;
                 margin: 0 auto 10px;
                 font-size: 28px;
-                transition: 0.2s;
+                transition: $animation-duration;
             }
         }
     }

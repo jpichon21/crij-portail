@@ -40,7 +40,9 @@ export const menuFooter = [
 ]
 
 export const infoUrl = {
+  title: 'jeunes-bfc.fr',
   text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
+  button: 'Lorem ipsum',
   url: 'https://www.jeunes-bfc.fr'
 }
 

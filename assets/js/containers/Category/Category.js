@@ -40,7 +40,7 @@ export class Category extends React.Component {
             ))
           }
         </div>
-        <InfoUrl url={this.state.infoUrl.url} text={this.state.infoUrl.text} />
+        <InfoUrl />
         <Footer />
       </div>
     )
