@@ -25,9 +25,9 @@ export class Header extends React.Component {
         </div>
         <div className={'right'}>
           <ul className={`menu ${this.state.toggled ? 'active' : ''}`}>
-            <li><a href={'#'}><i className='far fa-question-circle' />Besoin d'aide ?<br />Une question ?</a></li>
-            <li><a href={'#'}><i className='far fa-user' />Je me connecte<br />Je m'inscris</a></li>
-            <li><a href={'#'}><i className='far fa-envelope' />Inscription<br />Newsletter</a></li>
+            <li><a href={'#'}><i className='far fa-question-circle' />Besoin d'aide ?</a></li>
+            <li><a href={'#'}><i className='far fa-user' />Espace perso</a></li>
+            <li><a href={'#'}><i className='far fa-envelope' />Newsletter</a></li>
           </ul>
           <Socials />
           <div className={'toggleMenu'} onClick={() => this.handletoggleMenu()}><i className={'fas fa-bars'} />Menu</div>

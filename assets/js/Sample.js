@@ -24,7 +24,7 @@ export const menuFooter = [
     url: 'http://crij.local/#'
   },
   {
-    title: 'Le réseau information jeunesse en Bourgogne-Franche-Comté',
+    title: 'Le Réseau Information Jeunesse en Bourgogne-Franche-Comté',
     url: 'http://crij.local/#'
   },
   {
