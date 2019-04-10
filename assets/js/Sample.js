@@ -1,11 +1,9 @@
 export const logoCRIJ = 'build/img/logo-crij.png'
 
-export const logoIJ = {
-  desktop: 'build/img/logo-ij-bfc.png',
-  mobile: 'build/img/logo-ij-bfc-mobile.png'
+export const category = {
+  logo: 'build/img/sample-icon1.png',
+  color: '#f64747'
 }
-
-export const logoCategory = 'build/img/logo-category.png'
 
 export const logoFooter = [
   {

@@ -6,7 +6,11 @@ import * as Sample from '../../Sample'
 export class Header extends React.Component {
   constructor (props) {
     super(props)
-    this.state = { toggled: false }
+    this.state = {
+      toggled: false,
+      logo: Sample.logoCRIJ,
+      category: Sample.category
+    }
     this.handletoggleMenu = this.handletoggleMenu.bind(this)
   }
   handletoggleMenu () {
@@ -16,8 +20,8 @@ export class Header extends React.Component {
     return (
       <header id={'header'}>
         <div className={'left'}>
-          <img src={Sample.logoCRIJ} alt='CRIJ' />
-          <img src={Sample.logoCategory} alt='CRIJ Category' />
+          <img className={'logo'} src={this.state.logo} alt='CRIJ' />
+          <img className={'category'} src={this.state.category.logo} style={{ backgroundColor: this.state.category.color }} alt='CRIJ Category' />
         </div>
         <div className={'right'}>
           <ul className={`menu ${this.state.toggled ? 'active' : ''}`}>
