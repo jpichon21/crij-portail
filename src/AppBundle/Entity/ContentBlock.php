@@ -14,8 +14,6 @@ use Doctrine\Common\Collections\ArrayCollection;
  *
  * @ORM\Table(name="content_block")
  * @ORM\Entity()
- *
- * @Gedmo\SoftDeleteable(fieldName="deletedAt")
  */
 class ContentBlock
 {
@@ -79,11 +77,6 @@ class ContentBlock
      * @ORM\JoinColumn(name="content_id", referencedColumnName="id", nullable=true, onDelete="SET NULL")
     */
     private $content;
-
-    /**
-     * @ORM\Column(name="deletedAt", type="datetime", nullable=true)
-     */
-    private $deletedAt;
 
     /**
      * @var bool
@@ -213,28 +206,6 @@ class ContentBlock
     public function getContent()
     {
         return $this->content;
-    }
-
-    /**
-     * Set deletedAt.
-     *
-     * @param timestamp $deletedAt
-     *
-     * @return Category
-     */
-    public function setDeletedAt($deletedAt)
-    {
-        $this->deletedAt = $deletedAt;
-    }
-
-    /**
-     * Get deletedAt.
-     *
-     * @return timestamp
-     */
-    public function getDeletedAt()
-    {
-        return $this->deletedAt;
     }
 
     /**

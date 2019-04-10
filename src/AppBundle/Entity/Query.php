@@ -12,7 +12,6 @@ use Doctrine\Common\Collections\ArrayCollection;
 /**
  * Query
  *
- * @Gedmo\SoftDeleteable(fieldName="deletedAt")
  *
  * @ORM\Table(name="query")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\QueryRepository")
@@ -75,11 +74,6 @@ class Query
     protected $updated;
 
     /**
-     * @ORM\Column(name="deletedAt", type="datetime", nullable=true)
-     */
-    private $deletedAt;
-
-    /**
      * construtor
      */
     public function __construct()
@@ -130,28 +124,6 @@ class Query
     public function getType()
     {
         return $this->type;
-    }
-
-    /**
-     * Set deletedAt.
-     *
-     * @param timestamp $deletedAt
-     *
-     * @return Category
-     */
-    public function setDeletedAt($deletedAt)
-    {
-        $this->deletedAt = $deletedAt;
-    }
-
-    /**
-     * Get deletedAt.
-     *
-     * @return timestamp
-     */
-    public function getDeletedAt()
-    {
-        return $this->deletedAt;
     }
 
     /**
