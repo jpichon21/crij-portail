@@ -6,9 +6,11 @@
     justify-content: center;
     align-items: center;
     padding: 40px;
-    transition: $animation-duration;
-    &:hover {
-        padding-left: 80px;
+    @include media('>=large') {
+        transition: $animation-duration;
+        &:hover {
+            padding-left: 80px;
+        }
     }
     @include media('<medium') {
         flex-direction: column;
