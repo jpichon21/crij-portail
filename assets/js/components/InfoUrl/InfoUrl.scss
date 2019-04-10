@@ -15,13 +15,13 @@
         margin-bottom: 20px;
         font-size: 28px;
         color: $color-black;
-        text-transform: uppercase;
         transition: $animation-duration;
         @include media('<medium') {
             font-size: 24px;
         }
     }
     p {
+        max-width: map-get($breakpoints, large);
     }
     a {
         display: block;
@@ -29,7 +29,6 @@
         margin-top: 40px;
         color: #ffffff;
         text-decoration: none;
-        text-transform: uppercase;
         background-color: $color-red;
         border-radius: 20px;
         transition: $animation-duration;

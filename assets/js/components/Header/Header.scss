@@ -5,7 +5,7 @@
     display: flex;
     height: $height-header;
     z-index: 1;
-    @include media('<xlarge') {
+    @include media('<large') {
         .socials {
             display: none;
         }
@@ -45,7 +45,7 @@
             display: flex;
             align-items: center;
             margin-right: 40px;
-            @include media('<xlarge') {
+            @include media('<large') {
                 display: none;
                 justify-content: flex-end;
                 position: absolute;
@@ -80,7 +80,7 @@
                     color: #ffffff;
                     text-decoration: none;
                     text-align: center;
-                    @include media('>=xlarge') {
+                    @include media('>=large') {
                         color: $color-black;
                         transition: $animation-duration;
                         &:hover {
@@ -95,7 +95,7 @@
                         margin: 0 auto 10px;
                         font-size: 28px;
                         color: #ffffff;
-                        @include media('>=xlarge') {
+                        @include media('>=large') {
                             color: $color-black;
                             transition: $animation-duration;
                         }
@@ -109,7 +109,7 @@
             text-decoration: none;
             text-align: center;
             cursor: pointer;
-            @include media('>=xlarge') {
+            @include media('>=large') {
                 display: none;
             }
             @include media('<medium') {
