@@ -8,7 +8,6 @@ use Gedmo\Mapping\Annotation as Gedmo;
 /**
  * News
  *
- * @Gedmo\SoftDeleteable(fieldName="deletedAt")
  *
  * @ORM\Table(name="news")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\NewsRepository")
@@ -95,13 +94,6 @@ class News
      * @ORM\Column(name="unpublished", type="datetime", nullable=true)
      */
     private $unpublished;
-
-    /**
-     * @var \DateTime
-     *
-     * @ORM\Column(name="deletedAt", type="datetime", nullable=true)
-     */
-    private $deletedAt;
 
     /**
      * to string method
@@ -361,30 +353,6 @@ class News
     public function getUnpublished()
     {
         return $this->unpublished;
-    }
-
-    /**
-     * Set deletedAt.
-     *
-     * @param \DateTime $deletedAt
-     *
-     * @return News
-     */
-    public function setDeletedAt($deletedAt)
-    {
-        $this->deletedAt = $deletedAt;
-
-        return $this;
-    }
-
-    /**
-     * Get deletedAt.
-     *
-     * @return \DateTime
-     */
-    public function getDeletedAt()
-    {
-        return $this->deletedAt;
     }
 
     /**

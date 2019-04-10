@@ -99,7 +99,7 @@ class Section implements RouteReferrersInterface
     private $category;
 
     /**
-     * @ORM\OneToMany(targetEntity="Content", mappedBy="section", cascade={"persist"})
+     * @ORM\OneToMany(targetEntity="Content", mappedBy="section", cascade={"persist"}, orphanRemoval=true)
     */
     private $contents;
 
@@ -114,12 +114,7 @@ class Section implements RouteReferrersInterface
     private $logo;
 
     /**
-     * @ORM\Column(name="deletedAt", type="datetime", nullable=true)
-     */
-    private $deletedAt;
-
-    /**
-     * @ORM\OneToMany(targetEntity="News", mappedBy="section", cascade={"persist"})
+     * @ORM\OneToMany(targetEntity="News", mappedBy="section", cascade={"persist"}, orphanRemoval=true)
     */
     private $news;
 
@@ -486,28 +481,6 @@ class Section implements RouteReferrersInterface
     public function getLogo()
     {
         return $this->logo;
-    }
-
-    /**
-     * Set deletedAt.
-     *
-     * @param Timestamp $deletedAt
-     *
-     * @return timestamp
-     */
-    public function setDeletedAt($deletedAt)
-    {
-        $this->deletedAt = $deletedAt;
-    }
-
-    /**
-     * Get deletedAt.
-     *
-     * @return Section
-     */
-    public function getDeletedAt()
-    {
-        return $this->deletedAt;
     }
 
     /**

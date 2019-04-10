@@ -14,7 +14,6 @@ use Symfony\Cmf\Component\Routing\RouteReferrersInterface;
 /**
  * Content
  *
- * @Gedmo\SoftDeleteable(fieldName="deletedAt")
  *
  * @ORM\Table(name="content")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\ContentRepository")
@@ -91,12 +90,6 @@ class Content implements RouteReferrersInterface
      */
     private $logo;
 
-
-    /**
-     * @ORM\Column(name="deletedAt", type="datetime", nullable=true)
-     */
-    private $deletedAt;
-
     /**
      * @var RouteObjectInterface[]|ArrayCollection
      *
@@ -106,7 +99,7 @@ class Content implements RouteReferrersInterface
     private $routes;
     
     /**
-     * @ORM\OneToMany(targetEntity="ContentBlock", mappedBy="content", cascade={"persist"})
+     * @ORM\OneToMany(targetEntity="ContentBlock", mappedBy="content", cascade={"persist"}, orphanRemoval=true)
     */
     private $contentBlocks;
 
@@ -259,27 +252,6 @@ class Content implements RouteReferrersInterface
     public function getSection()
     {
         return $this->section;
-    }
-
-    /**
-     * Set deletedAt.
-     *
-     * @param timestamp $deletedAt
-     * @return Category
-     */
-    public function setDeletedAt($deletedAt)
-    {
-        $this->deletedAt = $deletedAt;
-    }
-
-    /**
-     * Get deletedAt.
-     *
-     * @return timestamp
-     */
-    public function getDeletedAt()
-    {
-        return $this->deletedAt;
     }
 
     /**

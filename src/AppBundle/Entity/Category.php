@@ -17,7 +17,6 @@ use Symfony\Cmf\Component\Routing\RouteReferrersInterface;
  * @ORM\Table(name="category")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\CategoryRepository")
  *
- * @Gedmo\SoftDeleteable(fieldName="deletedAt")
  */
 class Category implements RouteReferrersInterface
 {
@@ -66,14 +65,9 @@ class Category implements RouteReferrersInterface
     private $footer;
 
     /**
-    * @ORM\OneToMany(targetEntity="Section", mappedBy="category")
+    * @ORM\OneToMany(targetEntity="Section", mappedBy="category", orphanRemoval=true)
     */
     private $sections;
-
-    /**
-     * @ORM\Column(name="deletedAt", type="datetime", nullable=true)
-    */
-    private $deletedAt;
 
     /**
      * @ORM\ManyToOne(targetEntity="Media", cascade={"persist", "remove"})
@@ -283,28 +277,6 @@ class Category implements RouteReferrersInterface
     public function removeSections($sections)
     {
         $this->sections->removeElement($sections);
-    }
-
-    /**
-     * Set deletedAt.
-     *
-     * @param timestamp $deletedAt
-     *
-     * @return Category
-     */
-    public function setDeletedAt($deletedAt)
-    {
-        $this->deletedAt = $deletedAt;
-    }
-
-    /**
-     * Get deletedAt.
-     *
-     * @return timestamp
-     */
-    public function getDeletedAt()
-    {
-        return $this->deletedAt;
     }
 
     /**

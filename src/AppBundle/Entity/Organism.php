@@ -8,7 +8,6 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Organism
  *
- * @Gedmo\SoftDeleteable(fieldName="deletedAt")
  *
  * @ORM\Table(name="organism")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\OrganismRepository")
@@ -268,13 +267,6 @@ class Organism
      * @ORM\Column(name="latitude", type="string", length=255, nullable=true)
      */
     private $latitude;
-
-    /**
-     * @var \DateTime
-     *
-     * @ORM\Column(name="deletedAt", type="datetime", nullable=true)
-     */
-    private $deletedAt;
 
     /**
      * to string method
@@ -1134,29 +1126,5 @@ class Organism
     public function getLatitude()
     {
         return $this->latitude;
-    }
-
-    /**
-     * Set deletedAt.
-     *
-     * @param \DateTime|null $deletedAt
-     *
-     * @return Organism
-     */
-    public function setDeletedAt($deletedAt = null)
-    {
-        $this->deletedAt = $deletedAt;
-
-        return $this;
-    }
-
-    /**
-     * Get deletedAt.
-     *
-     * @return \DateTime|null
-     */
-    public function getDeletedAt()
-    {
-        return $this->deletedAt;
     }
 }
