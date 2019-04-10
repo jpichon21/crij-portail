@@ -55,7 +55,6 @@ class Content implements RouteReferrersInterface
      * @var string
      *
      * @Gedmo\Slug(fields={"title"}, updatable=false, unique=false)
-     *
      * @ORM\Column(name="slug", type="string", length=255, unique=false)
      */
     private $slug;
@@ -64,19 +63,17 @@ class Content implements RouteReferrersInterface
      * @var datetime $created
      *
      * @Gedmo\Timestampable(on="create")
-     *
      * @ORM\Column(type="datetime")
      */
-    protected $created;
+    private $created;
 
     /**
      * @var datetime $updated
      *
      * @Gedmo\Timestampable(on="update")
-     *
      * @ORM\Column(type="datetime", nullable = true)
      */
-    protected $updated;
+    private $updated;
 
     /**
      * @ORM\ManyToOne(targetEntity="Section", inversedBy="content")
@@ -100,13 +97,25 @@ class Content implements RouteReferrersInterface
      */
     private $deletedAt;
 
-       /**
+    /**
      * @var RouteObjectInterface[]|ArrayCollection
      *
      * @ORM\ManyToMany(targetEntity="Symfony\Cmf\Bundle\RoutingBundle\Doctrine\Orm\Route",
      *  cascade={"persist", "remove"})
     */
     private $routes;
+    
+    /**
+     * @ORM\OneToMany(targetEntity="ContentBlock", mappedBy="content", cascade={"persist"})
+    */
+    private $contentBlock;
+
+    /**
+     * @var bool
+     *
+     * @ORM\Column(type="boolean")
+     */
+    private $isPublished;
 
     /**
      * Constructor
@@ -114,11 +123,8 @@ class Content implements RouteReferrersInterface
     public function __construct()
     {
         $this->routes = new ArrayCollection();
+        $this->contentBlock = new ArrayCollection();
     }
-    /**
-     * @ORM\OneToMany(targetEntity="ContentBlock", mappedBy="content", cascade={"persist"})
-    */
-    private $contentBlock;
 
     /**
      * to string method
@@ -144,7 +150,6 @@ class Content implements RouteReferrersInterface
      * Set title.
      *
      * @param string $title
-     *
      * @return Section
      */
     public function setTitle($title)
@@ -168,7 +173,6 @@ class Content implements RouteReferrersInterface
      * Set intro.
      *
      * @param string $intro
-     *
      * @return Content
      */
     public function setIntro($intro)
@@ -192,7 +196,6 @@ class Content implements RouteReferrersInterface
      * Set type.
      *
      * @param string $type
-     *
      * @return Content
      */
     public function setType($type)
@@ -216,7 +219,6 @@ class Content implements RouteReferrersInterface
      * Set slug.
      *
      * @param string $slug
-     *
      * @return Content
      */
     public function setSlug($slug)
@@ -239,11 +241,10 @@ class Content implements RouteReferrersInterface
     /**
      * Set section
      *
-     * @param \AppBundle\Entity\Section $section
-     *
+     * @param Section $section
      * @return Section
      */
-    public function setSection(\AppBundle\Entity\Section $section = null)
+    public function setSection($section = null)
     {
         $this->section = $section;
 
@@ -253,12 +254,24 @@ class Content implements RouteReferrersInterface
     /**
      * Get section
      *
-     * @return \AppBundle\Entity\Section
+     * @return Section
      */
     public function getSection()
     {
         return $this->section;
     }
+
+    /**
+     * Set deletedAt.
+     *
+     * @param timestamp $deletedAt
+     * @return Category
+     */
+    public function setDeletedAt($deletedAt)
+    {
+        $this->deletedAt = $deletedAt;
+    }
+
     /**
      * Get deletedAt.
      *
@@ -270,23 +283,11 @@ class Content implements RouteReferrersInterface
     }
 
     /**
-     * Set deletedAt.
-     *
-     * @param timestamp $deletedAt
-     *
-     * @return Category
-     */
-    public function setDeletedAt($deletedAt)
-    {
-        $this->deletedAt = $deletedAt;
-    }
-
-    /**
      * Get logoId.
      *
      * @return int
      */
-    public function getLogoId(): ?int
+    public function getLogoId()
     {
         return $this->logoId;
     }
@@ -295,10 +296,9 @@ class Content implements RouteReferrersInterface
      * Set logoId.
      *
      * @param int $logoId
-     *
      * @return Category
      */
-    public function setLogoId(?int $logoId): self
+    public function setLogoId($logoId)
     {
         $this->logoId = $logoId;
 
@@ -310,7 +310,7 @@ class Content implements RouteReferrersInterface
      *
      * @return int
      */
-    public function getBackgroundId(): ?int
+    public function getBackgroundId()
     {
         return $this->backgroundId;
     }
@@ -319,10 +319,9 @@ class Content implements RouteReferrersInterface
      * Set backgroundId.
      *
      * @param int $backgroundId
-     *
      * @return Content
      */
-    public function setBackgroundId(?int $backgroundId): self
+    public function setBackgroundId($backgroundId)
     {
         $this->backgroundId = $backgroundId;
 
@@ -334,7 +333,7 @@ class Content implements RouteReferrersInterface
      *
      * @return Media
      */
-    public function getBackground(): ?Media
+    public function getBackground()
     {
         return $this->background;
     }
@@ -343,10 +342,9 @@ class Content implements RouteReferrersInterface
      * Set background.
      *
      * @param Media $background
-     *
      * @return Content
      */
-    public function setBackground(?Media $background): self
+    public function setBackground($background)
     {
         $this->background = $background;
 
@@ -358,7 +356,7 @@ class Content implements RouteReferrersInterface
      *
      * @return Media
      */
-    public function getLogo(): ?Media
+    public function getLogo()
     {
         return $this->logo;
     }
@@ -367,10 +365,9 @@ class Content implements RouteReferrersInterface
      * Set logo.
      *
      * @param Media $logo
-     *
      * @return Category
      */
-    public function setLogo(?Media $logo): self
+    public function setLogo($logo)
     {
         $this->logo = $logo;
 
@@ -380,11 +377,10 @@ class Content implements RouteReferrersInterface
     /**
      * Add contentBlock
      *
-     * @param \AppBundle\Entity\ContentBlock $contentBlock
-     *
+     * @param ContentBlock $contentBlock
      * @return Category
      */
-    public function addContentBlock(\AppBundle\Entity\ContentBlock $contentBlock)
+    public function addContentBlock($contentBlock)
     {
         $contentBlock->setContent($this);
         $this->contentBlock[] = $contentBlock;
@@ -395,11 +391,10 @@ class Content implements RouteReferrersInterface
     /**
      * Remove contentBlock
      *
-     * @param \AppBundle\Entity\ContentBlock $contentBlock
-     *
+     * @param ContentBlock $contentBlock
      * @return ContentBlock
      */
-    public function removeContentBlock(\AppBundle\Entity\ContentBlock $contentBlock)
+    public function removeContentBlock($contentBlock)
     {
         if ($this->contentBlock->contains($contentBlock)) {
             $this->contentBlock->removeElement($contentBlock);
@@ -412,7 +407,6 @@ class Content implements RouteReferrersInterface
      * Set contentBlock.
      *
      * @param string $contentBlock
-     *
      * @return Content
      */
     public function setContentBlock($contentBlock)
@@ -425,13 +419,60 @@ class Content implements RouteReferrersInterface
     /**
      * Get contentBlock
      *
-     * @return \Doctrine\Common\Collections\Collection
+     * @return ContentBlock
      */
     public function getContentBlock()
     {
         return $this->contentBlock;
     }
 
+    /**
+     * Set created.
+     *
+     * @param \DateTime $created
+     *
+     * @return Content
+     */
+    public function setCreated($created)
+    {
+        $this->created = $created;
+
+        return $this;
+    }
+
+    /**
+     * Get created.
+     *
+     * @return \DateTime
+     */
+    public function getCreated()
+    {
+        return $this->created;
+    }
+
+    /**
+     * Set updated.
+     *
+     * @param \DateTime|null $updated
+     *
+     * @return Content
+     */
+    public function setUpdated($updated = null)
+    {
+        $this->updated = $updated;
+
+        return $this;
+    }
+
+    /**
+     * Get updated.
+     *
+     * @return \DateTime|null
+     */
+    public function getUpdated()
+    {
+        return $this->updated;
+    }
 
     /**
      * Get routes collection
@@ -452,7 +493,6 @@ class Content implements RouteReferrersInterface
     public function setRoutes($routes)
     {
         $this->routes = $routes;
-        return $this;
     }
 
     /**
@@ -477,5 +517,29 @@ class Content implements RouteReferrersInterface
     {
         $this->routes->removeElement($route);
         return $this;
+    }
+
+    /**
+     * Set isPublished.
+     *
+     * @param bool $isPublished
+     *
+     * @return Content
+     */
+    public function setIsPublished($isPublished)
+    {
+        $this->isPublished = $isPublished;
+
+        return $this;
+    }
+
+    /**
+     * Get isPublished.
+     *
+     * @return bool
+     */
+    public function getIsPublished()
+    {
+        return $this->isPublished;
     }
 }

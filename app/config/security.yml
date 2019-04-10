@@ -1,17 +1,42 @@
 security:
     providers:
+        users:
+            id: AppBundle\Security\UserProvider
         in_memory:
             memory:
                 users:
                     admin:
                         password: '%admin_password%'
-                        roles: 'ROLE_SUPER_ADMIN'
+                        roles: 'ROLE_ADMIN'
+    
+    role_hierarchy:
+        ROLE_ADMIN:       [ROLE_USER, ROLE_SONATA_ADMIN]
+        ROLE_SUPER_ADMIN: [ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH]
+        SONATA:
+            - ROLE_SONATA_PAGE_ADMIN_PAGE_EDIT
+
     encoders:
-        Symfony\Component\Security\Core\User\User: bcrypt
+        AppBundle\Entity\User: bcrypt
+
     firewalls:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
+        admin:
+            pattern:            /admin(.*)
+            form_login:
+                provider:       users
+                login_path:     admin_login
+                use_forward:    false
+                check_path:     admin_login
+                failure_path:   null
+            logout:
+                path:           admin_logout
+                target:         admin_login
+            anonymous:          true
+            guard:
+                authenticators:
+                    - AppBundle\Security\AdminLoginAuthenticator
         main:
             pattern: ^/api
             provider: in_memory
@@ -19,3 +44,8 @@ security:
                 check_path: /api/login
                 username_path: username
                 password_path: password
+    access_control:
+        - { path: ^/admin/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/admin/logout$, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/admin/, role: [ROLE_ADMIN, ROLE_SONATA_ADMIN] }
+        - { path: ^/.*, role: IS_AUTHENTICATED_ANONYMOUSLY }

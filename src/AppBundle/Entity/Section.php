@@ -131,6 +131,12 @@ class Section implements RouteReferrersInterface
     private $routes;
 
     /**
+     * @var bool
+     * @ORM\Column(type="boolean")
+     */
+    private $isPublished;
+
+    /**
      * to string method
      *
      * @return string
@@ -145,8 +151,8 @@ class Section implements RouteReferrersInterface
     */
     public function __construct()
     {
-        $this->content = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->news = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->content = new ArrayCollection();
+        $this->news = new ArrayCollection();
         $this->routes = new ArrayCollection();
     }
 
@@ -164,7 +170,6 @@ class Section implements RouteReferrersInterface
      * Set title.
      *
      * @param string $title
-     *
      * @return Section
      */
     public function setTitle($title)
@@ -271,7 +276,7 @@ class Section implements RouteReferrersInterface
      *
      * @return int
      */
-    public function getThumbId(): ?int
+    public function getThumbId()
     {
         return $this->thumbId;
     }
@@ -283,7 +288,7 @@ class Section implements RouteReferrersInterface
      *
      * @return Section
      */
-    public function setThumbId(?int $thumbId): self
+    public function setThumbId($thumbId)
     {
         $this->thumbId = $thumbId;
 
@@ -295,7 +300,7 @@ class Section implements RouteReferrersInterface
      *
      * @return Media
      */
-    public function getThumb(): ?Media
+    public function getThumb()
     {
         return $this->thumb;
     }
@@ -307,7 +312,7 @@ class Section implements RouteReferrersInterface
      *
      * @return Section
      */
-    public function setThumb(?Media $thumb): self
+    public function setThumb($thumb)
     {
         $this->thumb = $thumb;
 
@@ -317,11 +322,11 @@ class Section implements RouteReferrersInterface
     /**
      * Set category
      *
-     * @param \AppBundle\Entity\Category $category
+     * @param Category $category
      *
      * @return Category
      */
-    public function setCategory(\AppBundle\Entity\Category $category = null)
+    public function setCategory($category = null)
     {
         $this->category = $category;
 
@@ -331,7 +336,7 @@ class Section implements RouteReferrersInterface
     /**
      * Get category
      *
-     * @return \AppBundle\Entity\Category
+     * @return Category
      */
     public function getCategory()
     {
@@ -341,11 +346,11 @@ class Section implements RouteReferrersInterface
     /**
      * Add content
      *
-     * @param \AppBundle\Entity\Content $content
+     * @param Content $content
      *
      * @return Category
      */
-    public function addContent(\AppBundle\Entity\Content $content)
+    public function addContent($content)
     {
         $content->setSection($this);
         $this->content[] = $content;
@@ -356,9 +361,9 @@ class Section implements RouteReferrersInterface
     /**
      * Remove content
      *
-     * @param \AppBundle\Entity\Content $content
+     * @param Content $content
      */
-    public function removeContent(\AppBundle\Entity\Content $content)
+    public function removeContent($content)
     {
         $this->content->removeElement($content);
     }
@@ -366,7 +371,7 @@ class Section implements RouteReferrersInterface
     /**
      * Get content
      *
-     * @return \Doctrine\Common\Collections\Collection
+     * @return ArrayCollection
      */
     public function getContent()
     {
@@ -378,7 +383,7 @@ class Section implements RouteReferrersInterface
      *
      * @return int
      */
-    public function getBackgroundId(): ?int
+    public function getBackgroundId()
     {
         return $this->backgroundId;
     }
@@ -390,7 +395,7 @@ class Section implements RouteReferrersInterface
      *
      * @return Section
      */
-    public function setBackgroundId(?int $backgroundId): self
+    public function setBackgroundId($backgroundId)
     {
         $this->backgroundId = $backgroundId;
 
@@ -402,7 +407,7 @@ class Section implements RouteReferrersInterface
      *
      * @return Media
      */
-    public function getBackground(): ?Media
+    public function getBackground()
     {
         return $this->background;
     }
@@ -414,7 +419,7 @@ class Section implements RouteReferrersInterface
      *
      * @return Section
      */
-    public function setBackground(?Media $background): self
+    public function setBackground($background)
     {
         $this->background = $background;
 
@@ -426,7 +431,7 @@ class Section implements RouteReferrersInterface
      *
      * @return int
      */
-    public function getLogoId(): ?int
+    public function getLogoId()
     {
         return $this->logoId;
     }
@@ -438,7 +443,7 @@ class Section implements RouteReferrersInterface
      *
      * @return Section
      */
-    public function setLogoId(?int $logoId): self
+    public function setLogoId($logoId)
     {
         $this->logoId = $logoId;
 
@@ -450,7 +455,7 @@ class Section implements RouteReferrersInterface
      *
      * @return Media
      */
-    public function getLogo(): ?Media
+    public function getLogo()
     {
         return $this->logo;
     }
@@ -462,7 +467,7 @@ class Section implements RouteReferrersInterface
      *
      * @return Section
      */
-    public function setLogo(?Media $logo): self
+    public function setLogo($logo)
     {
         $this->logo = $logo;
 
@@ -556,11 +561,11 @@ class Section implements RouteReferrersInterface
     /**
      * Add news.
      *
-     * @param \AppBundle\Entity\News $news
+     * @param News $news
      *
      * @return Section
      */
-    public function addNews(\AppBundle\Entity\News $news)
+    public function addNews($news)
     {
         $this->news[] = $news;
 
@@ -570,11 +575,11 @@ class Section implements RouteReferrersInterface
     /**
      * Remove news.
      *
-     * @param \AppBundle\Entity\News $news
+     * @param News $news
      *
      * @return boolean TRUE if this collection contained the specified element, FALSE otherwise.
      */
-    public function removeNews(\AppBundle\Entity\News $news)
+    public function removeNews($news)
     {
         return $this->news->removeElement($news);
     }
@@ -621,6 +626,20 @@ class Section implements RouteReferrersInterface
     public function addRoute($route)
     {
         $this->routes[] = $route;
+    }
+
+    /**
+     * Set isPublished.
+     *
+     * @param bool $isPublished
+     *
+     * @return Section
+     */
+    
+    public function setIsPublished($isPublished)
+    {
+        $this->isPublished = $isPublished;
+
         return $this;
     }
 
@@ -634,5 +653,15 @@ class Section implements RouteReferrersInterface
     {
         $this->routes->removeElement($route);
         return $this;
+    }
+
+    /**
+     * Get isPublished.
+     *
+     * @return bool
+     */
+    public function getIsPublished()
+    {
+        return $this->isPublished;
     }
 }

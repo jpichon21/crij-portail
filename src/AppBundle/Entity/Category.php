@@ -89,6 +89,12 @@ class Category implements RouteReferrersInterface
     private $routes;
 
     /**
+     * @var bool
+     * @ORM\Column(type="boolean")
+     */
+    private $isPublished;
+
+    /**
      * @var string
      *
      * @Gedmo\Slug(fields={"title"}, updatable=false, unique=false)
@@ -306,7 +312,7 @@ class Category implements RouteReferrersInterface
      *
      * @return int
      */
-    public function getLogoId(): ?int
+    public function getLogoId()
     {
         return $this->logoId;
     }
@@ -318,7 +324,7 @@ class Category implements RouteReferrersInterface
      *
      * @return Category
      */
-    public function setLogoId(?int $logoId): self
+    public function setLogoId($logoId)
     {
         $this->logoId = $logoId;
 
@@ -330,7 +336,7 @@ class Category implements RouteReferrersInterface
      *
      * @return Media
      */
-    public function getLogo(): ?Media
+    public function getLogo()
     {
         return $this->logo;
     }
@@ -342,7 +348,7 @@ class Category implements RouteReferrersInterface
      *
      * @return Category
      */
-    public function setLogo(?Media $logo): self
+    public function setLogo($logo)
     {
         $this->logo = $logo;
 
@@ -404,7 +410,6 @@ class Category implements RouteReferrersInterface
     public function addRoute($route)
     {
         $this->routes[] = $route;
-        return $this;
     }
 
     /**
@@ -417,5 +422,29 @@ class Category implements RouteReferrersInterface
     {
         $this->routes->removeElement($route);
         return $this;
+    }
+
+    /**
+     * Set isPublished.
+     *
+     * @param bool $isPublished
+     *
+     * @return Category
+     */
+    public function setIsPublished($isPublished)
+    {
+        $this->isPublished = $isPublished;
+
+        return $this;
+    }
+    
+    /**
+     * Get isPublished.
+     *
+     * @return bool
+     */
+    public function getIsPublished()
+    {
+        return $this->isPublished;
     }
 }

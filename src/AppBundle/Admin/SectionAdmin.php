@@ -15,6 +15,7 @@ use Sonata\AdminBundle\Form\Type\ModelType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use AppBundle\Entity\Category;
 use Sonata\FormatterBundle\Form\Type\SimpleFormatterType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 
 /**
  * Section Admin class
@@ -46,6 +47,9 @@ final class SectionAdmin extends AbstractAdmin
                     ->add('color', ColorType::class, [
                         'label' => 'Couleur',
                     ])
+                    ->add('isPublished', CheckboxType::class, [
+                        'label' => 'Publier',
+                    ])
                 ->end()
                 ->with('Catégorie', ['class' => 'col-md-6'])
                     ->add('category', EntityType::class, [
@@ -54,7 +58,7 @@ final class SectionAdmin extends AbstractAdmin
                         'required' => false,
                     ])
                 ->end();
-        if ($this->getSubject()->getTitle() !== null) {
+        if ($this->isCurrentRoute('edit')) {
             $formMapper
             ->with('Chemin d\'accès', ['class' => 'col-md-6'])
                 ->add('slug', TextType::class, [

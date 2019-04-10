@@ -12,6 +12,7 @@ use Sonata\AdminBundle\Form\FormMapper;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Sonata\AdminBundle\Form\Type\ModelType;
 use Sonata\FormatterBundle\Form\Type\SimpleFormatterType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 
 /**
  * Category Admin class
@@ -45,13 +46,16 @@ final class CategoryAdmin extends AbstractAdmin
                         'class' => 'ckeditor'
                     ]
                 ]);
-        if ($this->getSubject()->getTitle() !== null) {
+        if ($this->isCurrentRoute('edit')) {
             $formMapper
             ->add('slug', TextType::class, [
                 'label' => 'Chemin d\'accès',
             ]);
         }
-            $formMapper
+                $formMapper
+                ->add('isPublished', CheckboxType::class, [
+                    'label' => 'Publier',
+                ])
             ->end()
             ->end()
             ->tab('Métadonnées')

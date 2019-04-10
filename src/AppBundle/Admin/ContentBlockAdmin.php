@@ -14,6 +14,7 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Sonata\AdminBundle\Form\Type\ModelType;
 use AppBundle\Entity\Content;
 use Sonata\FormatterBundle\Form\Type\SimpleFormatterType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 
 /**
@@ -51,6 +52,9 @@ final class ContentBlockAdmin extends AbstractAdmin
                     'attr' => [
                         'class' => 'ckeditor'
                     ],
+                ])
+                ->add('isPublished', CheckboxType::class, [
+                    'label' => 'Publier',
                 ])
             ->end()
             ->end()
