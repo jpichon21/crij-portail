@@ -7,6 +7,7 @@ namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * Query
@@ -83,8 +84,8 @@ class Query
      */
     public function __construct()
     {
-        $this->contentBlocks = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->filters = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->contentBlocks = new ArrayCollection();
+        $this->filters = new ArrayCollection();
     }
 
     /**
@@ -132,16 +133,6 @@ class Query
     }
 
     /**
-     * Get deletedAt.
-     *
-     * @return timestamp
-     */
-    public function getDeletedAt()
-    {
-        return $this->deletedAt;
-    }
-
-    /**
      * Set deletedAt.
      *
      * @param timestamp $deletedAt
@@ -151,6 +142,16 @@ class Query
     public function setDeletedAt($deletedAt)
     {
         $this->deletedAt = $deletedAt;
+    }
+
+    /**
+     * Get deletedAt.
+     *
+     * @return timestamp
+     */
+    public function getDeletedAt()
+    {
+        return $this->deletedAt;
     }
 
     /**
@@ -202,13 +203,23 @@ class Query
     }
 
     /**
+     * Get filters.
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getFilters()
+    {
+        return $this->filters;
+    }
+    
+    /**
      * Add filter.
      *
-     * @param \AppBundle\Entity\QueryFilter $filter
+     * @param QueryFilter $filter
      *
      * @return Query
      */
-    public function addFilter(\AppBundle\Entity\QueryFilter $filter)
+    public function addFilter($filter)
     {
         $this->filters[] = $filter;
 
@@ -218,23 +229,13 @@ class Query
     /**
      * Remove filter.
      *
-     * @param \AppBundle\Entity\QueryFilter $filter
+     * @param QueryFilter $filter
      *
      * @return boolean TRUE if this collection contained the specified element, FALSE otherwise.
      */
-    public function removeFilter(\AppBundle\Entity\QueryFilter $filter)
+    public function removeFilter($filter)
     {
         return $this->filters->removeElement($filter);
-    }
-
-    /**
-     * Get filters.
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getFilters()
-    {
-        return $this->filters;
     }
 
     /**

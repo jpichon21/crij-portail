@@ -87,7 +87,7 @@
             "pre-push": [
                 "script/cq"
             ],
-            "post-merge": "composer update"
+            "post-merge": "script/bootstrap"
         }
     }
 }

@@ -47,8 +47,9 @@ final class SectionAdmin extends AbstractAdmin
                     ->add('color', ColorType::class, [
                         'label' => 'Couleur',
                     ])
-                    ->add('isPublished', CheckboxType::class, [
+                    ->add('published', CheckboxType::class, [
                         'label' => 'Publier',
+                        'required' => false,
                     ])
                 ->end()
                 ->with('Catégorie', ['class' => 'col-md-6'])

@@ -53,8 +53,9 @@ final class CategoryAdmin extends AbstractAdmin
             ]);
         }
                 $formMapper
-                ->add('isPublished', CheckboxType::class, [
+                ->add('published', CheckboxType::class, [
                     'label' => 'Publier',
+                    'required' => false,
                 ])
             ->end()
             ->end()

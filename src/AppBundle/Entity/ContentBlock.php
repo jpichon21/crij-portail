@@ -7,6 +7,7 @@ namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * Content
@@ -74,7 +75,7 @@ class ContentBlock
     protected $updated;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Content", inversedBy="contentBlock")
+     * @ORM\ManyToOne(targetEntity="Content", inversedBy="contentBlocks")
      * @ORM\JoinColumn(name="content_id", referencedColumnName="id", nullable=true, onDelete="SET NULL")
     */
     private $content;
@@ -88,7 +89,7 @@ class ContentBlock
      * @var bool
      * @ORM\Column(type="boolean")
      */
-    private $isPublished;
+    private $published;
 
     /**
      * to string method
@@ -105,7 +106,7 @@ class ContentBlock
      */
     public function __construct()
     {
-        $this->queries = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->queries = new ArrayCollection();
     }
 
     /**
@@ -193,11 +194,11 @@ class ContentBlock
     /**
      * Set content
      *
-     * @param \AppBundle\Entity\Content $content
+     * @param Content $content
      *
      * @return Content
      */
-    public function setContent(\AppBundle\Entity\Content $content = null)
+    public function setContent($content = null)
     {
         $this->content = $content;
 
@@ -207,20 +208,11 @@ class ContentBlock
     /**
      * Get content
      *
-     * @return \AppBundle\Entity\Content
+     * @return Content
      */
     public function getContent()
     {
         return $this->content;
-    }
-    /**
-     * Get deletedAt.
-     *
-     * @return timestamp
-     */
-    public function getDeletedAt()
-    {
-        return $this->deletedAt;
     }
 
     /**
@@ -235,6 +227,15 @@ class ContentBlock
         $this->deletedAt = $deletedAt;
     }
 
+    /**
+     * Get deletedAt.
+     *
+     * @return timestamp
+     */
+    public function getDeletedAt()
+    {
+        return $this->deletedAt;
+    }
 
     /**
      * Set created.
@@ -285,32 +286,6 @@ class ContentBlock
     }
 
     /**
-     * Add query.
-     *
-     * @param \AppBundle\Entity\Query $query
-     *
-     * @return ContentBlock
-     */
-    public function addQuery(\AppBundle\Entity\Query $query)
-    {
-        $this->queries[] = $query;
-
-        return $this;
-    }
-
-    /**
-     * Remove query.
-     *
-     * @param \AppBundle\Entity\Query $query
-     *
-     * @return boolean TRUE if this collection contained the specified element, FALSE otherwise.
-     */
-    public function removeQuery(\AppBundle\Entity\Query $query)
-    {
-        return $this->queries->removeElement($query);
-    }
-
-    /**
      * Get queries.
      *
      * @return \Doctrine\Common\Collections\Collection
@@ -321,26 +296,52 @@ class ContentBlock
     }
 
     /**
-     * Set isPublished.
+     * Add query.
      *
-     * @param bool $isPublished
+     * @param Query $query
      *
      * @return ContentBlock
      */
-    public function setIsPublished($isPublished)
+    public function addQuery($query)
     {
-        $this->isPublished = $isPublished;
+        $this->queries[] = $query;
 
         return $this;
     }
 
     /**
-     * Get isPublished.
+     * Remove query.
+     *
+     * @param Query $query
+     *
+     * @return boolean TRUE if this collection contained the specified element, FALSE otherwise.
+     */
+    public function removeQuery($query)
+    {
+        return $this->queries->removeElement($query);
+    }
+
+    /**
+     * Set published.
+     *
+     * @param bool $published
+     *
+     * @return ContentBlock
+     */
+    public function setPublished($published)
+    {
+        $this->published = $published;
+
+        return $this;
+    }
+
+    /**
+     * Get published.
      *
      * @return bool
      */
-    public function getIsPublished()
+    public function getPublished()
     {
-        return $this->isPublished;
+        return $this->published;
     }
 }

@@ -76,7 +76,7 @@ class Media
     }
 
     /**
-     * Set file.
+     * interfaced callbackmethod.
      *
      * @param array $info
      *

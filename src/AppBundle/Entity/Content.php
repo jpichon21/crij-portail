@@ -76,7 +76,7 @@ class Content implements RouteReferrersInterface
     private $updated;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Section", inversedBy="content")
+     * @ORM\ManyToOne(targetEntity="Section", inversedBy="contents")
      * @ORM\JoinColumn(name="section_id", referencedColumnName="id", nullable=true, onDelete="SET NULL")
     */
     private $section;
@@ -108,14 +108,14 @@ class Content implements RouteReferrersInterface
     /**
      * @ORM\OneToMany(targetEntity="ContentBlock", mappedBy="content", cascade={"persist"})
     */
-    private $contentBlock;
+    private $contentBlocks;
 
     /**
      * @var bool
      *
      * @ORM\Column(type="boolean")
      */
-    private $isPublished;
+    private $published;
 
     /**
      * Constructor
@@ -123,7 +123,7 @@ class Content implements RouteReferrersInterface
     public function __construct()
     {
         $this->routes = new ArrayCollection();
-        $this->contentBlock = new ArrayCollection();
+        $this->contentBlocks = new ArrayCollection();
     }
 
     /**
@@ -283,16 +283,6 @@ class Content implements RouteReferrersInterface
     }
 
     /**
-     * Get logoId.
-     *
-     * @return int
-     */
-    public function getLogoId()
-    {
-        return $this->logoId;
-    }
-
-    /**
      * Set logoId.
      *
      * @param int $logoId
@@ -306,13 +296,13 @@ class Content implements RouteReferrersInterface
     }
 
     /**
-     * Get backgroundId.
+     * Get logoId.
      *
      * @return int
      */
-    public function getBackgroundId()
+    public function getLogoId()
     {
-        return $this->backgroundId;
+        return $this->logoId;
     }
 
     /**
@@ -329,13 +319,13 @@ class Content implements RouteReferrersInterface
     }
 
     /**
-     * Get background.
+     * Get backgroundId.
      *
-     * @return Media
+     * @return int
      */
-    public function getBackground()
+    public function getBackgroundId()
     {
-        return $this->background;
+        return $this->backgroundId;
     }
 
     /**
@@ -352,13 +342,13 @@ class Content implements RouteReferrersInterface
     }
 
     /**
-     * Get logo.
+     * Get background.
      *
      * @return Media
      */
-    public function getLogo()
+    public function getBackground()
     {
-        return $this->logo;
+        return $this->background;
     }
 
     /**
@@ -375,55 +365,65 @@ class Content implements RouteReferrersInterface
     }
 
     /**
-     * Add contentBlock
+     * Get logo.
      *
-     * @param ContentBlock $contentBlock
-     * @return Category
+     * @return Media
      */
-    public function addContentBlock($contentBlock)
+    public function getLogo()
     {
-        $contentBlock->setContent($this);
-        $this->contentBlock[] = $contentBlock;
-
-        return $this;
+        return $this->logo;
     }
 
     /**
-     * Remove contentBlock
+     * Set contentBlocks.
      *
-     * @param ContentBlock $contentBlock
-     * @return ContentBlock
-     */
-    public function removeContentBlock($contentBlock)
-    {
-        if ($this->contentBlock->contains($contentBlock)) {
-            $this->contentBlock->removeElement($contentBlock);
-        }
-
-        return $this;
-    }
-
-    /**
-     * Set contentBlock.
-     *
-     * @param string $contentBlock
+     * @param string $contentBlocks
      * @return Content
      */
-    public function setContentBlock($contentBlock)
+    public function setContentBlock($contentBlocks)
     {
-        $this->contentBlock = $contentBlock;
+        $this->contentBlocks = $contentBlocks;
 
         return $this;
     }
 
     /**
-     * Get contentBlock
+     * Get contentBlocks
      *
      * @return ContentBlock
      */
     public function getContentBlock()
     {
-        return $this->contentBlock;
+        return $this->contentBlocks;
+    }
+
+    /**
+     * Add contentBlocks
+     *
+     * @param ContentBlock $contentBlocks
+     * @return Category
+     */
+    public function addContentBlock($contentBlocks)
+    {
+        $contentBlocks->setContent($this);
+        $this->contentBlocks[] = $contentBlocks;
+
+        return $this;
+    }
+
+    /**
+     * Remove contentBlocks
+     *
+     * @param ContentBlock $contentBlocks
+     * @return ContentBlock
+     */
+    public function removeContentBlock($contentBlocks)
+    {
+        if ($this->contentBlocks->contains($contentBlocks)) {
+            $this->contentBlocks->removeElement($contentBlocks);
+        }
+
+        return $this;
     }
 
     /**
@@ -475,16 +475,6 @@ class Content implements RouteReferrersInterface
     }
 
     /**
-     * Get routes collection
-     *
-     * @return RouteObjectInterface[]|ArrayCollection
-     */
-    public function getRoutes()
-    {
-        return $this->routes;
-    }
-
-    /**
      * Set routes collection
      *
      * @param RouteObjectInterface[]|ArrayCollection $routes
@@ -493,6 +483,16 @@ class Content implements RouteReferrersInterface
     public function setRoutes($routes)
     {
         $this->routes = $routes;
+    }
+
+    /**
+     * Get routes collection
+     *
+     * @return RouteObjectInterface[]|ArrayCollection
+     */
+    public function getRoutes()
+    {
+        return $this->routes;
     }
 
     /**
@@ -520,26 +520,26 @@ class Content implements RouteReferrersInterface
     }
 
     /**
-     * Set isPublished.
+     * Set published.
      *
-     * @param bool $isPublished
+     * @param bool $published
      *
      * @return Content
      */
-    public function setIsPublished($isPublished)
+    public function setPublished($published)
     {
-        $this->isPublished = $isPublished;
+        $this->published = $published;
 
         return $this;
     }
 
     /**
-     * Get isPublished.
+     * Get published.
      *
      * @return bool
      */
-    public function getIsPublished()
+    public function getPublished()
     {
-        return $this->isPublished;
+        return $this->published;
     }
 }

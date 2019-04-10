@@ -93,7 +93,7 @@ class Section implements RouteReferrersInterface
     protected $updated;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Category", inversedBy="rubric")
+     * @ORM\ManyToOne(targetEntity="Category", inversedBy="sections")
      * @ORM\JoinColumn(name="category_id", referencedColumnName="id", nullable=true, onDelete="SET NULL")
     */
     private $category;
@@ -101,7 +101,7 @@ class Section implements RouteReferrersInterface
     /**
      * @ORM\OneToMany(targetEntity="Content", mappedBy="section", cascade={"persist"})
     */
-    private $content;
+    private $contents;
 
     /**
      * @ORM\ManyToOne(targetEntity="Media", cascade={"persist"})
@@ -134,7 +134,7 @@ class Section implements RouteReferrersInterface
      * @var bool
      * @ORM\Column(type="boolean")
      */
-    private $isPublished;
+    private $published;
 
     /**
      * to string method
@@ -151,7 +151,7 @@ class Section implements RouteReferrersInterface
     */
     public function __construct()
     {
-        $this->content = new ArrayCollection();
+        $this->contents = new ArrayCollection();
         $this->news = new ArrayCollection();
         $this->routes = new ArrayCollection();
     }
@@ -238,6 +238,20 @@ class Section implements RouteReferrersInterface
     }
 
     /**
+     * Set slug.
+     *
+     * @param string $slug
+     *
+     * @return Section
+     */
+    public function setSlug($slug)
+    {
+        $this->slug = $slug;
+
+        return $this;
+    }
+
+    /**
      * Get slug.
      *
      * @return string
@@ -272,16 +286,6 @@ class Section implements RouteReferrersInterface
     }
 
     /**
-     * Get thumbId.
-     *
-     * @return int
-     */
-    public function getThumbId()
-    {
-        return $this->thumbId;
-    }
-
-    /**
      * Set thumbId.
      *
      * @param int $thumbId
@@ -296,13 +300,13 @@ class Section implements RouteReferrersInterface
     }
 
     /**
-     * Get thumb.
+     * Get thumbId.
      *
-     * @return Media
+     * @return int
      */
-    public function getThumb()
+    public function getThumbId()
     {
-        return $this->thumb;
+        return $this->thumbId;
     }
 
     /**
@@ -317,6 +321,16 @@ class Section implements RouteReferrersInterface
         $this->thumb = $thumb;
 
         return $this;
+    }
+
+    /**
+     * Get thumb.
+     *
+     * @return Media
+     */
+    public function getThumb()
+    {
+        return $this->thumb;
     }
 
     /**
@@ -344,48 +358,38 @@ class Section implements RouteReferrersInterface
     }
 
     /**
-     * Add content
+     * Get contents
      *
-     * @param Content $content
+     * @return ArrayCollection
+     */
+    public function getContents()
+    {
+        return $this->contents;
+    }
+
+    /**
+     * Add contents
+     *
+     * @param Content $contents
      *
      * @return Category
      */
-    public function addContent($content)
+    public function addContents($contents)
     {
-        $content->setSection($this);
-        $this->content[] = $content;
+        $contents->setSection($this);
+        $this->contents[] = $contents;
 
         return $this;
     }
 
     /**
-     * Remove content
+     * Remove contents
      *
-     * @param Content $content
+     * @param Content $contents
      */
-    public function removeContent($content)
+    public function removeContents($contents)
     {
-        $this->content->removeElement($content);
-    }
-
-    /**
-     * Get content
-     *
-     * @return ArrayCollection
-     */
-    public function getContent()
-    {
-        return $this->content;
-    }
-
-    /**
-     * Get backgroundId.
-     *
-     * @return int
-     */
-    public function getBackgroundId()
-    {
-        return $this->backgroundId;
+        $this->contents->removeElement($contents);
     }
 
     /**
@@ -403,13 +407,13 @@ class Section implements RouteReferrersInterface
     }
 
     /**
-     * Get background.
+     * Get backgroundId.
      *
-     * @return Media
+     * @return int
      */
-    public function getBackground()
+    public function getBackgroundId()
     {
-        return $this->background;
+        return $this->backgroundId;
     }
 
     /**
@@ -427,13 +431,13 @@ class Section implements RouteReferrersInterface
     }
 
     /**
-     * Get logoId.
+     * Get background.
      *
-     * @return int
+     * @return Media
      */
-    public function getLogoId()
+    public function getBackground()
     {
-        return $this->logoId;
+        return $this->background;
     }
 
     /**
@@ -451,13 +455,13 @@ class Section implements RouteReferrersInterface
     }
 
     /**
-     * Get logo.
+     * Get logoId.
      *
-     * @return Media
+     * @return int
      */
-    public function getLogo()
+    public function getLogoId()
     {
-        return $this->logo;
+        return $this->logoId;
     }
 
     /**
@@ -475,17 +479,17 @@ class Section implements RouteReferrersInterface
     }
 
     /**
-     * Get deletedAt.
+     * Get logo.
      *
-     * @return Section
+     * @return Media
      */
-    public function getDeletedAt()
+    public function getLogo()
     {
-        return $this->deletedAt;
+        return $this->logo;
     }
 
     /**
-     * Get deletedAt.
+     * Set deletedAt.
      *
      * @param Timestamp $deletedAt
      *
@@ -497,17 +501,13 @@ class Section implements RouteReferrersInterface
     }
 
     /**
-     * Set slug.
-     *
-     * @param string $slug
+     * Get deletedAt.
      *
      * @return Section
      */
-    public function setSlug($slug)
+    public function getDeletedAt()
     {
-        $this->slug = $slug;
-
-        return $this;
+        return $this->deletedAt;
     }
 
     /**
@@ -559,6 +559,16 @@ class Section implements RouteReferrersInterface
     }
 
     /**
+     * Get news.
+     *
+     * @return ArrayCollection
+     */
+    public function getNews()
+    {
+        return $this->news;
+    }
+
+    /**
      * Add news.
      *
      * @param News $news
@@ -585,27 +595,6 @@ class Section implements RouteReferrersInterface
     }
 
     /**
-     * Get news.
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getNews()
-    {
-        return $this->news;
-    }
-
-
-    /**
-     * Get routes collection
-     *
-     * @return RouteObjectInterface[]|ArrayCollection
-     */
-    public function getRoutes()
-    {
-        return $this->routes;
-    }
-
-    /**
      * Set routes collection
      *
      * @param RouteObjectInterface[]|ArrayCollection $routes
@@ -618,6 +607,16 @@ class Section implements RouteReferrersInterface
     }
 
     /**
+     * Get routes collection
+     *
+     * @return RouteObjectInterface[]|ArrayCollection
+     */
+    public function getRoutes()
+    {
+        return $this->routes;
+    }
+
+    /**
      * Add route to routes collection
      *
      * @param RouteObjectInterface $route
@@ -626,21 +625,6 @@ class Section implements RouteReferrersInterface
     public function addRoute($route)
     {
         $this->routes[] = $route;
-    }
-
-    /**
-     * Set isPublished.
-     *
-     * @param bool $isPublished
-     *
-     * @return Section
-     */
-    
-    public function setIsPublished($isPublished)
-    {
-        $this->isPublished = $isPublished;
-
-        return $this;
     }
 
     /**
@@ -656,12 +640,27 @@ class Section implements RouteReferrersInterface
     }
 
     /**
-     * Get isPublished.
+     * Set published.
+     *
+     * @param bool $published
+     *
+     * @return Section
+     */
+    
+    public function setPublished($published)
+    {
+        $this->published = $published;
+
+        return $this;
+    }
+
+    /**
+     * Get published.
      *
      * @return bool
      */
-    public function getIsPublished()
+    public function getPublished()
     {
-        return $this->isPublished;
+        return $this->published;
     }
 }

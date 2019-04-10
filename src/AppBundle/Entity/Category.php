@@ -68,7 +68,7 @@ class Category implements RouteReferrersInterface
     /**
     * @ORM\OneToMany(targetEntity="Section", mappedBy="category")
     */
-    private $section;
+    private $sections;
 
     /**
      * @ORM\Column(name="deletedAt", type="datetime", nullable=true)
@@ -92,7 +92,7 @@ class Category implements RouteReferrersInterface
      * @var bool
      * @ORM\Column(type="boolean")
      */
-    private $isPublished;
+    private $published;
 
     /**
      * @var string
@@ -108,7 +108,7 @@ class Category implements RouteReferrersInterface
     */
     public function __construct()
     {
-        $this->section = new ArrayCollection();
+        $this->sections = new ArrayCollection();
         $this->routes = new ArrayCollection();
     }
 
@@ -252,47 +252,37 @@ class Category implements RouteReferrersInterface
     }
 
     /**
-     * Add section
+     * Get sections
      *
-     * @param \AppBundle\Entity\section $section
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getSections()
+    {
+        return $this->sections;
+    }
+
+    /**
+     * Add sections
+     *
+     * @param Section $sections
      *
      * @return Category
      */
-    public function addSection(\AppBundle\Entity\section $section)
+    public function addSections($sections)
     {
-        $this->section[] = $section;
+        $this->sections[] = $sections;
 
         return $this;
     }
 
     /**
-     * Remove section
+     * Remove sections
      *
-     * @param \AppBundle\Entity\section $section
+     * @param Section $sections
      */
-    public function removeSection(\AppBundle\Entity\section $section)
+    public function removeSections($sections)
     {
-        $this->section->removeElement($section);
-    }
-
-    /**
-     * Get section
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getSection()
-    {
-        return $this->section;
-    }
-
-    /**
-     * Get deletedAt.
-     *
-     * @return timestamp
-     */
-    public function getDeletedAt()
-    {
-        return $this->deletedAt;
+        $this->sections->removeElement($sections);
     }
 
     /**
@@ -308,13 +298,13 @@ class Category implements RouteReferrersInterface
     }
 
     /**
-     * Get logoId.
+     * Get deletedAt.
      *
-     * @return int
+     * @return timestamp
      */
-    public function getLogoId()
+    public function getDeletedAt()
     {
-        return $this->logoId;
+        return $this->deletedAt;
     }
 
     /**
@@ -332,13 +322,13 @@ class Category implements RouteReferrersInterface
     }
 
     /**
-     * Get logo.
+     * Get logoId.
      *
-     * @return Media
+     * @return int
      */
-    public function getLogo()
+    public function getLogoId()
     {
-        return $this->logo;
+        return $this->logoId;
     }
 
     /**
@@ -356,13 +346,13 @@ class Category implements RouteReferrersInterface
     }
 
     /**
-     * Get slug.
+     * Get logo.
      *
-     * @return string
+     * @return Media
      */
-    public function getSlug()
+    public function getLogo()
     {
-        return $this->slug;
+        return $this->logo;
     }
 
     /**
@@ -380,13 +370,13 @@ class Category implements RouteReferrersInterface
     }
 
     /**
-     * Get routes collection
+     * Get slug.
      *
-     * @return RouteObjectInterface[]|ArrayCollection
+     * @return string
      */
-    public function getRoutes()
+    public function getSlug()
     {
-        return $this->routes;
+        return $this->slug;
     }
 
     /**
@@ -399,6 +389,40 @@ class Category implements RouteReferrersInterface
     {
         $this->routes = $routes;
         return $this;
+    }
+
+    /**
+     * Get routes collection
+     *
+     * @return RouteObjectInterface[]|ArrayCollection
+     */
+    public function getRoutes()
+    {
+        return $this->routes;
+    }
+
+    /**
+     * Set published.
+     *
+     * @param bool $published
+     *
+     * @return Category
+     */
+    public function setPublished($published)
+    {
+        $this->published = $published;
+
+        return $this;
+    }
+    
+    /**
+     * Get published.
+     *
+     * @return bool
+     */
+    public function getPublished()
+    {
+        return $this->published;
     }
 
     /**
@@ -422,29 +446,5 @@ class Category implements RouteReferrersInterface
     {
         $this->routes->removeElement($route);
         return $this;
-    }
-
-    /**
-     * Set isPublished.
-     *
-     * @param bool $isPublished
-     *
-     * @return Category
-     */
-    public function setIsPublished($isPublished)
-    {
-        $this->isPublished = $isPublished;
-
-        return $this;
-    }
-    
-    /**
-     * Get isPublished.
-     *
-     * @return bool
-     */
-    public function getIsPublished()
-    {
-        return $this->isPublished;
     }
 }

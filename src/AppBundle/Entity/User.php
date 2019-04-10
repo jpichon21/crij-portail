@@ -86,21 +86,6 @@ class User implements UserInterface
     }
 
     /**
-     * Get password.
-     *
-     * @return string
-     */
-    public function getPassword()
-    {
-        return $this->password;
-    }
-
-    public function getRoles()
-    {
-        return $this->roles;
-    }
-
-    /**
      * Set roles.
      *
      * @param json $roles
@@ -116,6 +101,29 @@ class User implements UserInterface
         return $this;
     }
 
+    /**
+     * Get password.
+     *
+     * @return string
+     */
+    public function getPassword()
+    {
+        return $this->password;
+    }
+
+    /**
+     * Get password.
+     *
+     * @return Array
+     */
+    public function getRoles()
+    {
+        return $this->roles;
+    }
+    
+    /**
+     * void
+     */
     public function getSalt()
     {
     }
@@ -137,6 +145,12 @@ class User implements UserInterface
     {
     }
 
+    /**
+     * Add role.
+     *
+     * @param string $role
+     * @return User
+     */
     public function addRole($role)
     {
         if (!$role) {
@@ -148,7 +162,13 @@ class User implements UserInterface
         }
         return $this;
     }
-
+    
+    /**
+     * Remove role.
+     *
+     * @param string $role
+     * @return User
+     */
     public function removeRole($role)
     {
         if (false !== $key = array_search(strtoupper($role), $this->roles, true)) {
@@ -158,6 +178,12 @@ class User implements UserInterface
         return $this;
     }
     
+    /**
+     * Remove role.
+     *
+     * @param string $role
+     * @return Boolean
+     */
     public function hasRole($role)
     {
         return in_array(strtoupper($role), $this->roles, true);

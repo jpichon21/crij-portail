@@ -196,16 +196,6 @@ class News
     }
 
     /**
-     * Get backgroundId.
-     *
-     * @return int
-     */
-    public function getBackgroundId(): ?int
-    {
-        return $this->backgroundId;
-    }
-
-    /**
      * Set backgroundId.
      *
      * @param int $backgroundId
@@ -220,13 +210,13 @@ class News
     }
 
     /**
-     * Get background.
+     * Get backgroundId.
      *
-     * @return Media
+     * @return int
      */
-    public function getBackground(): ?Media
+    public function getBackgroundId(): ?int
     {
-        return $this->background;
+        return $this->backgroundId;
     }
 
     /**
@@ -241,6 +231,16 @@ class News
         $this->background = $background;
 
         return $this;
+    }
+
+    /**
+     * Get background.
+     *
+     * @return Media
+     */
+    public function getBackground(): ?Media
+    {
+        return $this->background;
     }
 
     /**
@@ -390,11 +390,11 @@ class News
     /**
      * Set section.
      *
-     * @param \AppBundle\Entity\Section|null $section
+     * @param Section|null $section
      *
      * @return News
      */
-    public function setSection(\AppBundle\Entity\Section $section = null)
+    public function setSection($section = null)
     {
         $this->section = $section;
 
@@ -404,7 +404,7 @@ class News
     /**
      * Get section.
      *
-     * @return \AppBundle\Entity\Section|null
+     * @return Section|null
      */
     public function getSection()
     {

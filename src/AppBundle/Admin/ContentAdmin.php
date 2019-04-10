@@ -50,8 +50,9 @@ final class ContentAdmin extends AbstractAdmin
                         'Type 3' => 'type_3',
                     ],
                 ])
-                ->add('isPublished', CheckboxType::class, [
+                ->add('published', CheckboxType::class, [
                     'label' => 'Publier',
+                    'required' => false,
                 ])
             ->end()
             ->end()
