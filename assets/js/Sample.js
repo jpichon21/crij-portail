@@ -163,41 +163,26 @@ export const sections = [
     thumb: 'build/img/sample-thumb-section.png',
     color: '#ffc831',
     url: 'http://crij.local/#'
-  },
-  {
-    title: 'Section 6',
-    icon: 'build/img/sample-icon2.png',
-    thumb: 'build/img/sample-thumb-section.png',
-    color: '#f64747',
-    url: 'http://crij.local/#'
-  },
-  {
-    title: 'Section 7',
-    icon: 'build/img/sample-icon1.png',
-    thumb: 'build/img/sample-thumb-section.png',
-    color: '#26bcc2',
-    url: 'http://crij.local/#'
-  },
-  {
-    title: 'Section 8',
-    icon: 'build/img/sample-icon2.png',
-    thumb: 'build/img/sample-thumb-section.png',
-    color: '#ffc831',
-    url: 'http://crij.local/#'
   }
 ]
 
 export const contents = [
   {
-    title: 'Titre 1 Lorem ipsum',
+    title: 'Content 1',
+    thumb: 'build/img/sample-thumb-section.png',
+    color: '#26bcc2',
     url: 'http://crij.local/#'
   },
   {
-    title: 'Titre 2 Dolor sit amet',
+    title: 'Content 2',
+    thumb: 'build/img/sample-thumb-section.png',
+    color: '#ffc831',
     url: 'http://crij.local/#'
   },
   {
-    title: 'Titre 3 Consectetur adipiscing',
+    title: 'Content 3',
+    thumb: 'build/img/sample-thumb-section.png',
+    color: '#f64747',
     url: 'http://crij.local/#'
   }
 ]
