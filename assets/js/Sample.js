@@ -186,3 +186,5 @@ export const contents = [
     url: 'http://crij.local/#'
   }
 ]
+
+export const backgroundNews = 'build/img/sample-background-news.jpg'
