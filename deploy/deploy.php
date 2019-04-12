@@ -12,7 +12,7 @@
     set('shared_dirs', ['web/uploads', 'web/cache', 'app/logs', 'vendor']);
     set('bin/php', '/usr/local/bin/ea-php71 -c deploy/deploy.ini');
 
-    host('dev.crij.fr')
+    host('crij.logomotion.fr')
         ->stage('dev')
         ->user('root')
         ->hostname('ns4.logomotion-serveur.com')
@@ -50,6 +50,9 @@
         run('export SYMFONY_ENV=prod');
         run('cd {{release_path}} && {{bin/php}} composer.phar install --optimize-autoloader --no-scripts');
         run('cd {{release_path}} && {{bin/php}} bin/console cache:clear');
+        run('cd {{release_path}} && {{bin/php}} bin/console assets:install');
+        run('cd {{release_path}} && yarn install');
+        run('cd {{release_path}} && ./node_modules/.bin/encore production');
     });
 
     task('permissions', function () {
