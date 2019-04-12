@@ -185,4 +185,4 @@ cmf_routing:
         persistence:
             orm:
                 enabled: true
-        generic_controller: AppBundle:Default:route
+        generic_controller: AppBundle:Router:default
