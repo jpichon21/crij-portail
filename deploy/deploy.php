@@ -33,6 +33,7 @@
         'deploy:symlink',
         'deploy:unlock',
         'install',
+        'database-migrate',
         'permissions',
         'project-cleanup',
         'cleanup',
@@ -45,12 +46,17 @@
         run('rm -f docker-compose.yml settings.json .gitlab-ci.yml .gitignore .env-dist');
     });
 
+    task('database-migrate', function () {
+        run('cd {{release_path}} && {{bin/php}} bin/console doctrine:migrations:migrate');
+    });
+
     task('install', function () {
         run('cd {{release_path}} && curl -sS https://getcomposer.org/installer | {{bin/php}}');
-        run('export SYMFONY_ENV=prod');
-        run('cd {{release_path}} && {{bin/php}} composer.phar install --optimize-autoloader --no-scripts');
-        run('cd {{release_path}} && {{bin/php}} bin/console cache:clear');
-        run('cd {{release_path}} && {{bin/php}} bin/console assets:install');
+        run('cd {{release_path}} && export SYMFONY_ENV=prod');
+        run('rm -rf vendor/*');
+        run('cd {{release_path}} && {{bin/php}} composer.phar install --optimize-autoloader');
+        run('cd {{release_path}} && {{bin/php}} bin/console cache:clear --env=prod');
+        run('cd {{release_path}} && {{bin/php}} bin/console assets:install --env=prod');
         run('cd {{release_path}} && yarn install');
         run('cd {{release_path}} && ./node_modules/.bin/encore production');
     });
