@@ -109,19 +109,61 @@ export const categories = [
 
 export const news = [
   {
+    parent: {
+      title: 'Rubrique 2',
+      color: '#ffc831'
+    },
     title: 'Titre 1',
     excerpt: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna...',
     image: 'build/img/sample-background-news-home1.jpg',
     url: 'http://crij.local/#'
   },
   {
+    parent: {
+      title: 'Rubrique 3',
+      color: '#26bcc2'
+    },
     title: 'Titre 2',
     excerpt: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna...',
     image: 'build/img/sample-background-news-home2.jpg',
     url: 'http://crij.local/#'
   },
   {
+    parent: {
+      title: 'Rubrique 1',
+      color: '#f64747'
+    },
     title: 'Titre 3',
+    excerpt: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna...',
+    image: 'build/img/sample-background-news-home3.jpg',
+    url: 'http://crij.local/#'
+  },
+  {
+    parent: {
+      title: 'Rubrique 2',
+      color: '#ffc831'
+    },
+    title: 'Titre 4',
+    excerpt: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna...',
+    image: 'build/img/sample-background-news-home1.jpg',
+    url: 'http://crij.local/#'
+  },
+  {
+    parent: {
+      title: 'Rubrique 3',
+      color: '#f64747'
+    },
+    title: 'Titre 5',
+    excerpt: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna...',
+    image: 'build/img/sample-background-news-home2.jpg',
+    url: 'http://crij.local/#'
+  },
+  {
+    parent: {
+      title: 'Rubrique 1',
+      color: '#26bcc2'
+    },
+    title: 'Titre 6',
     excerpt: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna...',
     image: 'build/img/sample-background-news-home3.jpg',
     url: 'http://crij.local/#'
