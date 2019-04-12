@@ -13,6 +13,7 @@ use Symfony\Cmf\Component\Routing\RouteObjectInterface;
 use AppBundle\Entity\Category;
 use AppBundle\Entity\Section;
 use AppBundle\Entity\Content;
+use Symfony\Cmf\Bundle\RoutingBundle\Routing\DynamicRouter;
 
 class ContentService
 {
@@ -28,15 +29,24 @@ class ContentService
     private $contentRepository;
 
     /**
+     * @var DynamicRouter
+     */
+    private $dynamicRouter;
+
+    /**
      * Constructor
      *
      * @param RouteProvider $routeProvider
      * @param ContentRepository $contentRepository
      */
-    public function __construct(RouteProvider $routeProvider, ContentRepository $contentRepository)
-    {
+    public function __construct(
+        RouteProvider $routeProvider,
+        ContentRepository $contentRepository,
+        DynamicRouter $dynamicRouter
+    ) {
         $this->routeProvider = $routeProvider;
         $this->contentRepository = $contentRepository;
+        $this->dynamicRouter = $dynamicRouter;
     }
 
     /**
@@ -72,13 +82,15 @@ class ContentService
             }
         }
         $route = new Route();
+        $route->setHost($this->getHostFromContent($content));
         $routeName = $this->routeNameFromContent($content);
+        $url = $this->routeUrlFromContent($content);
         if (!$this->isRouteNameAvailable($routeName)) {
-            $route->setName($this->addSuffix($routeName));
-        } else {
-            $route->setName($routeName);
+            $url = $this->addSuffix($url);
+            $routeName = $this->addSuffix($routeName);
         }
-        $route->setStaticPrefix($this->urlFromName($route->getName()));
+        $route->setName($routeName);
+        $route->setStaticPrefix($url);
         $route->setDefault(
             RouteObjectInterface::CONTENT_ID,
             $this->contentRepository->getContentId($content)
@@ -101,12 +113,14 @@ class ContentService
         if ($oldName !== $newName) {
             $routes = $content->getRoutes();
             foreach ($routes as $key => $route) {
+                $route->setHost($this->getHostFromContent($content));
+                $url = $this->routeUrlFromContent($content);
                 if (!$this->isRouteNameAvailable($newName)) {
-                    $route->setName($this->addSuffix($newName));
-                } else {
-                    $route->setName($newName);
+                    $url = $this->addSuffix($url);
+                    $newName = $this->addSuffix($newName);
                 }
-                $route->setStaticPrefix($this->urlFromName($route->getName()));
+                $route->setName($newName);
+                $route->setStaticPrefix($url);
                 $routes[$key] = $route;
             }
         }
@@ -114,14 +128,42 @@ class ContentService
     }
 
     /**
-     * Return url string from a route name
+     * Get content's host
      *
-     * @param string $name
+     * @param Category|Section|Content $content
+     * @return string|null
+     */
+    private function getHostFromContent($content)
+    {
+        if ($content instanceof Content) {
+            $content = $content->getSection();
+        }
+        if ($content instanceof Section) {
+            $content = $content->getCategory();
+        }
+        return $content->getDomain();
+    }
+
+    /**
+     * Return route's url from a content
+     *
+     * @param Category|Section|Content $content
      * @return string
      */
-    private function urlFromName($name)
+    private function routeUrlFromContent($content)
     {
-        return '/' . str_replace('_', '/', $name);
+        if ($content instanceof Category && $this->getHostFromContent($content)) {
+            return '/';
+        }
+        $url = $content->getSlug();
+        if ($content instanceof Content) {
+            $url = $content->getSection()->getSlug() . '/' . $url;
+            $content = $content->getSection();
+        }
+        if ($content instanceof Section && !$this->getHostFromContent($content)) {
+            $url = $content->getCategory()->getSlug() . '/' . $url;
+        }
+        return '/' . $url;
     }
 
     /**

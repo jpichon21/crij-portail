@@ -7,24 +7,23 @@
 namespace AppBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * Default Controller
+ * Router Controller
  */
-class DefaultController extends Controller
+class RouterController extends Controller
 {
     /**
-     * Default homepage
+     * Default router action, called by Cmf's Dynamic Router
      *
-     *  @Route("/")
+     * @param Category|Section|Content $contentDocument
      * @return void
      */
-    public function indexAction()
+    public function defaultAction($contentDocument)
     {
-        // replace this example code with whatever you need
         return $this->render('default/index.html.twig', [
             'base_dir' => realpath($this->getParameter('kernel.project_dir')).DIRECTORY_SEPARATOR,
+            'content' => $contentDocument
         ]);
     }
 }

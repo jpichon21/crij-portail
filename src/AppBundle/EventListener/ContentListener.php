@@ -46,6 +46,7 @@ class ContentListener
             || $entity instanceof Content) {
                 $eventManager->removeEventListener('onFlush', $this);
                 if ($uow->getEntityChangeSet($entity)) {
+                    $em->flush();
                     if ($this->contentService->setContentRoute($entity)) {
                         $em->persist($entity);
                         $metaData = $em->getClassMetadata(get_class($entity));
