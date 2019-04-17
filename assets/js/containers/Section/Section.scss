@@ -5,9 +5,8 @@
     .box {
         position: relative;
         z-index: 0;
-        .slider {
-            position: relative;
-            z-index: 0;
+        #glide {
+            min-height: calc(100vh - 150px);
         }
         .content {
             flex: 1;
@@ -16,23 +15,23 @@
             justify-content: center;
             max-width: map-get($breakpoints, large);
             margin: 0 auto;
+            padding: 0 40px;
+            @include media('<medium') {
+                padding: 0 20px;
+            }
             .search {
                 position: absolute;
                 top: -180px;
                 right: 40px;
                 width: 100%;
                 max-width: 300px;
-                z-index: 1;
                 order: 1;
                 @include media('<large') {
                     position: relative;
                     top: auto;
                     right: auto;
-                    padding: 0 40px 40px;
                     max-width: none;
-                }
-                @include media('<medium') {
-                    padding: 0 20px 40px;
+                    margin-bottom: 40px;
                 }
                 input {
                     width: 100%;

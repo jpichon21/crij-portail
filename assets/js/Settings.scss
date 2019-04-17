@@ -7,9 +7,18 @@ $color-red: #f64747;
 $color-blue: #367bf0;
 $color-green: #26bcc2;
 $color-yellow: #ffc831;
-$color-smoke: #f9f9f9   ;
+$color-smoke: #f9f9f9;
 
 // VARIABLES
 $height-header: 100px;
 $border-radius: 10px;
 $animation-duration: 0.2s;
+
+// MIXINS
+@mixin columns($column, $margin) {
+    width: calc((100% / #{$column}) - ((#{$margin} * (#{$column} - 1)) / #{$column}));
+    margin: 0 $margin $margin 0;
+    &:nth-of-type(#{$column}n) {
+        margin-right: 0;
+    }
+}

@@ -6,6 +6,7 @@
         position: relative;
         padding: 120px 40px 0;
         box-sizing: border-box;
+        z-index: 0;
         @include media('<large') {
             padding: 40px 40px 0;
         }
@@ -87,11 +88,17 @@
                 flex-wrap: wrap;
                 .article {
                     display: block;
-                    width: calc(33% - 50px);
-                    margin: 0 40px 40px 0;
                     text-decoration: none;
-                    &:nth-of-type(3n) {
-                        margin-right: 0;
+                    @include media('>=large') {
+                        @include columns(3, 40px);
+                    }
+                    @include media('<large') {
+                        @include columns(2, 20px);
+                        margin: 0 20px 40px 0;
+                    }
+                    @include media('<medium') {
+                        @include columns(1, 20px);
+                        margin: 0 20px 40px 0;
                     }
                     &:hover {
                         .image {
