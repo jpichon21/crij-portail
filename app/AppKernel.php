@@ -3,6 +3,7 @@
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Kernel;
 use Symfony\Component\Config\Loader\LoaderInterface;
+use Symfony\Cmf\Bundle\RoutingBundle\CmfRoutingBundle;
 
 class AppKernel extends Kernel
 {
@@ -20,6 +21,18 @@ class AppKernel extends Kernel
             new FOS\RestBundle\FOSRestBundle(),
             new JMS\SerializerBundle\JMSSerializerBundle(),
             new Nelmio\CorsBundle\NelmioCorsBundle(),
+            new Stof\DoctrineExtensionsBundle\StofDoctrineExtensionsBundle(),
+            new Sonata\CoreBundle\SonataCoreBundle(),
+            new Sonata\BlockBundle\SonataBlockBundle(),
+            new Knp\Bundle\MenuBundle\KnpMenuBundle(),
+            new Sonata\DoctrineORMAdminBundle\SonataDoctrineORMAdminBundle(),
+            new Sonata\AdminBundle\SonataAdminBundle(),
+            new Knp\Bundle\MarkdownBundle\KnpMarkdownBundle(),
+            new FOS\CKEditorBundle\FOSCKEditorBundle(),
+            new Sonata\FormatterBundle\SonataFormatterBundle(),
+            new Symfony\Cmf\Bundle\RoutingBundle\CmfRoutingBundle(),
+            new Doctrine\Bundle\MigrationsBundle\DoctrineMigrationsBundle(),
+            
             new AppBundle\AppBundle(),
         ];
 

@@ -33,3 +33,126 @@ services:
     # AppBundle\Service\ExampleService:
     #     arguments:
     #         $someArgument: 'some_value'
+    
+    gedmo.listener.softdeleteable:
+        class: Gedmo\SoftDeleteable\SoftDeleteableListener
+        tags:
+            - { name: doctrine.event_subscriber, connection: default }
+
+    gedmo.listener.sluggable:
+        class: Gedmo\Sluggable\SluggableListener
+        tags:
+            - { name: doctrine.event_subscriber, connection: default }
+        calls:
+            - [ setAnnotationReader, [ "@annotation_reader" ] ]
+
+    app.admin.Category:
+        class: AppBundle\Admin\CategoryAdmin
+        arguments: [~, AppBundle\Entity\Category, ~]
+        tags:
+            - name: sonata.admin
+              manager_type: orm
+              group: "Contenu"
+              label: "Catégories"
+        public: true
+
+    app.admin.Section:
+        class: AppBundle\Admin\SectionAdmin
+        arguments: [~, AppBundle\Entity\Section, ~]
+        tags:
+            - name: sonata.admin
+              manager_type: orm
+              group: "Contenu"
+              label: "Rubriques"
+        public: true
+
+    app.admin.Content:
+        class: AppBundle\Admin\ContentAdmin
+        arguments: [~, AppBundle\Entity\Content, ~]
+        tags:
+            - name: sonata.admin
+              manager_type: orm
+              group: "Contenu"
+              label: "Sous-Rubriques"
+        public: true
+
+    app.admin.ContentBlock:
+        class: AppBundle\Admin\ContentBlockAdmin
+        arguments: [~, AppBundle\Entity\ContentBlock, ~]
+        tags:
+            - name: sonata.admin
+              manager_type: orm
+              group: "Contenu"
+              label: "Contenus"
+        public: true
+
+    app.admin.Query:
+        class: AppBundle\Admin\QueryAdmin
+        arguments: [~, AppBundle\Entity\Query, ~]
+        tags:
+            - name: sonata.admin
+              manager_type: orm
+              group: "Données Flora"
+              label: "Requêtes"
+        public: true
+
+    app.admin.QueryFilter:
+        class: AppBundle\Admin\QueryFilterAdmin
+        arguments: [~, AppBundle\Entity\QueryFilter, ~]
+        tags:
+            - name: sonata.admin
+              manager_type: orm
+              group: "Données Flora"
+              label: "Filtres"
+        calls:
+            - [ setTemplate, [edit, 'AppBundle/QueryFilterAdmin/edit.html.twig']]
+        public: true
+
+    app.admin.News:
+        class: AppBundle\Admin\NewsAdmin
+        arguments: [~, AppBundle\Entity\News, ~]
+        tags:
+            - name: sonata.admin
+              manager_type: orm
+              group: "Contenu"
+              label: "Nouveautés"
+        public: true
+
+    app.admin.Organism:
+        class: AppBundle\Admin\OrganismAdmin
+        arguments: [~, AppBundle\Entity\Organism, ~]
+        tags:
+            - name: sonata.admin
+              manager_type: orm
+              group: "Données Flora"
+              label: "Organismes"
+        public: true
+
+    app.admin.Activity:
+        class: AppBundle\Admin\ActivityAdmin
+        arguments: [~, AppBundle\Entity\Activity, ~]
+        tags:
+            - name: sonata.admin
+              manager_type: orm
+              group: "Données Flora"
+              label: "Activités"
+        public: true
+
+    admin.media:
+        class: AppBundle\Admin\MediaAdmin
+        arguments: [~, AppBundle\Entity\Media, ~]
+        tags:
+            - name: sonata.admin
+              manager_type: orm
+              group: "Contenu"
+              show_in_dashboard: false
+              label: "Medias"
+        public: false
+        label: "Media"
+        public: false
+    Symfony\Cmf\Bundle\RoutingBundle\Doctrine\Orm\RouteProvider: '@cmf_routing.route_provider'
+    Symfony\Cmf\Bundle\RoutingBundle\Doctrine\Orm\ContentRepository: '@cmf_routing.orm_content_repository'
+    Symfony\Cmf\Bundle\RoutingBundle\Routing\DynamicRouter: '@cmf_routing.dynamic_router'
+    AppBundle\EventListener\ContentListener:
+        tags:
+            - { name: doctrine.event_listener, event: onFlush }
