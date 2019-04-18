@@ -38,7 +38,8 @@
         "symfony/swiftmailer-bundle": "^2.6.4",
         "symfony/symfony": "3.4.*",
         "symfony/webpack-encore-bundle": "^1.1",
-        "twig/twig": "^1.0||^2.0"
+        "twig/twig": "^1.0||^2.0",
+        "white-october/pagerfanta-bundle": "^1.2"
     },
     "require-dev": {
         "brainmaestro/composer-git-hooks": "^2.6",

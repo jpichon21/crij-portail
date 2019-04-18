@@ -93,7 +93,7 @@ sensio_framework_extra:
 webpack_encore:
     output_path: '%kernel.project_dir%/web/build'
 fos_rest:
-    param_fetcher_listener: true
+    param_fetcher_listener: force
     body_listener: true
     routing_loader:
         default_format: json

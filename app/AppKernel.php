@@ -3,7 +3,6 @@
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Kernel;
 use Symfony\Component\Config\Loader\LoaderInterface;
-use Symfony\Cmf\Bundle\RoutingBundle\CmfRoutingBundle;
 
 class AppKernel extends Kernel
 {
@@ -32,6 +31,7 @@ class AppKernel extends Kernel
             new Sonata\FormatterBundle\SonataFormatterBundle(),
             new Symfony\Cmf\Bundle\RoutingBundle\CmfRoutingBundle(),
             new Doctrine\Bundle\MigrationsBundle\DoctrineMigrationsBundle(),
+            new WhiteOctober\PagerfantaBundle\WhiteOctoberPagerfantaBundle(),
             
             new AppBundle\AppBundle(),
         ];

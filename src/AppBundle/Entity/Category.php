@@ -15,7 +15,7 @@ use Symfony\Cmf\Component\Routing\RouteReferrersInterface;
  * Category
  *
  * @ORM\Table(name="category")
- * @ORM\Entity(repositoryClass="AppBundle\Repository\CategoryRepository")
+ * @ORM\Entity()
  *
  * @Gedmo\SoftDeleteable(fieldName="deletedAt")
  */
