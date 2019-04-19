@@ -15,10 +15,10 @@ use Symfony\Cmf\Component\Routing\RouteReferrersInterface;
 /**
  * Section
  *
- * @Gedmo\SoftDeleteable(fieldName="deletedAt")
- *
  * @ORM\Table(name="section")
- * @ORM\Entity(repositoryClass="AppBundle\Repository\SectionRepository")
+ * @ORM\Entity()
+ *
+ * @Gedmo\SoftDeleteable(fieldName="deletedAt")
  * @Serializer\ExclusionPolicy("all")
  */
 class Section implements RouteReferrersInterface

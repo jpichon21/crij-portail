@@ -10,12 +10,12 @@ use Gedmo\Mapping\Annotation as Gedmo;
 use Doctrine\Common\Collections\ArrayCollection;
 
 /**
- * Content
- *
- * @Gedmo\SoftDeleteable(fieldName="deletedAt")
+ * ContentBlock
  *
  * @ORM\Table(name="content_block")
- * @ORM\Entity(repositoryClass="AppBundle\Repository\ContentBlockRepository")
+ * @ORM\Entity()
+ *
+ * @Gedmo\SoftDeleteable(fieldName="deletedAt")
  */
 class ContentBlock
 {
