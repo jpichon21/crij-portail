@@ -8,6 +8,7 @@ namespace AppBundle\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
+use JMS\Serializer\Annotation as Serializer;
 use Symfony\Cmf\Component\Routing\RouteObjectInterface;
 use Symfony\Cmf\Component\Routing\RouteReferrersInterface;
 
@@ -18,6 +19,7 @@ use Symfony\Cmf\Component\Routing\RouteReferrersInterface;
  * @ORM\Entity()
  *
  * @Gedmo\SoftDeleteable(fieldName="deletedAt")
+ * @Serializer\ExclusionPolicy("all")
  */
 class Category implements RouteReferrersInterface
 {
@@ -27,6 +29,8 @@ class Category implements RouteReferrersInterface
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
+     * @Serializer\Expose()
+     * @Serializer\Groups({"Category:list", "Category:details"})
      */
     private $id;
 
@@ -34,6 +38,7 @@ class Category implements RouteReferrersInterface
      * @var string
      *
      * @ORM\Column(name="title", type="string", length=255)
+     * @Serializer\Groups({"Category:list", "Category:details"})
      */
     private $title;
 
@@ -41,6 +46,8 @@ class Category implements RouteReferrersInterface
      * @var string
      *
      * @ORM\Column(name="intro", type="string", length=255)
+     * @Serializer\Expose()
+     * @Serializer\Groups({"Category:details"})
      */
     private $intro;
 
@@ -48,6 +55,8 @@ class Category implements RouteReferrersInterface
      * @var string
      *
      * @ORM\Column(name="link", type="string", length=255, nullable=true)
+     * @Serializer\Expose()
+     * @Serializer\Groups({"Category:list", "Category:details"})
      */
     private $link;
 
@@ -55,6 +64,8 @@ class Category implements RouteReferrersInterface
      * @var string
      *
      * @ORM\Column(name="domain", type="string", length=255, nullable=true)
+     * @Serializer\Expose()
+     * @Serializer\Groups({"Category:list", "Category:details"})
      */
     private $domain;
 
@@ -62,11 +73,15 @@ class Category implements RouteReferrersInterface
      * @var string
      *
      * @ORM\Column(name="footer", type="string", length=255)
+     * @Serializer\Expose()
+     * @Serializer\Groups({"Category:details"})
      */
     private $footer;
 
     /**
     * @ORM\OneToMany(targetEntity="Section", mappedBy="category")
+    * @Serializer\Expose()
+    * @Serializer\Groups({"Category:list", "Category:details"})
     */
     private $sections;
 
@@ -77,6 +92,8 @@ class Category implements RouteReferrersInterface
 
     /**
      * @ORM\ManyToOne(targetEntity="Media", cascade={"persist", "remove"})
+     * @Serializer\Expose()
+     * @Serializer\Groups({"Category:list", "Category:details"})
      */
     private $logo;
 
