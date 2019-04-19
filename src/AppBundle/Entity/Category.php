@@ -30,7 +30,7 @@ class Category implements RouteReferrersInterface
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      * @Serializer\Expose()
-     * @Serializer\Groups({"Category:list", "Category:details"})
+     * @Serializer\Groups({"Category:list", "Category:details", "Section:list"})
      */
     private $id;
 
@@ -38,6 +38,7 @@ class Category implements RouteReferrersInterface
      * @var string
      *
      * @ORM\Column(name="title", type="string", length=255)
+     * @Serializer\Expose()
      * @Serializer\Groups({"Category:list", "Category:details"})
      */
     private $title;

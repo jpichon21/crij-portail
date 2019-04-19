@@ -8,12 +8,12 @@ namespace AppBundle\Controller;
 
 use FOS\RestBundle\Controller\Annotations\QueryParam;
 use FOS\RestBundle\Controller\Annotations\RouteResource;
-use FOS\RestBundle\Request\ParamFetcherInterface;
 use FOS\RestBundle\Controller\Annotations\View;
+use FOS\RestBundle\Request\ParamFetcherInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
-use AppBundle\Representation\Categories;
+use AppBundle\Representation\Sections;
 use AppBundle\Repository\SectionRepository;
 
 /**
@@ -63,7 +63,7 @@ class SectionController extends Controller
             $this->paramFetcher->get('limit'),
             $this->paramFetcher->get('page')
         );
-        return new Categories($pager);
+        return new Sections($pager);
     }
 
     /**
