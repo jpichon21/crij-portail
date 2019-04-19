@@ -17,9 +17,9 @@ use Sonata\AdminBundle\Form\Type\ModelType;
 use Sonata\FormatterBundle\Form\Type\SimpleFormatterType;
 
 /**
- * News Admin class
+ * Article Admin class
  */
-final class NewsAdmin extends AbstractAdmin
+final class ArticleAdmin extends AbstractAdmin
 {
 
     /**

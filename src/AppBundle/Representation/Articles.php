@@ -9,16 +9,16 @@ use Pagerfanta\Pagerfanta;
 use JMS\Serializer\Annotation\Type;
 use JMS\Serializer\Annotation as Serializer;
 
-class Sections
+class Articles
 {
     /**
-     * @Type("array<AppBundle\Entity\Section>")
-     * @Serializer\Groups({"Section:list", "Section:details", "Article:list"})
+     * @Type("array<AppBundle\Entity\Article>")
+     * @Serializer\Groups({"Article:list", "Article:details"})
      */
     private $data;
 
     /**
-    * @Serializer\Groups({"Section:list", "Section:details", "Article:list"})
+    * @Serializer\Groups({"Article:list", "Article:details"})
     */
     private $meta;
 

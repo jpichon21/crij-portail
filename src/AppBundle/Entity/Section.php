@@ -30,7 +30,7 @@ class Section implements RouteReferrersInterface
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      * @Serializer\Expose()
-     * @Serializer\Groups({"Section:list", "Section:details"})
+     * @Serializer\Groups({"Section:list", "Section:details", "Article:list", "Article:details"})
      */
     private $id;
 
@@ -141,11 +141,11 @@ class Section implements RouteReferrersInterface
     private $deletedAt;
 
     /**
-     * @ORM\OneToMany(targetEntity="News", mappedBy="section", cascade={"persist"})
+     * @ORM\OneToMany(targetEntity="Article", mappedBy="section", cascade={"persist"})
      * @Serializer\Expose()
-     * @Serializer\Groups({"Section:details"})
+     * @Serializer\Groups({"Section:details", "Article:list"})
     */
-    private $news;
+    private $articles;
 
     /**
      * @var RouteObjectInterface[]|ArrayCollection
@@ -176,7 +176,7 @@ class Section implements RouteReferrersInterface
     public function __construct()
     {
         $this->contents = new ArrayCollection();
-        $this->news = new ArrayCollection();
+        $this->articles = new ArrayCollection();
         $this->routes = new ArrayCollection();
     }
 
@@ -583,39 +583,39 @@ class Section implements RouteReferrersInterface
     }
 
     /**
-     * Get news.
+     * Get articles.
      *
      * @return ArrayCollection
      */
-    public function getNews()
+    public function getArticles()
     {
-        return $this->news;
+        return $this->articles;
     }
 
     /**
-     * Add news.
+     * Add article.
      *
-     * @param News $news
+     * @param Article $article
      *
      * @return Section
      */
-    public function addNews($news)
+    public function addArticle($article)
     {
-        $this->news[] = $news;
+        $this->articles[] = $article;
 
         return $this;
     }
 
     /**
-     * Remove news.
+     * Remove article.
      *
-     * @param News $news
+     * @param Article $article
      *
      * @return boolean TRUE if this collection contained the specified element, FALSE otherwise.
      */
-    public function removeNews($news)
+    public function removeArticle($article)
     {
-        return $this->news->removeElement($news);
+        return $this->articles->removeElement($article);
     }
 
     /**

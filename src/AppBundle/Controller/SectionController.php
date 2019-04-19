@@ -40,7 +40,7 @@ class SectionController extends Controller
     }
 
     /**
-     * @View(serializerGroups={"Section:list", "Section:list"})
+     * @View(serializerGroups={"Section:list", "Content:list"})
      *
      * @QueryParam(
      *     name="limit",
@@ -67,7 +67,7 @@ class SectionController extends Controller
     }
 
     /**
-     * @View(serializerGroups={"Section:details", "Section:list"})
+     * @View(serializerGroups={"Section:details", "Content:list"})
      *
      * @param int $id
      * @return \FOS\RestBundle\View\View
@@ -80,5 +80,34 @@ class SectionController extends Controller
             return new JsonResponse(['message' => 'Section not found'], Response::HTTP_NOT_FOUND);
         }
         return ['data' => $data];
+    }
+
+    /**
+     * @View(serializerGroups={"Article:list"})
+     *
+     * @QueryParam(
+     *     name="limit",
+     *     requirements="\d+",
+     *     default="50",
+     *     description="Max number of items per page."
+     * )
+     * @QueryParam(
+     *     name="page",
+     *     requirements="\d+",
+     *     default="1",
+     *     description="The pagination page"
+     * )
+     *
+     * @param int $id
+     * @return \FOS\RestBundle\View\View
+     */
+    public function getArticlesAction($id)
+    {
+        $pager = $this->repository->findArticles(
+            $id,
+            $this->paramFetcher->get('limit'),
+            $this->paramFetcher->get('page')
+        );
+        return new Sections($pager);
     }
 }

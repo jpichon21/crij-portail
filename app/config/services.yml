@@ -108,9 +108,9 @@ services:
             - [ setTemplate, [edit, 'AppBundle/QueryFilterAdmin/edit.html.twig']]
         public: true
 
-    app.admin.News:
-        class: AppBundle\Admin\NewsAdmin
-        arguments: [~, AppBundle\Entity\News, ~]
+    app.admin.Article:
+        class: AppBundle\Admin\ArticleAdmin
+        arguments: [~, AppBundle\Entity\Article, ~]
         tags:
             - name: sonata.admin
               manager_type: orm

@@ -192,4 +192,4 @@ jms_serializer:
     handlers:
         datetime:
             default_format: "Y-m-d\\TH:i:sP"
-            default_timezone: "Paris/Europe"
+            default_timezone: "Europe/Paris"
