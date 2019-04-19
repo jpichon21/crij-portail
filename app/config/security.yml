@@ -38,12 +38,8 @@ security:
                 authenticators:
                     - AppBundle\Security\AdminLoginAuthenticator
         main:
-            pattern: ^/api
-            provider: in_memory
-            json_login:
-                check_path: /api/login
-                username_path: username
-                password_path: password
+            pattern: ^/
+            anonymous: ~
     access_control:
         - { path: ^/admin/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/admin/logout$, role: IS_AUTHENTICATED_ANONYMOUSLY }
