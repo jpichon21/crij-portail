@@ -43,7 +43,7 @@ final class ContentAdmin extends AbstractAdmin
                     ],
                 ])
                 ->add('type', ChoiceType::class, [
-                    'label' => 'Type de sous_rubrique',
+                    'label' => 'Type de sous rubrique',
                     'choices' => [
                         'Type 1' => 'type_1',
                         'Type 2' => 'type_2',

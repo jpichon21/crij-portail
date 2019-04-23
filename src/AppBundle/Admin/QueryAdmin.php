@@ -40,7 +40,7 @@ final class QueryAdmin extends AbstractAdmin
             ->end()
             ->tab('Configuration')
                 ->add('type', ChoiceType::class, [
-                    'label' => 'Type',
+                    'label' => 'Type de requête',
                     'choices' => [
                         'AND' => 'AND',
                         'OR' => 'OR',

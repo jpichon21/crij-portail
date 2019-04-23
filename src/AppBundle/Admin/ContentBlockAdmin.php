@@ -34,7 +34,7 @@ final class ContentBlockAdmin extends AbstractAdmin
         $formMapper
             ->tab('Configuration')
                 ->add('type', ChoiceType::class, [
-                    'label' => 'Type de sous_rubrique',
+                    'label' => 'Type de contenus',
                     'choices' => [
                         'Type 1' => 'type_1',
                         'Type 2' => 'type_2',

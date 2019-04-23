@@ -30,23 +30,24 @@ final class QueryFilterAdmin extends AbstractAdmin
         $formMapper
             ->tab('Configuration')
                 ->add('name', TextType::class, [
-                    'label' => 'name',
+                    'label' => 'nom du filtre',
                 ])
                 ->add('description', TextType::class, [
-                    'label' => 'description',
+                    'label' => 'description du filtre',
                 ])
                 ->add('entity', ChoiceType::class, [
+                    'label' => 'table à interroger',
                     'choices' => $this->getConfigurationPool()->getContainer()->getParameter('entity'),
                 ])
                 ->add('field', ChoiceType::class, [
-                    'label' => 'field',
+                    'label' => 'champs à filtrer',
                     'choices' => $this->arrayOfFields,
                     'attr' => [
                         'disabled' => 'disabled',
                     ],
                 ])
                 ->add('value', TextType::class, [
-                    'label' => 'Value',
+                    'label' => 'Valeur à chercher',
                 ]);
     }
 
