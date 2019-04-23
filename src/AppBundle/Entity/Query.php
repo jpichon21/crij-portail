@@ -177,7 +177,7 @@ class Query
     /**
      * Get filters.
      *
-     * @return \Doctrine\Common\Collections\Collection
+     * @return Collection
      */
     public function getFilters()
     {

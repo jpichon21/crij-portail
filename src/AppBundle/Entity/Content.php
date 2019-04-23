@@ -352,7 +352,7 @@ class Content implements RouteReferrersInterface
      * @param string $contentBlocks
      * @return Content
      */
-    public function setContentBlock($contentBlocks)
+    public function setContentBlocks($contentBlocks)
     {
         $this->contentBlocks = $contentBlocks;
 
@@ -364,7 +364,7 @@ class Content implements RouteReferrersInterface
      *
      * @return ContentBlock
      */
-    public function getContentBlock()
+    public function getContentBlocks()
     {
         return $this->contentBlocks;
     }
@@ -372,13 +372,13 @@ class Content implements RouteReferrersInterface
     /**
      * Add contentBlocks
      *
-     * @param ContentBlock $contentBlocks
+     * @param ContentBlock $contentBlock
      * @return Category
      */
-    public function addContentBlock($contentBlocks)
+    public function addContentBlock($contentBlock)
     {
-        $contentBlocks->setContent($this);
-        $this->contentBlocks[] = $contentBlocks;
+        $contentBlock->setContent($this);
+        $this->contentBlocks[] = $contentBlock;
 
         return $this;
     }
@@ -386,13 +386,13 @@ class Content implements RouteReferrersInterface
     /**
      * Remove contentBlocks
      *
-     * @param ContentBlock $contentBlocks
+     * @param ContentBlock $contentBlock
      * @return ContentBlock
      */
-    public function removeContentBlock($contentBlocks)
+    public function removeContentBlock($contentBlock)
     {
-        if ($this->contentBlocks->contains($contentBlocks)) {
-            $this->contentBlocks->removeElement($contentBlocks);
+        if ($this->contentBlocks->contains($contentBlock)) {
+            $this->contentBlocks->removeElement($contentBlock);
         }
 
         return $this;

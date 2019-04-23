@@ -260,7 +260,7 @@ class ContentBlock
     /**
      * Get queries.
      *
-     * @return \Doctrine\Common\Collections\Collection
+     * @return Collection
      */
     public function getQueries()
     {
