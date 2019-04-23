@@ -32,7 +32,7 @@ framework:
     form: ~
     csrf_protection: ~
     validation: { enable_annotations: true }
-    #serializer: { enable_annotations: true }
+    serializer: false
     default_locale: '%locale%'
     trusted_hosts: ~
     session:
@@ -91,7 +91,7 @@ sensio_framework_extra:
 webpack_encore:
     output_path: '%kernel.project_dir%/web/build'
 fos_rest:
-    param_fetcher_listener: true
+    param_fetcher_listener: force
     body_listener: true
     routing_loader:
         default_format: json
@@ -102,6 +102,8 @@ fos_rest:
             - { path: '^/', priorities: [ 'html', '*/*'], fallback_format: ~, prefer_extension: true }
     view:
         view_response_listener: 'force'
+    serializer:
+        serialize_null:  true
 
 nelmio_cors:
     paths:
@@ -182,4 +184,9 @@ cmf_routing:
         persistence:
             orm:
                 enabled: true
-        generic_controller: AppBundle:Default:route
+        generic_controller: AppBundle:Router:default
+jms_serializer:
+    handlers:
+        datetime:
+            default_format: "Y-m-d\\TH:i:sP"
+            default_timezone: "Europe/Paris"

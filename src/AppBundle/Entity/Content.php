@@ -8,15 +8,17 @@ namespace AppBundle\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
+use JMS\Serializer\Annotation as Serializer;
 use Symfony\Cmf\Component\Routing\RouteObjectInterface;
 use Symfony\Cmf\Component\Routing\RouteReferrersInterface;
 
 /**
  * Content
  *
- *
  * @ORM\Table(name="content")
- * @ORM\Entity(repositoryClass="AppBundle\Repository\ContentRepository")
+ * @ORM\Entity()
+ *
+ * @Serializer\ExclusionPolicy("all")
  */
 class Content implements RouteReferrersInterface
 {
@@ -26,6 +28,8 @@ class Content implements RouteReferrersInterface
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
+     * @Serializer\Expose()
+     * @Serializer\Groups({"Content:list", "Content:details"})
      */
     private $id;
 
@@ -33,6 +37,8 @@ class Content implements RouteReferrersInterface
      * @var string
      *
      * @ORM\Column(name="title", type="string", length=255)
+     * @Serializer\Expose()
+     * @Serializer\Groups({"Content:list", "Content:details"})
      */
     private $title;
 
@@ -40,6 +46,8 @@ class Content implements RouteReferrersInterface
      * @var string
      *
      * @ORM\Column(name="intro", type="string", length=255)
+     * @Serializer\Expose()
+     * @Serializer\Groups({"Content:details"})
      */
     private $intro;
 
@@ -47,6 +55,8 @@ class Content implements RouteReferrersInterface
      * @var string
      *
      * @ORM\Column(name="type", type="string", length=255)
+     * @Serializer\Expose()
+     * @Serializer\Groups({"Content:list", "Content:details"})
      */
     private $type;
 
@@ -71,22 +81,30 @@ class Content implements RouteReferrersInterface
      *
      * @Gedmo\Timestampable(on="update")
      * @ORM\Column(type="datetime", nullable = true)
+     * @Serializer\Expose()
+     * @Serializer\Groups({"Content:details"})
      */
     private $updated;
 
     /**
      * @ORM\ManyToOne(targetEntity="Section", inversedBy="contents")
      * @ORM\JoinColumn(name="section_id", referencedColumnName="id", nullable=true, onDelete="SET NULL")
+     * @Serializer\Expose()
+     * @Serializer\Groups({"Content:details"})
     */
     private $section;
 
     /**
      * @ORM\ManyToOne(targetEntity="Media", cascade={"persist", "remove"})
+     * @Serializer\Expose()
+     * @Serializer\Groups({"Content:details"})
      */
     private $background;
 
     /**
      * @ORM\ManyToOne(targetEntity="Media", cascade={"persist", "remove"})
+     * @Serializer\Expose()
+     * @Serializer\Groups({"Content:list", "Content:details"})
      */
     private $logo;
 
@@ -100,6 +118,8 @@ class Content implements RouteReferrersInterface
     
     /**
      * @ORM\OneToMany(targetEntity="ContentBlock", mappedBy="content", cascade={"persist"}, orphanRemoval=true)
+     * @Serializer\Expose()
+     * @Serializer\Groups({"Content:details"})
     */
     private $contentBlocks;
 

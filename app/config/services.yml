@@ -20,7 +20,7 @@ services:
         resource: '../../src/AppBundle/*'
         # you can exclude directories or files
         # but if a service is unused, it's removed anyway
-        exclude: '../../src/AppBundle/{Entity,Repository,Tests}'
+        exclude: '../../src/AppBundle/{Entity,Tests}'
 
     # controllers are imported separately to make sure they're public
     # and have a tag that allows actions to type-hint services
@@ -103,9 +103,9 @@ services:
             - [ setTemplate, [edit, 'AppBundle/QueryFilterAdmin/edit.html.twig']]
         public: true
 
-    app.admin.News:
-        class: AppBundle\Admin\NewsAdmin
-        arguments: [~, AppBundle\Entity\News, ~]
+    app.admin.Article:
+        class: AppBundle\Admin\ArticleAdmin
+        arguments: [~, AppBundle\Entity\Article, ~]
         tags:
             - name: sonata.admin
               manager_type: orm
@@ -145,8 +145,9 @@ services:
         public: false
         label: "Media"
         public: false
+    Symfony\Cmf\Bundle\RoutingBundle\Doctrine\Orm\RouteProvider: '@cmf_routing.route_provider'
+    Symfony\Cmf\Bundle\RoutingBundle\Doctrine\Orm\ContentRepository: '@cmf_routing.orm_content_repository'
+    Symfony\Cmf\Bundle\RoutingBundle\Routing\DynamicRouter: '@cmf_routing.dynamic_router'
     AppBundle\EventListener\ContentListener:
         tags:
             - { name: doctrine.event_listener, event: onFlush }
-    AppBundle\Service\ContentService:
-        arguments: ['@cmf_routing.route_provider', '@cmf_routing.content_repository']

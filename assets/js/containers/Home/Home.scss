@@ -1,0 +1,52 @@
+@import '~include-media/dist/_include-media';
+@import '../../Settings';
+
+#home {
+    .box {
+        position: relative;
+        z-index: 0;
+        .content {
+            flex: 1;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            padding: 0 40px;
+            @include media('<medium') {
+                padding: 0 20px;
+            }
+            .search {
+                width: 100%;
+                margin-bottom: 40px;
+                text-align: center;
+                order: 2;
+                @include media('<large') {
+                    order: 1;
+                }
+                input {
+                    width: 100%;
+                    height: 40px;
+                    max-width: 500px;
+                    text-align: center;
+                    outline: none;
+                    border: none;
+                    border-radius: 20px;
+                    @include media('<large') {
+                        max-width: none;
+                    }
+                }
+            }
+            .tile:nth-child(-n+5) {
+                order: 1;
+                @include media('<large') {
+                    order: 2;
+                }
+            }
+            .tile:nth-child(n+6) {
+                order: 3;
+                @include media('<large') {
+                    order: 2;
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,93 @@
+@import '~include-media/dist/_include-media';
+@import '../../Settings';
+
+.stripe {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 40px;
+    @include media('>=large') {
+        transition: $animation-duration;
+        &:hover {
+            padding-left: 80px;
+        }
+    }
+    @include media('<medium') {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 40px 20px;
+    }
+    .icon {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        color: #ffffff;
+        @include media('<medium') {
+            flex-direction: row;
+        }
+        img {
+            width: 100px;
+            height: 100px;
+            margin-bottom: 20px;
+            @include media('<medium') {
+                width: 80px;
+                height: 80px;
+                margin: 0 20px 0 0;
+            }
+        }
+        h3 {
+            font-size: 22px;
+            @include media('<medium') {
+                font-size: 18px;
+            }
+        }
+    }
+    .menu {
+        padding: 40px;
+        margin-left: 40px;
+        &:hover {
+            li {
+                opacity: 0.5;
+            }
+        }
+        @include media('>=large') {
+            flex: 1;
+        }
+        @include media('>=medium') {
+            border-left: 1px rgba(0, 0, 0, 0.1) solid;
+        }
+        @include media('<medium') {
+            padding: 40px 0 0;
+            margin-left: 0;
+        }
+        li {
+            transition: $animation-duration;
+            &:last-of-type {
+                margin-bottom: 0;
+            }
+            &:hover {
+                opacity: 1;
+            }
+            a {
+                display: block;
+                font-size: 18px;
+                text-decoration: none;
+                color: #ffffff;
+                margin-bottom: 20px;
+                @include media('<medium') {
+                    font-size: 14px;
+                }
+            }
+        }
+    }
+    .thumb {
+        width: 200px;
+        height: 200px;
+        border-radius: 100px;
+        overflow: hidden;
+        @include media('<large') {
+            display: none;
+        }
+    }
+}

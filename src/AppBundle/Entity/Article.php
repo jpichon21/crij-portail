@@ -4,15 +4,17 @@ namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
+use JMS\Serializer\Annotation as Serializer;
 
 /**
- * News
+ * Article
  *
+ * @ORM\Table(name="article")
+ * @ORM\Entity()
  *
- * @ORM\Table(name="news")
- * @ORM\Entity(repositoryClass="AppBundle\Repository\NewsRepository")
+ * @Serializer\ExclusionPolicy("all")
  */
-class News
+class Article
 {
     /**
      * @var int
@@ -20,6 +22,8 @@ class News
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
+     * @Serializer\Expose()
+     * @Serializer\Groups({"Article:list", "Article:details"})
      */
     private $id;
 
@@ -27,6 +31,8 @@ class News
      * @var string
      *
      * @ORM\Column(name="title", type="string", length=255)
+     * @Serializer\Expose()
+     * @Serializer\Groups({"Article:list", "Article:details"})
      */
     private $title;
 
@@ -34,6 +40,8 @@ class News
      * @var string
      *
      * @ORM\Column(name="introduction", type="text", length=255, nullable=true)
+     * @Serializer\Expose()
+     * @Serializer\Groups({"Article:list", "Article:details"})
      */
     private $introduction;
 
@@ -41,11 +49,15 @@ class News
      * @var string
      *
      * @ORM\Column(name="content", type="text", length=255, nullable=true)
+     * @Serializer\Expose()
+     * @Serializer\Groups({"Article:details"})
      */
     private $content;
 
     /**
      * @ORM\ManyToOne(targetEntity="Media", cascade={"persist"})
+     * @Serializer\Expose()
+     * @Serializer\Groups({"Article:details"})
      */
     private $background;
 
@@ -53,6 +65,8 @@ class News
      * @var string
      *
      * @ORM\ManyToOne(targetEntity="Section", cascade={"persist"})
+     * @Serializer\Expose()
+     * @Serializer\Groups({"Article:list", "Article:details"})
      */
     private $section;
 
@@ -62,6 +76,8 @@ class News
      * @Gedmo\Timestampable(on="create")
      *
      * @ORM\Column(name="created", type="datetime")
+     * @Serializer\Expose()
+     * @Serializer\Groups({"Article:details"})
      */
     private $created;
 
@@ -71,6 +87,8 @@ class News
      * @Gedmo\Timestampable(on="update")
      *
      * @ORM\Column(name="updated", type="datetime")
+     * @Serializer\Expose()
+     * @Serializer\Groups({"Article:list", "Article:details"})
      */
     private $updated;
 
@@ -78,6 +96,8 @@ class News
      * @var \DateTime
      *
      * @ORM\Column(name="archived", type="datetime", nullable=true)
+     * @Serializer\Expose()
+     * @Serializer\Groups({"Article:details"})
      */
     private $archived;
 
@@ -120,7 +140,7 @@ class News
      *
      * @param string $title
      *
-     * @return News
+     * @return Article
      */
     public function setTitle($title)
     {
@@ -144,7 +164,7 @@ class News
      *
      * @param string $introduction
      *
-     * @return News
+     * @return Article
      */
     public function setIntroduction($introduction)
     {
@@ -168,7 +188,7 @@ class News
      *
      * @param string $content
      *
-     * @return News
+     * @return Article
      */
     public function setContent($content)
     {
@@ -240,7 +260,7 @@ class News
      *
      * @param \DateTime $created
      *
-     * @return News
+     * @return Article
      */
     public function setCreated($created)
     {
@@ -264,7 +284,7 @@ class News
      *
      * @param \DateTime $updated
      *
-     * @return News
+     * @return Article
      */
     public function setUpdated($updated)
     {
@@ -288,7 +308,7 @@ class News
      *
      * @param \DateTime $archived
      *
-     * @return News
+     * @return Article
      */
     public function setArchived($archived)
     {
@@ -312,7 +332,7 @@ class News
      *
      * @param \DateTime $published
      *
-     * @return News
+     * @return Article
      */
     public function setPublished($published)
     {
@@ -336,7 +356,7 @@ class News
      *
      * @param \DateTime $unpublished
      *
-     * @return News
+     * @return Article
      */
     public function setUnpublished($unpublished)
     {
@@ -360,7 +380,7 @@ class News
      *
      * @param Section|null $section
      *
-     * @return News
+     * @return Article
      */
     public function setSection($section = null)
     {

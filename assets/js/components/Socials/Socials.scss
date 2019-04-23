@@ -1,0 +1,29 @@
+@import '../../Settings';
+
+.socials {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 0 40px;
+    height: $height-header;
+    background: $color-smoke;
+    span {
+        display: block;
+        margin-bottom: 10px;
+        color: $color-black;
+        text-align: center;
+    }
+    ul {
+        display: flex;
+        justify-content: center;
+        li {
+            margin-right: 10px;
+            &:last-child {
+                margin-right: 0;
+            }
+            svg {
+                font-size: 25px;
+            }
+        }
+    }
+}

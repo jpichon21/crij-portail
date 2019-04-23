@@ -1,0 +1,79 @@
+@import '~include-media/dist/_include-media';
+@import '../../Settings';
+
+#footer {
+    padding-top: 40px;
+    .logo {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        padding: 0 40px;
+        @include media('<medium') {
+            padding: 0 20px;
+        }
+        @include media('<small') {
+            flex-direction: column;
+            align-items: center;
+        }
+        a {
+            margin: 0 40px 40px 0;
+            &:last-child {
+                margin-right: 0;
+            }
+            @include media('<small') {
+                margin: 0 0 40px 0;
+            }
+            img {
+                height: 80px;
+            }
+        }
+    }
+    .menu {
+        display: flex;
+        justify-content: center;
+        padding: 0 40px;
+        margin-bottom: 40px;
+        @include media('<large') {
+            flex-direction: column;
+            align-items: center;
+        }
+        li {
+            @include media('>=large') {
+                &:after {
+                    content: '-';
+                    margin: 0 10px;
+                }
+                &:last-child:after {
+                    content: none;
+                }
+            }
+            a {
+                display: inline-block;
+                font-size: 13px;
+                color: #000000;
+                text-decoration: none;
+                @include media('<large') {
+                    margin-bottom: 10px;
+                    text-align: center;
+                }
+            }
+        }
+    }
+    .socials {
+        @include media('<xlarge') {
+            margin-right: auto;
+        }
+        @include media('>=xlarge') {
+            display: none;
+        }
+    }
+}
+#rgpd {
+    padding: 20px;
+    background-color: #333333;
+    p {
+        padding: 0 40px;
+        color: #ffffff;
+        text-align: center;
+    }
+}

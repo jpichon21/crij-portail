@@ -27,11 +27,4 @@ class DefaultController extends Controller
             'base_dir' => realpath($this->getParameter('kernel.project_dir')).DIRECTORY_SEPARATOR,
         ]);
     }
-
-    public function postAction($contentDocument)
-    {
-        return array(
-            'post'  => $contentDocument
-        );
-    }
 }

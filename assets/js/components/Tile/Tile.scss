@@ -1,0 +1,47 @@
+@import '~include-media/dist/_include-media';
+@import '../../Settings';
+
+.tile {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 150px;
+    height: 150px;
+    padding: 20px;
+    margin: 0 40px 40px 0;
+    color: #ffffff;
+    text-decoration: none;
+    text-align: center;
+    box-sizing: border-box;
+    border-radius: $border-radius;
+    transition: $animation-duration;
+    &:hover {
+        transform: scale(1.1);
+        box-shadow: 0 0 30px 0 rgba(0, 0, 0, 0.2);
+    }
+    &:last-of-type {
+        margin-right: 0;
+    }
+    @include media('>=large') {
+        &:nth-of-type(5n) {
+            margin-right: 0;
+        }
+    }
+    @include media('<large', '>=medium') {
+        @include columns(3, 40px);
+    }
+    @include media('<medium') {
+        @include columns(2, 20px);
+    }
+    img {
+        max-width: 60px;
+        max-height: 60px;
+        margin-bottom: 20px;
+        @include media('>=medium', '<large') {
+            max-width: 50px;
+            max-height: 50px;
+            margin-bottom: 10px;
+        }
+    }
+}

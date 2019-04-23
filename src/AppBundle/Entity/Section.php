@@ -8,16 +8,18 @@ namespace AppBundle\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
+use JMS\Serializer\Annotation as Serializer;
 use Symfony\Cmf\Component\Routing\RouteObjectInterface;
 use Symfony\Cmf\Component\Routing\RouteReferrersInterface;
 
 /**
  * Section
  *
- * @Gedmo\SoftDeleteable(fieldName="deletedAt")
- *
  * @ORM\Table(name="section")
- * @ORM\Entity(repositoryClass="AppBundle\Repository\SectionRepository")
+ * @ORM\Entity()
+ *
+ * @Gedmo\SoftDeleteable(fieldName="deletedAt")
+ * @Serializer\ExclusionPolicy("all")
  */
 class Section implements RouteReferrersInterface
 {
@@ -27,6 +29,8 @@ class Section implements RouteReferrersInterface
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
+     * @Serializer\Expose()
+     * @Serializer\Groups({"Section:list", "Section:details", "Article:list", "Article:details"})
      */
     private $id;
 
@@ -34,6 +38,8 @@ class Section implements RouteReferrersInterface
      * @var string
      *
      * @ORM\Column(name="title", type="string", length=255)
+     * @Serializer\Expose()
+     * @Serializer\Groups({"Section:list", "Section:details"})
      */
     private $title;
 
@@ -41,6 +47,8 @@ class Section implements RouteReferrersInterface
      * @var string
      *
      * @ORM\Column(name="intro", type="string", length=255)
+     * @Serializer\Expose()
+     * @Serializer\Groups({"Section:details"})
      */
     private $intro;
 
@@ -48,6 +56,8 @@ class Section implements RouteReferrersInterface
      * @var string
      *
      * @ORM\Column(name="link", type="string", length=255, nullable=true)
+     * @Serializer\Expose()
+     * @Serializer\Groups({"Section:list", "Section:details"})
      */
     private $link;
 
@@ -64,6 +74,8 @@ class Section implements RouteReferrersInterface
      * @var string
      *
      * @ORM\Column(name="color", type="string", length=255)
+     * @Serializer\Expose()
+     * @Serializer\Groups({"Section:list", "Section:details"})
      */
     private $color;
 
@@ -71,6 +83,8 @@ class Section implements RouteReferrersInterface
      * @var string
      *
      * @ORM\ManyToOne(targetEntity="Media", cascade={"persist"})
+     * @Serializer\Expose()
+     * @Serializer\Groups({"Section:list", "Section:details"})
      */
     private $thumb;
 
@@ -95,28 +109,38 @@ class Section implements RouteReferrersInterface
     /**
      * @ORM\ManyToOne(targetEntity="Category", inversedBy="sections")
      * @ORM\JoinColumn(name="category_id", referencedColumnName="id", nullable=true, onDelete="SET NULL")
+     * @Serializer\Expose()
+     * @Serializer\Groups({"Section:details", "Section:list"})
     */
     private $category;
 
     /**
      * @ORM\OneToMany(targetEntity="Content", mappedBy="section", cascade={"persist"}, orphanRemoval=true)
+     * @Serializer\Expose()
+     * @Serializer\Groups({"Section:details"})
     */
     private $contents;
 
     /**
      * @ORM\ManyToOne(targetEntity="Media", cascade={"persist"})
+     * @Serializer\Expose()
+     * @Serializer\Groups({"Section:details"})
      */
     private $background;
 
     /**
      * @ORM\ManyToOne(targetEntity="Media", cascade={"persist"})
+     * @Serializer\Expose()
+     * @Serializer\Groups({"Section:list", "Section:details"})
      */
     private $logo;
 
     /**
-     * @ORM\OneToMany(targetEntity="News", mappedBy="section", cascade={"persist"}, orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity="Article", mappedBy="section", cascade={"persist"})
+     * @Serializer\Expose()
+     * @Serializer\Groups({"Section:details", "Article:list"})
     */
-    private $news;
+    private $articles;
 
     /**
      * @var RouteObjectInterface[]|ArrayCollection
@@ -147,7 +171,7 @@ class Section implements RouteReferrersInterface
     public function __construct()
     {
         $this->contents = new ArrayCollection();
-        $this->news = new ArrayCollection();
+        $this->articles = new ArrayCollection();
         $this->routes = new ArrayCollection();
     }
 
@@ -532,39 +556,39 @@ class Section implements RouteReferrersInterface
     }
 
     /**
-     * Get news.
+     * Get articles.
      *
      * @return ArrayCollection
      */
-    public function getNews()
+    public function getArticles()
     {
-        return $this->news;
+        return $this->articles;
     }
 
     /**
-     * Add news.
+     * Add article.
      *
-     * @param News $news
+     * @param Article $article
      *
      * @return Section
      */
-    public function addNews($news)
+    public function addArticle($article)
     {
-        $this->news[] = $news;
+        $this->articles[] = $article;
 
         return $this;
     }
 
     /**
-     * Remove news.
+     * Remove article.
      *
-     * @param News $news
+     * @param Article $article
      *
      * @return boolean TRUE if this collection contained the specified element, FALSE otherwise.
      */
-    public function removeNews($news)
+    public function removeArticle($article)
     {
-        return $this->news->removeElement($news);
+        return $this->articles->removeElement($article);
     }
 
     /**

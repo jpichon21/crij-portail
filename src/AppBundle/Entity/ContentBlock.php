@@ -10,11 +10,10 @@ use Gedmo\Mapping\Annotation as Gedmo;
 use Doctrine\Common\Collections\ArrayCollection;
 
 /**
- * Content
- *
+ * ContentBlock
  *
  * @ORM\Table(name="content_block")
- * @ORM\Entity(repositoryClass="AppBundle\Repository\ContentBlockRepository")
+ * @ORM\Entity()
  */
 class ContentBlock
 {
