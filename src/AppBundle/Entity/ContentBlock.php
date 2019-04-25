@@ -7,6 +7,7 @@ namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
+use JMS\Serializer\Annotation as Serializer;
 use Doctrine\Common\Collections\ArrayCollection;
 
 /**
@@ -16,6 +17,7 @@ use Doctrine\Common\Collections\ArrayCollection;
  * @ORM\Entity()
  *
  * @Gedmo\SoftDeleteable(fieldName="deletedAt")
+ * @Serializer\ExclusionPolicy("all")
  */
 class ContentBlock
 {
@@ -25,6 +27,8 @@ class ContentBlock
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
+     * @Serializer\Expose()
+     * @Serializer\Groups({"Content:list", "Content:details"})
      */
     private $id;
 
@@ -39,6 +43,8 @@ class ContentBlock
      * @var string
      *
      * @ORM\Column(name="title", type="string", length=255)
+     * @Serializer\Expose()
+     * @Serializer\Groups({"Content:list", "Content:details"})
      */
     private $title;
 
@@ -46,6 +52,8 @@ class ContentBlock
      * @var string
      *
      * @ORM\Column(name="text", type="string", length=255, nullable=true)
+     * @Serializer\Expose()
+     * @Serializer\Groups({"Content:list", "Content:details"})
      */
     private $text;
 
@@ -90,6 +98,14 @@ class ContentBlock
      * @ORM\Column(type="boolean")
      */
     private $published;
+
+    /**
+     * @var string
+     *
+     * @Serializer\Expose()
+     * @Serializer\Groups({"Content:list", "Content:details"})
+     */
+    private $results;
 
     /**
      * to string method
@@ -343,5 +359,22 @@ class ContentBlock
     public function getPublished()
     {
         return $this->published;
+    }
+
+    public function setResults($results)
+    {
+        $this->results = $results;
+
+        return $this;
+    }
+
+    /**
+     * Get results.
+     *
+     * @return bool
+     */
+    public function getResults()
+    {
+        return $this->results;
     }
 }

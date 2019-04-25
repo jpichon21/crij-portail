@@ -3,12 +3,14 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use JMS\Serializer\Annotation as Serializer;
 
 /**
  * Activity
  *
  * @ORM\Table(name="activity")
- * @ORM\Entity(repositoryClass="AppBundle\Repository\ActivityRepository")
+ * @ORM\Entity()
+ * @Serializer\ExclusionPolicy("all")
  */
 class Activity
 {
@@ -18,6 +20,8 @@ class Activity
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
+     * @Serializer\Expose()
+     * @Serializer\Groups({"Content:list", "Content:details"})
      */
     private $id;
 
@@ -32,6 +36,8 @@ class Activity
      * @var string
      *
      * @ORM\Column(name="description", type="string", length=255, nullable=true)
+     * @Serializer\Expose()
+     * @Serializer\Groups({"Content:list", "Content:details"})
      */
     private $description;
 

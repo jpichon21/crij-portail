@@ -137,6 +137,14 @@ class Content implements RouteReferrersInterface
      */
     private $published;
 
+     /**
+     * @var array
+     *
+     * @Serializer\Expose()
+     * @Serializer\Groups({"Content:list", "Content:details"})
+     */
+    private $results;
+
     /**
      * Constructor
     */
@@ -285,7 +293,7 @@ class Content implements RouteReferrersInterface
      * Set deletedAt.
      *
      * @param timestamp $deletedAt
-     * @return Category
+     * @return Content
      */
     public function setDeletedAt($deletedAt)
     {
@@ -306,7 +314,7 @@ class Content implements RouteReferrersInterface
      * Set logoId.
      *
      * @param int $logoId
-     * @return Category
+     * @return Content
      */
     public function setLogoId($logoId)
     {
@@ -375,7 +383,7 @@ class Content implements RouteReferrersInterface
      * Set logo.
      *
      * @param Media $logo
-     * @return Category
+     * @return Content
      */
     public function setLogo($logo)
     {
@@ -421,7 +429,7 @@ class Content implements RouteReferrersInterface
      * Add contentBlocks
      *
      * @param ContentBlock $contentBlocks
-     * @return Category
+     * @return Content
      */
     public function addContentBlock($contentBlocks)
     {
@@ -561,5 +569,24 @@ class Content implements RouteReferrersInterface
     public function getPublished()
     {
         return $this->published;
+    }
+
+
+
+    public function setResults($results)
+    {
+        $this->results = $results;
+
+        return $this;
+    }
+
+    /**
+     * Get results.
+     *
+     * @return bool
+     */
+    public function getResults()
+    {
+        return $this->results;
     }
 }

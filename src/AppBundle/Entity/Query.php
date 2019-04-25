@@ -19,6 +19,9 @@ use Doctrine\Common\Collections\ArrayCollection;
  */
 class Query
 {
+    public const TYPE_AND = 'AND';
+    public const TYPE_OR = 'OR';
+    
     /**
      * @var int
      *

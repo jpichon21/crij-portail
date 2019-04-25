@@ -1,6 +1,9 @@
 category:
   type: rest
   resource: AppBundle\Controller\CategoryController
+content:
+  type: rest
+  resource: AppBundle\Controller\ContentController
 section:
   type: rest
   resource: AppBundle\Controller\SectionController
