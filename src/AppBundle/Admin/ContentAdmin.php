@@ -16,12 +16,20 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use AppBundle\Entity\Section;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Sonata\FormatterBundle\Form\Type\SimpleFormatterType;
+use Sonata\Form\Type\CollectionType;
 
 /**
  * Content Admin class
  */
 final class ContentAdmin extends AbstractAdmin
 {
+
+    public function preUpdate($content)
+    {
+        foreach ($content->getContentBlocks() as $contentBlock) {
+            $contentBlock->setContent($content);
+        }
+    }
     /**
      * Configure admin form.
      *
@@ -34,6 +42,7 @@ final class ContentAdmin extends AbstractAdmin
             ->tab('Configuration')
                 ->add('title', TextType::class, [
                     'label' => 'Titre',
+                    'required' => true
                 ])
                 ->add('intro', SimpleFormatterType::class, [
                     'label' => 'Introduction',
@@ -72,6 +81,20 @@ final class ContentAdmin extends AbstractAdmin
                     'class' => Section::class,
                     'label' => 'section',
                     'required' => false,
+                ])
+            ->end()
+            ->end()
+            ->tab('Contenus de la sous rubrique')
+                ->add('contentBlocks', CollectionType::class, [
+                    'label' => 'Contenus',
+                    'by_reference' => false,
+                    'type_options' => [
+                        'delete' => true,
+                    ],
+                ], [
+                    'edit' => 'inline',
+                    'inline' => 'natural',
+                    'sortable' => 'position',
                 ]);
     }
 
@@ -101,8 +124,8 @@ final class ContentAdmin extends AbstractAdmin
     protected function configureListFields(ListMapper $listMapper)
     {
         $listMapper
-            ->addIdentifier('intro', null, [
-                'label' => 'Introduction',
+            ->addIdentifier('title', null, [
+                'label' => 'Titre',
             ]);
     }
 }

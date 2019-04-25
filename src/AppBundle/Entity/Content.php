@@ -117,6 +117,7 @@ class Content implements RouteReferrersInterface
     private $routes;
     
     /**
+     * @Orm\OrderBy({"position" = "ASC"})
      * @ORM\OneToMany(targetEntity="ContentBlock", mappedBy="content", cascade={"persist"}, orphanRemoval=true)
      * @Serializer\Expose()
      * @Serializer\Groups({"Content:details"})
@@ -146,7 +147,7 @@ class Content implements RouteReferrersInterface
      */
     public function __toString()
     {
-        return $this->getIntro();
+        return $this->getTitle();
     }
 
     /**
@@ -367,55 +368,52 @@ class Content implements RouteReferrersInterface
     }
 
     /**
-     * Set contentBlocks.
+     * Set contentBlocks
      *
-     * @param string $contentBlocks
+     * @param Contentblock $contentBlocks
+     *
      * @return Content
      */
-    public function setContentBlocks($contentBlocks)
+    public function setContentblocks($contentBlocks)
     {
         $this->contentBlocks = $contentBlocks;
-
-        return $this;
     }
 
-    /**
-     * Get contentBlocks
+/**
+     * Get contentBlocks.
      *
-     * @return ContentBlock
+     * @return Collection
      */
     public function getContentBlocks()
     {
         return $this->contentBlocks;
     }
-
+    
     /**
-     * Add contentBlocks
+     * Add contentblock.
      *
-     * @param ContentBlock $contentBlock
-     * @return Category
+     * @param ContentBlock $contentblock
+     *
+     * @return Content
      */
-    public function addContentBlock($contentBlock)
+    public function addContentBlock($contentblock)
     {
-        $contentBlock->setContent($this);
-        $this->contentBlocks[] = $contentBlock;
+        $contentblock->setContent($this);
+        $this->contentBlocks[] = $contentblock;
 
         return $this;
     }
 
     /**
-     * Remove contentBlocks
+     * Remove contentblock.
      *
-     * @param ContentBlock $contentBlock
-     * @return ContentBlock
+     * @param ContentBlock $contentblock
+     *
+     * @return boolean TRUE if this collection contained the specified element, FALSE otherwise.
      */
-    public function removeContentBlock($contentBlock)
+    public function removeContentBlock($contentblock)
     {
-        if ($this->contentBlocks->contains($contentBlock)) {
-            $this->contentBlocks->removeElement($contentBlock);
-        }
-
-        return $this;
+        return $this->contentBlocks->removeElement($contentblock);
     }
 
     /**

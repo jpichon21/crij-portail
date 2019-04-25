@@ -14,6 +14,7 @@ stof_doctrine_extensions:
         default:
             uploadable: true
             timestampable: true
+            sortable: true
     uploadable:
         default_file_path:       "%kernel.root_dir%/../web/uploads"
         mime_type_guesser_class: Stof\DoctrineExtensionsBundle\Uploadable\MimeTypeGuesserAdapter

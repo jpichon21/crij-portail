@@ -69,6 +69,8 @@ services:
               manager_type: orm
               group: "Contenu"
               label: "Sous-Rubriques"
+        calls:
+            - [ setTemplate, [edit, 'AppBundle/ContentAdmin/edit.html.twig']]
         public: true
 
     app.admin.ContentBlock:

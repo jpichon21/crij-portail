@@ -13,10 +13,18 @@ use Doctrine\Common\Collections\ArrayCollection;
  * ContentBlock
  *
  * @ORM\Table(name="content_block")
- * @ORM\Entity()
+ * @ORM\Entity(repositoryClass="Gedmo\Sortable\Entity\Repository\SortableRepository")
  */
 class ContentBlock
 {
+    const TYPE = [
+        'Texte' => 'text',
+        'Job - cartes' => 'job_maps',
+        'Job - offres' => 'job_offers',
+        'Job - demandes' => 'job_requests',
+        'Contenu flora' => 'flora'
+    ];
+
     /**
      * @var int
      *
@@ -79,10 +87,10 @@ class ContentBlock
     private $content;
 
     /**
-     * @var bool
-     * @ORM\Column(type="boolean")
+     * @Gedmo\SortablePosition
+     * @ORM\Column(name="position", type="integer")
      */
-    private $published;
+    private $position;
 
     /**
      * to string method
@@ -191,7 +199,7 @@ class ContentBlock
      *
      * @return Content
      */
-    public function setContent($content = null)
+    public function setContent($content)
     {
         $this->content = $content;
 
@@ -293,26 +301,25 @@ class ContentBlock
     }
 
     /**
-     * Set published.
+     * Set position.
      *
-     * @param bool $published
-     *
+     * @param bool $position
      * @return ContentBlock
      */
-    public function setPublished($published)
+    public function setPosition($position)
     {
-        $this->published = $published;
+        $this->position = $position;
 
         return $this;
     }
 
     /**
-     * Get published.
+     * Get Position.
      *
-     * @return bool
+     * @return int
      */
-    public function getPublished()
+    public function getPosition()
     {
-        return $this->published;
+        return $this->position;
     }
 }
