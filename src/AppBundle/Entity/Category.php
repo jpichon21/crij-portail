@@ -87,6 +87,13 @@ class Category implements RouteReferrersInterface
     private $sections;
 
     /**
+     * @ORM\OneToMany(targetEntity="Article", mappedBy="category", cascade={"persist"})
+     * @Serializer\Expose()
+     * @Serializer\Groups({"Category:details", "Article:list"})
+    */
+    private $articles;
+
+    /**
      * @ORM\Column(name="deletedAt", type="datetime", nullable=true)
     */
     private $deletedAt;
@@ -127,6 +134,7 @@ class Category implements RouteReferrersInterface
     public function __construct()
     {
         $this->sections = new ArrayCollection();
+        $this->articles = new ArrayCollection();
         $this->routes = new ArrayCollection();
     }
 
@@ -301,6 +309,42 @@ class Category implements RouteReferrersInterface
     public function removeSections($sections)
     {
         $this->sections->removeElement($sections);
+    }
+
+     /**
+     * Get articles.
+     *
+     * @return ArrayCollection
+     */
+    public function getArticles()
+    {
+        return $this->articles;
+    }
+
+    /**
+     * Add article.
+     *
+     * @param Article $article
+     *
+     * @return Category
+     */
+    public function addArticle($article)
+    {
+        $this->articles[] = $article;
+
+        return $this;
+    }
+
+    /**
+     * Remove article.
+     *
+     * @param Article $article
+     *
+     * @return boolean TRUE if this collection contained the specified element, FALSE otherwise.
+     */
+    public function removeArticle($article)
+    {
+        return $this->articles->removeElement($article);
     }
 
     /**

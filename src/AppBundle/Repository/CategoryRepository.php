@@ -54,4 +54,22 @@ class CategoryRepository extends AbstractRepository
 
         return $qb->getQuery()->getOneOrNullResult();
     }
+
+    /**
+     * Find category's articles
+     *
+     * @param integer $id
+     * @param integer $limit
+     * @param integer $page
+     * @return Pagerfanta
+     */
+    public function findArticles($id, $limit = 50, $page = 1)
+    {
+        $qb = $this->repository->createQueryBuilder('c')
+        ->select('c')
+        ->where('c.published = 1')
+        ->andWhere('c.id = :id')
+        ->setParameter('id', $id);
+        return $this->paginate($qb, $limit, $page);
+    }
 }

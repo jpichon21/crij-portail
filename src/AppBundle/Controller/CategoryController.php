@@ -79,4 +79,33 @@ class CategoryController extends Controller
         }
         return ['data' => $data];
     }
+
+    /**
+     * @Rest\View(serializerGroups={"Article:list"})
+     *
+     * @Rest\QueryParam(
+     *     name="limit",
+     *     requirements="\d+",
+     *     default="50",
+     *     description="Max number of items per page."
+     * )
+     * @Rest\QueryParam(
+     *     name="page",
+     *     requirements="\d+",
+     *     default="1",
+     *     description="The pagination page"
+     * )
+     *
+     * @param int $id
+     * @return \FOS\RestBundle\View\View
+     */
+    public function getArticlesAction($id)
+    {
+        $pager = $this->repository->findArticles(
+            $id,
+            $this->paramFetcher->get('limit'),
+            $this->paramFetcher->get('page')
+        );
+        return new Categories($pager);
+    }
 }

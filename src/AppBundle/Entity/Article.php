@@ -72,6 +72,15 @@ class Article
     private $section;
 
     /**
+     * @var string
+     *
+     * @ORM\ManyToOne(targetEntity="Category", cascade={"persist"})
+     * @Serializer\Expose()
+     * @Serializer\Groups({"Article:list", "Article:details"})
+     */
+    private $category;
+
+    /**
      * @var \DateTime
      *
      * @Gedmo\Timestampable(on="create")
@@ -429,5 +438,29 @@ class Article
     public function getSection()
     {
         return $this->section;
+    }
+    
+    /**
+     * Set category.
+     *
+     * @param Category|null $category
+     *
+     * @return Article
+     */
+    public function setCategory($category = null)
+    {
+        $this->category = $category;
+
+        return $this;
+    }
+
+    /**
+     * Get category.
+     *
+     * @return Category|null
+     */
+    public function getCategory()
+    {
+        return $this->category;
     }
 }

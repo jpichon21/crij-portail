@@ -15,6 +15,7 @@ use AppBundle\Entity\Section;
 use Sonata\Form\Type\DateTimePickerType;
 use Sonata\AdminBundle\Form\Type\ModelType;
 use Sonata\FormatterBundle\Form\Type\SimpleFormatterType;
+use AppBundle\Entity\Category;
 
 /**
  * Article Admin class
@@ -93,10 +94,15 @@ final class ArticleAdmin extends AbstractAdmin
                 ])
             ->end()
             ->end()
-            ->tab('Sous-Rubrique')
+            ->tab('Publier dans')
                 ->add('section', EntityType::class, [
                     'class' => Section::class,
                     'label' => 'Sous-Rubrique',
+                    'required' => false,
+                ])
+                ->add('category', EntityType::class, [
+                    'class' => Category::class,
+                    'label' => 'Catégorie',
                     'required' => false,
                 ]);
     }
