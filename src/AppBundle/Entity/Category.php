@@ -18,7 +18,6 @@ use Symfony\Cmf\Component\Routing\RouteReferrersInterface;
  * @ORM\Table(name="category")
  * @ORM\Entity()
  *
- * @Gedmo\SoftDeleteable(fieldName="deletedAt")
  * @Serializer\ExclusionPolicy("all")
  */
 class Category implements RouteReferrersInterface
@@ -80,7 +79,7 @@ class Category implements RouteReferrersInterface
     private $footer;
 
     /**
-    * @ORM\OneToMany(targetEntity="Section", mappedBy="category")
+    * @ORM\OneToMany(targetEntity="Section", mappedBy="category", orphanRemoval=true)
     * @Serializer\Expose()
     * @Serializer\Groups({"Category:list", "Category:details"})
     */
@@ -92,11 +91,6 @@ class Category implements RouteReferrersInterface
      * @Serializer\Groups({"Category:details", "Article:list"})
     */
     private $articles;
-
-    /**
-     * @ORM\Column(name="deletedAt", type="datetime", nullable=true)
-    */
-    private $deletedAt;
 
     /**
      * @ORM\ManyToOne(targetEntity="Media", cascade={"persist", "remove"})
@@ -345,28 +339,6 @@ class Category implements RouteReferrersInterface
     public function removeArticle($article)
     {
         return $this->articles->removeElement($article);
-    }
-
-    /**
-     * Set deletedAt.
-     *
-     * @param timestamp $deletedAt
-     *
-     * @return Category
-     */
-    public function setDeletedAt($deletedAt)
-    {
-        $this->deletedAt = $deletedAt;
-    }
-
-    /**
-     * Get deletedAt.
-     *
-     * @return timestamp
-     */
-    public function getDeletedAt()
-    {
-        return $this->deletedAt;
     }
 
     /**

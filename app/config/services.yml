@@ -33,11 +33,6 @@ services:
     # AppBundle\Service\ExampleService:
     #     arguments:
     #         $someArgument: 'some_value'
-    
-    gedmo.listener.softdeleteable:
-        class: Gedmo\SoftDeleteable\SoftDeleteableListener
-        tags:
-            - { name: doctrine.event_subscriber, connection: default }
 
     gedmo.listener.sluggable:
         class: Gedmo\Sluggable\SluggableListener

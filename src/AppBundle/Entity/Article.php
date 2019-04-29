@@ -12,7 +12,6 @@ use JMS\Serializer\Annotation as Serializer;
  * @ORM\Table(name="article")
  * @ORM\Entity()
  *
- * @Gedmo\SoftDeleteable(fieldName="deletedAt")
  * @Serializer\ExclusionPolicy("all")
  */
 class Article
@@ -124,13 +123,6 @@ class Article
      * @ORM\Column(name="unpublished", type="datetime", nullable=true)
      */
     private $unpublished;
-
-    /**
-     * @var \DateTime
-     *
-     * @ORM\Column(name="deletedAt", type="datetime", nullable=true)
-     */
-    private $deletedAt;
 
     /**
      * to string method
@@ -390,30 +382,6 @@ class Article
     public function getUnpublished()
     {
         return $this->unpublished;
-    }
-
-    /**
-     * Set deletedAt.
-     *
-     * @param \DateTime $deletedAt
-     *
-     * @return Article
-     */
-    public function setDeletedAt($deletedAt)
-    {
-        $this->deletedAt = $deletedAt;
-
-        return $this;
-    }
-
-    /**
-     * Get deletedAt.
-     *
-     * @return \DateTime
-     */
-    public function getDeletedAt()
-    {
-        return $this->deletedAt;
     }
 
     /**

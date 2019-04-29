@@ -11,7 +11,6 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * QueryFilter
  *
- * @Gedmo\SoftDeleteable(fieldName="deletedAt")
  *
  * @ORM\Table(name="query_filter")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\QueryFilterRepository")
@@ -79,11 +78,6 @@ class QueryFilter
      * @ORM\Column(type="datetime", nullable = true)
      */
     protected $updated;
-
-    /**
-     * @ORM\Column(name="deletedAt", type="datetime", nullable=true)
-     */
-    private $deletedAt;
 
     /**
      * to string method
@@ -273,29 +267,5 @@ class QueryFilter
     public function getUpdated()
     {
         return $this->updated;
-    }
-
-    /**
-     * Set deletedAt.
-     *
-     * @param \DateTime|null $deletedAt
-     *
-     * @return QueryFilter
-     */
-    public function setDeletedAt($deletedAt = null)
-    {
-        $this->deletedAt = $deletedAt;
-
-        return $this;
-    }
-
-    /**
-     * Get deletedAt.
-     *
-     * @return \DateTime|null
-     */
-    public function getDeletedAt()
-    {
-        return $this->deletedAt;
     }
 }
