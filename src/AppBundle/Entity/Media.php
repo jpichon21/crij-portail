@@ -6,6 +6,7 @@
 namespace AppBundle\Entity;
 
 use Gedmo\Mapping\Annotation as Gedmo;
+use JMS\Serializer\Annotation as Serializer;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -18,6 +19,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  *  appendNumber=true,
  *  allowedTypes="image/jpeg,image/jpg,image/pjpeg,image/png,image/x-png"
  * )
+ * @Serializer\ExclusionPolicy("NONE")
  */
 class Media
 {
@@ -32,6 +34,15 @@ class Media
      * @ORM\Column
      *
      * @Gedmo\UploadableFilePath
+     * @Serializer\Expose()
+     * @Serializer\Groups({
+     * "Category:list",
+     * "Category:details",
+     * "Section:list",
+     * "Section:details",
+     * "Content:list",
+     * "Content:details"
+     * })
      */
     private $path;
 
