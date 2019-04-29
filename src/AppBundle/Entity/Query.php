@@ -14,7 +14,7 @@ use Doctrine\Common\Collections\ArrayCollection;
  *
  *
  * @ORM\Table(name="query")
- * @ORM\Entity(repositoryClass="AppBundle\Repository\QueryRepository")
+ * @ORM\Entity()
  */
 class Query
 {
@@ -53,8 +53,7 @@ class Query
 
     /**
      * @var string
-     *
-     * @ORM\ManyToMany(targetEntity="QueryFilter", cascade={"persist", "remove"})
+     * @ORM\Column(name="filters", type="json")
      */
     private $filters;
 
@@ -77,11 +76,23 @@ class Query
     protected $updated;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="entity", type="string", length=255)
+     */
+    private $entity;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="ContentBlock", inversedBy="queries")
+     * @ORM\JoinColumn(name="contentBlock_id", referencedColumnName="id", nullable=true, onDelete="SET NULL")
+    */
+    private $contentBlock;
+
+    /**
      * construtor
      */
     public function __construct()
     {
-        $this->contentBlocks = new ArrayCollection();
         $this->filters = new ArrayCollection();
     }
 
@@ -178,42 +189,6 @@ class Query
     }
 
     /**
-     * Get filters.
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getFilters()
-    {
-        return $this->filters;
-    }
-    
-    /**
-     * Add filter.
-     *
-     * @param QueryFilter $filter
-     *
-     * @return Query
-     */
-    public function addFilter($filter)
-    {
-        $this->filters[] = $filter;
-
-        return $this;
-    }
-
-    /**
-     * Remove filter.
-     *
-     * @param QueryFilter $filter
-     *
-     * @return boolean TRUE if this collection contained the specified element, FALSE otherwise.
-     */
-    public function removeFilter($filter)
-    {
-        return $this->filters->removeElement($filter);
-    }
-
-    /**
      * Set name.
      *
      * @param string $name
@@ -259,5 +234,77 @@ class Query
     public function getDescription()
     {
         return $this->description;
+    }
+
+    /**
+     * Set entity.
+     *
+     * @param string $entity
+     *
+     * @return Query
+     */
+    public function setEntity($entity)
+    {
+        $this->entity = $entity;
+
+        return $this;
+    }
+
+    /**
+     * Get entity.
+     *
+     * @return string
+     */
+    public function getEntity()
+    {
+        return $this->entity;
+    }
+
+    /**
+     * Set contentBlock.
+     *
+     * @param ContentBlock|null $contentBlock
+     *
+     * @return Query
+     */
+    public function setContentBlock($contentBlock)
+    {
+        $this->contentBlock = $contentBlock;
+
+        return $this;
+    }
+
+    /**
+     * Get contentBlock.
+     *
+     * @return ContentBlock|null
+     */
+    public function getContentBlock()
+    {
+        return $this->contentBlock;
+    }
+
+    /**
+     * Set filters.
+     *
+     * @param json $filters
+     *
+     * @return Query
+     */
+    public function setFilters($filters)
+    {
+        $this->filters = $filters;
+
+        return $this;
+    }
+
+    /**
+     * Get filters.
+     *
+     * @return json
+     */
+    public function getFilters()
+    {
+        return $this->filters;
     }
 }

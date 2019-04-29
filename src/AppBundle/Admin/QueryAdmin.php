@@ -10,15 +10,33 @@ use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Sonata\Form\Type\CollectionType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use AppBundle\Form\FilterType;
 
 /**
  * Query Admin class
  */
 final class QueryAdmin extends AbstractAdmin
 {
+    public function prePersist($query)
+    {
+        $this->preUpdate($query);
+    }
+    public function preUpdate($query)
+    {
+        $entity = $this->getSubject()->getEntity();
+        foreach ($query->getFilters() as $filter) {
+            if (!in_array(
+                $filter['choiceField'],
+                $this->getConfigurationPool()->getContainer()->getParameter('entityField')[$entity]
+            )
+            ) {
+                $query->setFilters(null);
+            }
+        }
+    }
 
     /**
      * Configure admin form.
@@ -28,34 +46,67 @@ final class QueryAdmin extends AbstractAdmin
      */
     protected function configureFormFields(FormMapper $formMapper)
     {
+        if ($this->getSubject() !== null) {
+            if ($this->getSubject()->getEntity() !== null) {
+                $entity = $this->getSubject()->getEntity();
+                $display = true;
+            } else {
+                $entity ='organism';
+                $display = false;
+            }
+        } else {
+            $entity ='organism';
+            $display = false;
+        }
+        $keys = $this->keyImplode(
+            ',',
+            $this->getConfigurationPool()
+            ->getContainer()
+            ->getParameter('entityField')[$entity]
+        );
+        $fields = implode(
+            ',',
+            $this->getConfigurationPool()
+            ->getContainer()
+            ->getParameter('entityField')[$entity]
+        );
         $formMapper
-            ->tab('Identification')
-                ->add('name', TextType::class, [
-                    'label' => 'Nom',
-                ])
-                ->add('description', TextareaType::class, [
-                    'label' => 'Description',
-                ])
-            ->end()
-            ->end()
-            ->tab('Configuration')
-                ->add('type', ChoiceType::class, [
-                    'label' => 'Type',
-                    'choices' => [
-                        'AND' => 'AND',
-                        'OR' => 'OR',
-                    ],
-                ])
+            ->add('name', TextType::class, [
+                'label' => 'Titre',
+            ])
+            ->add('description', TextareaType::class, [
+                'label' => 'Description',
+            ])
+            ->add('type', ChoiceType::class, [
+                'label' => 'Type de requête',
+                'choices' => [
+                    'AND' => 'AND',
+                    'OR' => 'OR',
+                ],
+            ])
+            ->add('entity', ChoiceType::class, [
+                'label' => 'Table à interroger',
+                'choices' => $this->getConfigurationPool()->getContainer()->getParameter('entity'),
+            ]);
+        if ($display) {
+            $formMapper
                 ->add('filters', CollectionType::class, [
                     'label' => 'Filtre',
-                    'required' => false,
-                    'type_options' => [
-                        'delete' => true,
+                    'entry_type'   => FilterType::class,
+                    'allow_add' => true,
+                    'allow_delete' => true,
+                    'entry_options' => [
+                        'attr' => [
+                            'keys' => $keys,
+                            'fields' => $fields,
+                        ],
                     ],
-                ], [
+                    ], [
                     'edit' => 'inline',
                     'inline' => 'table',
-                ]);
+                    'sortable' => 'position',
+                    ]);
+        }
     }
 
     /**
@@ -90,5 +141,14 @@ final class QueryAdmin extends AbstractAdmin
             ->add('description', null, [
                 'label' => 'Description',
             ]);
+    }
+
+    private function keyImplode($glue, $array)
+    {
+        $result = "";
+        foreach ($array as $key => $value) {
+            $result .= $key . $glue;
+        }
+        return substr($result, 0, -1);
     }
 }
