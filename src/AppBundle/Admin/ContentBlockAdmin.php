@@ -10,17 +10,16 @@ use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Form\Type\ChoiceFieldMaskType;
-use Sonata\AdminBundle\Form\Type\ModelType;
 use Sonata\FormatterBundle\Form\Type\SimpleFormatterType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use AppBundle\Entity\ContentBlock;
+use Sonata\AdminBundle\Form\Type\ModelListType;
 
 /**
  * ContentBlock Admin class
  */
 final class ContentBlockAdmin extends AbstractAdmin
 {
-
     /**
      * Configure admin form.
      *
@@ -30,39 +29,37 @@ final class ContentBlockAdmin extends AbstractAdmin
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
-            ->add('type', ChoiceFieldMaskType::class, [
-                'label' => 'Type de contenus',
-                'choices' => ContentBlock::TYPE,
-                'map' => [
-                    'text' => ['text'],
-                    'job_maps' => ['queries'],
-                    'job_offers' => ['queries'],
-                    'job_requests' => ['queries'],
-                    'flora' => ['queries'],
-                ],
-            ])
-            ->add('title', TextType::class, [
-                'label' => 'Titre',
-                'required' => true,
-            ])
-            ->add('text', SimpleFormatterType::class, [
-                'label' => 'Texte du contenu',
-                'required' => false,
-                'format' => 'richtml',
-                'attr' => [
-                    'class' => 'ckeditor'
-                ],
-            ])
-            ->add('queries', ModelType::class, [
-                'multiple' => true,
-                'label' => 'Requète',
-                'required' => false,
-            ])
-            ->add('position', 'hidden', [
-                'attr' => [
-                    "hidden" => true,
-                ]
-            ]);
+            ->with('configuration')
+                ->add('type', ChoiceFieldMaskType::class, [
+                    'label' => 'Type de contenus',
+                    'choices' => ContentBlock::TYPE,
+                    'map' => [
+                        'text' => ['text'],
+                        'job_maps' => ['queries'],
+                        'job_offers' => ['queries'],
+                        'job_requests' => ['queries'],
+                        'flora' => ['queries'],
+                    ],
+                ])
+                ->add('title', TextType::class, [
+                    'label' => 'Titre',
+                    'required' => true,
+                ])
+            ->end()
+            ->with('contenus')
+                ->add('text', SimpleFormatterType::class, [
+                    'label' => false,
+                    'required' => false,
+                    'format' => 'richtml',
+                    'attr' => [
+                        'class' => 'ckeditor'
+                    ],
+                ])
+                ->add('query', ModelListType::class, [
+                    'label' => 'Requêtes',
+                    'by_reference' => false,
+                    'btn_list' => true,
+                ]);
     }
 
     /**

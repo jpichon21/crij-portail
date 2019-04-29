@@ -57,10 +57,9 @@ class ContentBlock
 
     /**
      * @var string
-     *
-     * @ORM\ManyToMany(targetEntity="Query")
+     * @ORM\ManyToOne(targetEntity="Query", cascade={"persist", "remove"})
      */
-    private $queries;
+    private $query;
 
     /**
      * @var datetime $created
@@ -265,42 +264,6 @@ class ContentBlock
     }
 
     /**
-     * Get queries.
-     *
-     * @return Collection
-     */
-    public function getQueries()
-    {
-        return $this->queries;
-    }
-
-    /**
-     * Add query.
-     *
-     * @param Query $query
-     *
-     * @return ContentBlock
-     */
-    public function addQuery($query)
-    {
-        $this->queries[] = $query;
-
-        return $this;
-    }
-
-    /**
-     * Remove query.
-     *
-     * @param Query $query
-     *
-     * @return boolean TRUE if this collection contained the specified element, FALSE otherwise.
-     */
-    public function removeQuery($query)
-    {
-        return $this->queries->removeElement($query);
-    }
-
-    /**
      * Set position.
      *
      * @param bool $position
@@ -321,5 +284,29 @@ class ContentBlock
     public function getPosition()
     {
         return $this->position;
+    }
+
+    /**
+     * Set query.
+     *
+     * @param Query|null $query
+     *
+     * @return ContentBlock
+     */
+    public function setQuery($query)
+    {
+        $this->query = $query;
+
+        return $this;
+    }
+
+    /**
+     * Get query.
+     *
+     * @return Query|null
+     */
+    public function getQuery()
+    {
+        return $this->query;
     }
 }

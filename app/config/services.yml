@@ -93,18 +93,6 @@ services:
               label: "Requêtes"
         public: true
 
-    app.admin.QueryFilter:
-        class: AppBundle\Admin\QueryFilterAdmin
-        arguments: [~, AppBundle\Entity\QueryFilter, ~]
-        tags:
-            - name: sonata.admin
-              manager_type: orm
-              group: "Données Flora"
-              label: "Filtres"
-        calls:
-            - [ setTemplate, [edit, 'AppBundle/QueryFilterAdmin/edit.html.twig']]
-        public: true
-
     app.admin.Article:
         class: AppBundle\Admin\ArticleAdmin
         arguments: [~, AppBundle\Entity\Article, ~]

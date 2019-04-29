@@ -24,6 +24,10 @@ use Sonata\Form\Type\CollectionType;
 final class ContentAdmin extends AbstractAdmin
 {
 
+    public function prePersist($content)
+    {
+        $this->preUpdate($content);
+    }
     public function preUpdate($content)
     {
         foreach ($content->getContentBlocks() as $contentBlock) {
@@ -86,7 +90,7 @@ final class ContentAdmin extends AbstractAdmin
             ->end()
             ->tab('Contenus de la sous rubrique')
                 ->add('contentBlocks', CollectionType::class, [
-                    'label' => 'Contenus',
+                    'label' => false,
                     'by_reference' => false,
                     'type_options' => [
                         'delete' => true,
