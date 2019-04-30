@@ -1,7 +1,14 @@
 {% extends 'base.html.twig' %}
 {% block body %}
-    {% if jsonContent is defined %}
-        <script>window.initialStateContent = {{ jsonContent|raw }}</script>
-    {% endif %}
+        <script>
+            window.initialState = {
+                {% if jsonContent is defined %}
+                {{ contentClassName }}: {{ jsonContent|raw }},
+                {% endif %}
+                {% if jsonCategories is defined %}
+                'categories': {{ jsonCategories|raw }}
+                {% endif %}
+            }
+        </script>
     <div id="app"></div>
 {% endblock %}

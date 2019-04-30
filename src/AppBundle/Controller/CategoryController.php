@@ -58,6 +58,7 @@ class CategoryController extends Controller
     public function cgetAction()
     {
         $pager = $this->repository->findPublished(
+            true,
             $this->paramFetcher->get('limit'),
             $this->paramFetcher->get('page')
         );

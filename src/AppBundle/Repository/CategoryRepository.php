@@ -30,12 +30,15 @@ class CategoryRepository extends AbstractRepository
      * @param integer $page
      * @return Pagerfanta
      */
-    public function findPublished($limit = 50, $page = 1)
+    public function findPublished($paginated = false, $limit = 50, $page = 1)
     {
         $qb = $this->repository->createQueryBuilder('c')
         ->select('c')
         ->where('c.published = 1');
-        return $this->paginate($qb, $limit, $page);
+        if ($paginated) {
+            return $this->paginate($qb, $limit, $page);
+        }
+        return $qb->getQuery()->getResult();
     }
 
     /**
