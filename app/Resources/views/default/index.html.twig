@@ -4,7 +4,7 @@
             window.initialState = {
                 {% if jsonContent is defined %}
                 {{ contentClassName }}: {{ jsonContent|raw }},
-                className: {{ contentClassName}}
+                className: '{{ contentClassName}}'
                 {% endif %}
                 {% if jsonCategories is defined %}
                 'categories': {{ jsonCategories|raw }}
