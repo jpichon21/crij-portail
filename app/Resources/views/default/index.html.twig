@@ -2,6 +2,7 @@
 {% block body %}
         <script>
             window.initialState = {
+                config: {{ jsonConfig| raw}},
                 {% if jsonContent is defined %}
                 {{ contentClassName }}: {{ jsonContent|raw }},
                 className: '{{ contentClassName}}'

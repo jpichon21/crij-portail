@@ -29,8 +29,19 @@ class DefaultController extends Controller
         $categories = $categoryRepository->findPublished();
         $jsonCategories = $serializer->serialize($categories, 'json', SerializationContext::create()->setGroups(['Category:details']));
         
+        $jsonConfig = $serializer->serialize($this->getParameter('site_config'), 'json');
+
         return $this->render('default/index.html.twig', [
-            'jsonCategories' => $jsonCategories
+            'jsonCategories' => $jsonCategories,
+            'jsonConfig' => $jsonConfig
         ]);
+    }
+
+    /**
+     * @Route("/api/config")
+     */
+    public function getConfigAction()
+    {
+        return $this->json(['data' => $this->getParameter('site_config')]);
     }
 }

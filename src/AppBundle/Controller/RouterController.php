@@ -29,9 +29,12 @@ class RouterController extends Controller
 
         $jsonContent = $serializer->serialize($contentDocument, 'json', SerializationContext::create()->setGroups($serializerGroups));
 
+        $jsonConfig = $serializer->serialize($this->getParameter('site_config'), 'json');
+        
         return $this->render('default/index.html.twig', [
             'content' => $contentDocument,
             'jsonContent' => $jsonContent,
+            'jsonConfig' => $jsonConfig,
             'contentClassName' => $contentDocument->getClassName()
         ]);
     }
