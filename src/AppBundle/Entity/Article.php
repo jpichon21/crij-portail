@@ -64,7 +64,7 @@ class Article
     /**
      * @var string
      *
-     * @ORM\ManyToOne(targetEntity="Section", cascade={"persist"})
+     * @ORM\ManyToOne(targetEntity="Section", inversedBy="articles", cascade={"persist"})
      * @Serializer\Expose()
      * @Serializer\Groups({"Article:list", "Article:details"})
      */
@@ -73,7 +73,7 @@ class Article
     /**
      * @var string
      *
-     * @ORM\ManyToOne(targetEntity="Category", cascade={"persist"})
+     * @ORM\ManyToOne(targetEntity="Category", inversedBy="articles", cascade={"persist"})
      * @Serializer\Expose()
      * @Serializer\Groups({"Article:list", "Article:details"})
      */
