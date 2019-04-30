@@ -1,4 +1,7 @@
 {% extends 'base.html.twig' %}
 {% block body %}
+    {% if jsonContent is defined %}
+        <script>window.initialStateContent = {{ jsonContent|raw }}</script>
+    {% endif %}
     <div id="app"></div>
 {% endblock %}

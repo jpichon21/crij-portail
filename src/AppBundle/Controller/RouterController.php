@@ -7,6 +7,8 @@
 namespace AppBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use JMS\Serializer\SerializerBuilder;
+use JMS\Serializer\SerializationContext;
 
 /**
  * Router Controller
@@ -21,9 +23,13 @@ class RouterController extends Controller
      */
     public function defaultAction($contentDocument)
     {
+        $serializer = SerializerBuilder::create()->build();
+        $serializerContext = SerializationContext::create()->setGroups([$contentDocument->getClassName().':details']);
+        $jsonContent = $serializer->serialize($contentDocument, 'json', $serializerContext);
         return $this->render('default/index.html.twig', [
             'base_dir' => realpath($this->getParameter('kernel.project_dir')).DIRECTORY_SEPARATOR,
-            'content' => $contentDocument
+            'content' => $contentDocument,
+            'jsonContent' => $jsonContent
         ]);
     }
 }

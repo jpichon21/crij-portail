@@ -159,6 +159,16 @@ class Content implements RouteReferrersInterface
     }
 
     /**
+     * get class Name
+     * @return string
+     */
+    public function getClassName()
+    {
+        $path = explode('\\', __CLASS__);
+        return array_pop($path);
+    }
+
+    /**
      * Get id.
      *
      * @return int
