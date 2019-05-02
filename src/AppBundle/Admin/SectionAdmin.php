@@ -22,6 +22,29 @@ use Sonata\AdminBundle\Form\Type\ModelListType;
  */
 final class SectionAdmin extends AbstractAdmin
 {
+    /**
+     * Hook prePersist event
+     *
+     * @param Section $section
+     *
+     */
+    public function prePersist($section)
+    {
+        $this->preUpdate($section);
+    }
+
+    /**
+     *  Hook prePersist event
+     *
+     * @param Section $section
+     *
+     */
+    public function preUpdate($section)
+    {
+        if (!$this->getUser()->allowedToPublish()) {
+            $section->setPublished(false);
+        }
+    }
 
     /**
      * Configure admin form.
@@ -32,12 +55,15 @@ final class SectionAdmin extends AbstractAdmin
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
-            ->tab('Configuration')
-                ->with('Configuration')
-                    ->add('published', CheckboxType::class, [
-                        'label' => 'Publier',
-                        'required' => false,
-                    ])
+            ->tab('Configuration');
+        if ($this->getUser()->allowedToPublish()) {
+            $formMapper
+            ->add('published', CheckboxType::class, [
+                'label' => 'Publier',
+                'required' => false,
+            ]);
+        }
+                $formMapper
                     ->add('title', TextType::class, [
                         'label' => 'Titre',
                     ])
@@ -128,16 +154,30 @@ final class SectionAdmin extends AbstractAdmin
             ])
             ->add('category', null, [
                 'label' => 'Catégorie',
-            ])
+            ]);
+        if ($this->hasAccess('publish')) {
+            $listMapper
             ->add('published', null, [
                 'editable' => true,
                 'label' => 'Publiée'
-            ])
+            ]);
+        } else {
+            $listMapper
+            ->add('published', null, [
+                'label' => 'Publiée'
+            ]);
+        }
+            $listMapper
             ->add('_action', null, [
                 'actions' => [
                     'edit' => [],
                     'delete' => [],
                 ]
             ]);
+    }
+
+    private function getUser()
+    {
+        return $this->getConfigurationPool()->getContainer()->get('security.token_storage')->getToken()->getUser();
     }
 }

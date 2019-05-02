@@ -22,6 +22,30 @@ use Symfony\Component\Form\Extension\Core\Type\ColorType;
 final class CategoryAdmin extends AbstractAdmin
 {
     /**
+     * Hook prePersist event
+     *
+     * @param Category $category
+     *
+     */
+    public function prePersist($category)
+    {
+        $this->preUpdate($category);
+    }
+
+    /**
+     *  Hook prePersist event
+     *
+     * @param Category $category
+     *
+     */
+    public function preUpdate($category)
+    {
+        if (!$this->getUser()->allowedToPublish()) {
+            $category->setPublished(false);
+        }
+    }
+
+    /**
      * Configure admin form.
      *
      * @param FormMapper $formMapper
@@ -30,11 +54,15 @@ final class CategoryAdmin extends AbstractAdmin
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
-            ->tab($this->trans('Configuration'))
-                ->add('published', CheckboxType::class, [
-                    'label' => 'Publier',
-                    'required' => false,
-                ])
+            ->tab($this->trans('Configuration'));
+        if ($this->getUser()->allowedToPublish()) {
+            $formMapper
+            ->add('published', CheckboxType::class, [
+                'label' => 'Publier',
+                'required' => false,
+            ]);
+        }
+                $formMapper
                 ->add('title', TextType::class, [
                     'label' => 'Titre',
                 ])
@@ -111,11 +139,20 @@ final class CategoryAdmin extends AbstractAdmin
         $listMapper
             ->add('title', null, [
                 'label' => 'Titre',
-            ])
+            ]);
+        if ($this->getUser()->allowedToPublish()) {
+            $listMapper
             ->add('published', null, [
                 'editable' => true,
                 'label' => 'Publiée'
-            ])
+            ]);
+        } else {
+            $listMapper
+            ->add('published', null, [
+                'label' => 'Publiée'
+            ]);
+        }
+            $listMapper
             ->add('_action', null, [
                 'actions' => [
                     'edit' => [],
@@ -131,5 +168,10 @@ final class CategoryAdmin extends AbstractAdmin
                 ->add('title')
             ->end()
         ;
+    }
+
+    private function getUser()
+    {
+        return $this->getConfigurationPool()->getContainer()->get('security.token_storage')->getToken()->getUser();
     }
 }

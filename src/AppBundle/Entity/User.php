@@ -187,4 +187,18 @@ class User implements UserInterface
     {
         return in_array(strtoupper($role), $this->roles, true);
     }
+
+    /**
+     * Return if user is allowedToPublish.
+     *
+     * @param string $role
+     * @return Boolean
+     */
+    public function allowedToPublish()
+    {
+        if (in_array('ROLE_ADMIN', $this->getRoles()) || in_array('ROLE_SUPER_ADMIN', $this->getRoles())) {
+            return true;
+        }
+        return false;
+    }
 }

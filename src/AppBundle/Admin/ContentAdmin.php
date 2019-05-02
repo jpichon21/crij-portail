@@ -33,6 +33,9 @@ final class ContentAdmin extends AbstractAdmin
         foreach ($content->getContentBlocks() as $contentBlock) {
             $contentBlock->setContent($content);
         }
+        if (!$this->getUser()->allowedToPublish()) {
+            $content->setPublished(false);
+        }
     }
     /**
      * Configure admin form.
@@ -43,11 +46,15 @@ final class ContentAdmin extends AbstractAdmin
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
-            ->tab('Configuration')
-                ->add('published', CheckboxType::class, [
-                    'label' => 'Publier',
-                    'required' => false,
-                ])
+            ->tab('Configuration');
+        if ($this->getUser()->allowedToPublish()) {
+            $formMapper
+            ->add('published', CheckboxType::class, [
+                'label' => 'Publier',
+                'required' => false,
+            ]);
+        }
+                $formMapper
                 ->add('type', ChoiceType::class, [
                     'label' => 'Type de sous rubrique',
                     'choices' => [
@@ -117,7 +124,6 @@ final class ContentAdmin extends AbstractAdmin
                 'label' => 'Rubrique',
             ])
             ->add('published', null, [
-                'editable' => true,
                 'label' => 'Publiée'
             ]);
     }
@@ -136,16 +142,30 @@ final class ContentAdmin extends AbstractAdmin
             ])
             ->add('section', null, [
                 'label' => 'Rubrique',
-            ])
+            ]);
+        if ($this->getUser()->allowedToPublish()) {
+            $listMapper
             ->add('published', null, [
                 'editable' => true,
                 'label' => 'Publiée'
-            ])
+            ]);
+        } else {
+            $listMapper
+            ->add('published', null, [
+                'label' => 'Publiée'
+            ]);
+        }
+            $listMapper
             ->add('_action', null, [
                 'actions' => [
                     'edit' => [],
                     'delete' => [],
                 ]
             ]);
+    }
+
+    private function getUser()
+    {
+        return $this->getConfigurationPool()->getContainer()->get('security.token_storage')->getToken()->getUser();
     }
 }
