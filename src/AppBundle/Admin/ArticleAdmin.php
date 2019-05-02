@@ -13,15 +13,15 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use AppBundle\Entity\Section;
 use Sonata\Form\Type\DateTimePickerType;
-use Sonata\AdminBundle\Form\Type\ModelType;
+use Sonata\AdminBundle\Form\Type\ModelListType;
 use Sonata\FormatterBundle\Form\Type\SimpleFormatterType;
+use Sonata\DoctrineORMAdminBundle\Filter\DateTimeRangeFilter;
 
 /**
  * Article Admin class
  */
 final class ArticleAdmin extends AbstractAdmin
 {
-
     /**
      * Configure admin form.
      *
@@ -87,16 +87,16 @@ final class ArticleAdmin extends AbstractAdmin
             ->end()
             ->end()
             ->tab('Média')
-                ->add('background', ModelType::class, [
+                ->add('background', ModelListType::class, [
                     'label' => 'Arrière-plan',
                     'required' => false,
                 ])
             ->end()
             ->end()
-            ->tab('Sous-Rubrique')
+            ->tab('Rubrique')
                 ->add('section', EntityType::class, [
                     'class' => Section::class,
-                    'label' => 'Sous-Rubrique',
+                    'label' => 'Rubrique',
                     'required' => false,
                 ]);
     }
@@ -115,6 +115,18 @@ final class ArticleAdmin extends AbstractAdmin
             ])
             ->add('section', null, [
                 'label' => 'Sous-Rubrique',
+            ])
+            ->add('published', DateTimeRangeFilter::class, [
+                'label' => 'Date de publication',
+                'field_type' => 'sonata_type_datetime_range_picker',
+            ])
+            ->add('unpublished', DateTimeRangeFilter::class, [
+                'label' => 'Date de dépublication',
+                'field_type' => 'sonata_type_datetime_range_picker'
+            ])
+            ->add('archived', DateTimeRangeFilter::class, [
+                'label' => 'Date de d\'archivage',
+                'field_type' => 'sonata_type_datetime_range_picker'
             ]);
     }
 
@@ -127,8 +139,29 @@ final class ArticleAdmin extends AbstractAdmin
     protected function configureListFields(ListMapper $listMapper)
     {
         $listMapper
-            ->addIdentifier('title', null, [
+            ->add('title', null, [
                     'label' => 'Titre',
+            ])
+            ->add('section', null, [
+                'label' => 'Sous-Rubrique',
+            ])
+            ->add('published', 'datetime', [
+                'label' => 'Date de publication',
+                'format' => 'd/m/Y H:i',
+            ])
+            ->add('unpublished', 'datetime', [
+                'label' => 'Date de dépublication',
+                'format' => 'd/m/Y H:i',
+            ])
+            ->add('archived', 'datetime', [
+                'label' => 'Date de d\'archivage',
+                'format' => 'd/m/Y H:i',
+            ])
+            ->add('_action', null, [
+                'actions' => [
+                    'edit' => [],
+                    'delete' => [],
+                ]
             ]);
     }
 }

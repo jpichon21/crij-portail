@@ -36,7 +36,6 @@ class User implements UserInterface
      */
     private $roles;
 
-
     /**
      * Get id.
      *

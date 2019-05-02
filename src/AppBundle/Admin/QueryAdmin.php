@@ -29,7 +29,7 @@ final class QueryAdmin extends AbstractAdmin
         $entity = $this->getSubject()->getEntity();
         foreach ($query->getFilters() as $filter) {
             if (!in_array(
-                $filter['choiceField'],
+                $filter['field'],
                 $this->getConfigurationPool()->getContainer()->getParameter('entityField')[$entity]
             )
             ) {
@@ -135,11 +135,17 @@ final class QueryAdmin extends AbstractAdmin
     protected function configureListFields(ListMapper $listMapper)
     {
         $listMapper
-            ->addIdentifier('name', null, [
+            ->add('name', null, [
                 'label' => 'Nom',
             ])
             ->add('description', null, [
                 'label' => 'Description',
+            ])
+            ->add('_action', null, [
+                'actions' => [
+                    'edit' => [],
+                    'delete' => [],
+                ]
             ]);
     }
 

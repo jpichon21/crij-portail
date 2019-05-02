@@ -83,6 +83,7 @@ class Section implements RouteReferrersInterface
      * @var string
      *
      * @ORM\ManyToOne(targetEntity="Media", cascade={"persist"})
+     * @ORM\JoinColumn(name="thumb_id", referencedColumnName="id", nullable=true, onDelete="SET NULL")
      * @Serializer\Expose()
      * @Serializer\Groups({"Section:list", "Section:details"})
      */
@@ -123,17 +124,11 @@ class Section implements RouteReferrersInterface
 
     /**
      * @ORM\ManyToOne(targetEntity="Media", cascade={"persist"})
+     * @ORM\JoinColumn(name="background_id", referencedColumnName="id", nullable=true, onDelete="SET NULL")
      * @Serializer\Expose()
      * @Serializer\Groups({"Section:details"})
      */
     private $background;
-
-    /**
-     * @ORM\ManyToOne(targetEntity="Media", cascade={"persist"})
-     * @Serializer\Expose()
-     * @Serializer\Groups({"Section:list", "Section:details"})
-     */
-    private $logo;
 
     /**
      * @ORM\OneToMany(targetEntity="Article", mappedBy="section", cascade={"persist"})
@@ -457,54 +452,6 @@ class Section implements RouteReferrersInterface
     public function getBackground()
     {
         return $this->background;
-    }
-
-    /**
-     * Set logoId.
-     *
-     * @param int $logoId
-     *
-     * @return Section
-     */
-    public function setLogoId($logoId)
-    {
-        $this->logoId = $logoId;
-
-        return $this;
-    }
-
-    /**
-     * Get logoId.
-     *
-     * @return int
-     */
-    public function getLogoId()
-    {
-        return $this->logoId;
-    }
-
-    /**
-     * Set logo.
-     *
-     * @param Media $logo
-     *
-     * @return Section
-     */
-    public function setLogo($logo)
-    {
-        $this->logo = $logo;
-
-        return $this;
-    }
-
-    /**
-     * Get logo.
-     *
-     * @return Media
-     */
-    public function getLogo()
-    {
-        return $this->logo;
     }
 
     /**

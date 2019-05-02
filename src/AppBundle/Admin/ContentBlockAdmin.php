@@ -14,6 +14,7 @@ use Sonata\FormatterBundle\Form\Type\SimpleFormatterType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use AppBundle\Entity\ContentBlock;
 use Sonata\AdminBundle\Form\Type\ModelListType;
+use Sonata\DoctrineORMAdminBundle\Filter\ChoiceFilter;
 
 /**
  * ContentBlock Admin class
@@ -35,10 +36,10 @@ final class ContentBlockAdmin extends AbstractAdmin
                     'choices' => ContentBlock::TYPE,
                     'map' => [
                         'text' => ['text'],
-                        'job_maps' => ['queries'],
-                        'job_offers' => ['queries'],
-                        'job_requests' => ['queries'],
-                        'flora' => ['queries'],
+                        'job_maps' => ['query'],
+                        'job_offers' => ['query'],
+                        'job_requests' => ['query'],
+                        'flora' => ['query'],
                     ],
                 ])
                 ->add('title', TextType::class, [
@@ -73,6 +74,19 @@ final class ContentBlockAdmin extends AbstractAdmin
         $datagridMapper
             ->add('title', null, [
                 'label' => 'Titre',
+            ])
+            ->add('content', null, [
+                'label' => 'Sous-Rubrique'
+            ])
+            ->add('type', ChoiceFilter::class, [
+                'label' => 'Type de Contenu',
+                'field_options' => [
+                    'choices' => ContentBlock::TYPE,
+                    'required' => false,
+                    'multiple' => true,
+                    'expanded' => false,
+                ],
+                'field_type' => 'choice',
             ]);
     }
 
@@ -85,8 +99,24 @@ final class ContentBlockAdmin extends AbstractAdmin
     protected function configureListFields(ListMapper $listMapper)
     {
         $listMapper
-            ->addIdentifier('title', null, [
+            ->add('title', null, [
                 'label' => 'Titre',
+            ])
+            ->add('type', null, [
+                'label' => 'Type de Contenu',
+                'template' => 'AppBundle/ContentBlockAdmin/trans_type.html.twig'
+            ])
+            ->add('content', null, [
+                'label' => 'Sous-Rubrique'
+            ])
+            ->add('query', null, [
+                'label' => 'Requête'
+            ])
+            ->add('_action', null, [
+                'actions' => [
+                    'edit' => [],
+                    'delete' => [],
+                ]
             ]);
     }
 }

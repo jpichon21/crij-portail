@@ -14,7 +14,7 @@ use Doctrine\Common\Collections\ArrayCollection;
  *
  *
  * @ORM\Table(name="query")
- * @ORM\Entity()
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\QueryRepository")
  */
 class Query
 {
@@ -78,12 +78,6 @@ class Query
      * @ORM\Column(name="entity", type="string", length=255)
      */
     private $entity;
-
-    /**
-     * @ORM\ManyToOne(targetEntity="ContentBlock", inversedBy="queries")
-     * @ORM\JoinColumn(name="contentBlock_id", referencedColumnName="id", nullable=true, onDelete="SET NULL")
-    */
-    private $contentBlock;
 
     /**
      * construtor
@@ -255,30 +249,6 @@ class Query
     public function getEntity()
     {
         return $this->entity;
-    }
-
-    /**
-     * Set contentBlock.
-     *
-     * @param ContentBlock|null $contentBlock
-     *
-     * @return Query
-     */
-    public function setContentBlock($contentBlock)
-    {
-        $this->contentBlock = $contentBlock;
-
-        return $this;
-    }
-
-    /**
-     * Get contentBlock.
-     *
-     * @return ContentBlock|null
-     */
-    public function getContentBlock()
-    {
-        return $this->contentBlock;
     }
 
     /**

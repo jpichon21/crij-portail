@@ -10,9 +10,11 @@ use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Sonata\AdminBundle\Form\Type\ModelType;
+use Sonata\AdminBundle\Form\Type\ModelListType;
 use Sonata\FormatterBundle\Form\Type\SimpleFormatterType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Sonata\AdminBundle\Show\ShowMapper;
+use Symfony\Component\Form\Extension\Core\Type\ColorType;
 
 /**
  * Category Admin class
@@ -29,6 +31,10 @@ final class CategoryAdmin extends AbstractAdmin
     {
         $formMapper
             ->tab($this->trans('Configuration'))
+                ->add('published', CheckboxType::class, [
+                    'label' => 'Publier',
+                    'required' => false,
+                ])
                 ->add('title', TextType::class, [
                     'label' => 'Titre',
                 ])
@@ -45,6 +51,9 @@ final class CategoryAdmin extends AbstractAdmin
                     'attr' => [
                         'class' => 'ckeditor'
                     ]
+                ])
+                ->add('color', ColorType::class, [
+                    'label' => 'Couleur',
                 ]);
         if ($this->isCurrentRoute('edit')) {
             $formMapper
@@ -53,10 +62,6 @@ final class CategoryAdmin extends AbstractAdmin
             ]);
         }
                 $formMapper
-                ->add('published', CheckboxType::class, [
-                    'label' => 'Publier',
-                    'required' => false,
-                ])
             ->end()
             ->end()
             ->tab('Métadonnées')
@@ -71,9 +76,10 @@ final class CategoryAdmin extends AbstractAdmin
             ->end()
             ->end()
             ->tab('Média')
-                ->add('logo', ModelType::class, [
+                ->add('logo', ModelListType::class, [
                     'label' => 'Logo',
                     'required' => false,
+                    'btn_list' => true,
                 ]);
     }
 
@@ -87,7 +93,10 @@ final class CategoryAdmin extends AbstractAdmin
     {
         $datagridMapper
             ->add('title', null, [
-                'label' => 'Titre',
+                'label' => 'Titre des catégories',
+            ])
+            ->add('published', null, [
+                'label' => 'Publiée'
             ]);
     }
 
@@ -100,8 +109,27 @@ final class CategoryAdmin extends AbstractAdmin
     protected function configureListFields(ListMapper $listMapper)
     {
         $listMapper
-            ->addIdentifier('title', null, [
+            ->add('title', null, [
                 'label' => 'Titre',
+            ])
+            ->add('published', null, [
+                'editable' => true,
+                'label' => 'Publiée'
+            ])
+            ->add('_action', null, [
+                'actions' => [
+                    'edit' => [],
+                    'delete' => [],
+                ]
             ]);
+    }
+
+    protected function configureShowFields(ShowMapper $showMapper)
+    {
+        $showMapper
+            ->tab('General') // the tab call is optional
+                ->add('title')
+            ->end()
+        ;
     }
 }

@@ -129,15 +129,15 @@ services:
         tags:
             - name: sonata.admin
               manager_type: orm
-              group: "Contenu"
-              show_in_dashboard: false
+              group: "Média"
               label: "Medias"
-        public: false
         label: "Media"
-        public: false
+
     Symfony\Cmf\Bundle\RoutingBundle\Doctrine\Orm\RouteProvider: '@cmf_routing.route_provider'
     Symfony\Cmf\Bundle\RoutingBundle\Doctrine\Orm\ContentRepository: '@cmf_routing.orm_content_repository'
     Symfony\Cmf\Bundle\RoutingBundle\Routing\DynamicRouter: '@cmf_routing.dynamic_router'
     AppBundle\EventListener\ContentListener:
         tags:
             - { name: doctrine.event_listener, event: onFlush }
+    AppBundle\Service\ContentService:
+        arguments: ['@cmf_routing.route_provider', '@cmf_routing.content_repository']

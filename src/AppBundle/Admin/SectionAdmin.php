@@ -11,11 +11,11 @@ use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\ColorType;
-use Sonata\AdminBundle\Form\Type\ModelType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use AppBundle\Entity\Category;
 use Sonata\FormatterBundle\Form\Type\SimpleFormatterType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Sonata\AdminBundle\Form\Type\ModelListType;
 
 /**
  * Section Admin class
@@ -34,6 +34,10 @@ final class SectionAdmin extends AbstractAdmin
         $formMapper
             ->tab('Configuration')
                 ->with('Configuration')
+                    ->add('published', CheckboxType::class, [
+                        'label' => 'Publier',
+                        'required' => false,
+                    ])
                     ->add('title', TextType::class, [
                         'label' => 'Titre',
                     ])
@@ -46,10 +50,6 @@ final class SectionAdmin extends AbstractAdmin
                     ])
                     ->add('color', ColorType::class, [
                         'label' => 'Couleur',
-                    ])
-                    ->add('published', CheckboxType::class, [
-                        'label' => 'Publier',
-                        'required' => false,
                     ])
                 ->end()
                 ->with('Catégorie', ['class' => 'col-md-6'])
@@ -79,17 +79,15 @@ final class SectionAdmin extends AbstractAdmin
             ->end()
             ->end()
             ->tab('Média')
-                ->add('logo', ModelType::class, [
-                    'label' => 'Logo',
-                    'required' => false,
-                ])
-                ->add('background', ModelType::class, [
+                ->add('background', ModelListType::class, [
                     'label' => 'Arrière-plan',
                     'required' => false,
+                    'btn_list' => true
                 ])
-                ->add('thumb', ModelType::class, [
+                ->add('thumb', ModelListType::class, [
                     'label' => 'Miniature',
                     'required' => false,
+                    'btn_list' => true,
                 ])
             ->end()
             ->end();
@@ -107,6 +105,10 @@ final class SectionAdmin extends AbstractAdmin
             ->add('title', null, [
                     'label' => 'Titre',
             ])
+            ->add('published', null, [
+                'editable' => true,
+                'label' => 'Publiée'
+            ])
             ->add('category', null, [
                 'label' => 'Catégorie',
             ]);
@@ -121,8 +123,21 @@ final class SectionAdmin extends AbstractAdmin
     protected function configureListFields(ListMapper $listMapper)
     {
         $listMapper
-            ->addIdentifier('title', null, [
-                    'label' => 'Titre',
+            ->add('title', null, [
+                'label' => 'Titre',
+            ])
+            ->add('category', null, [
+                'label' => 'Catégorie',
+            ])
+            ->add('published', null, [
+                'editable' => true,
+                'label' => 'Publiée'
+            ])
+            ->add('_action', null, [
+                'actions' => [
+                    'edit' => [],
+                    'delete' => [],
+                ]
             ]);
     }
 }
