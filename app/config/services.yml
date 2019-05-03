@@ -123,6 +123,16 @@ services:
               label: "Activités"
         public: true
 
+    app.admin.User:
+        class: AppBundle\Admin\UserAdmin
+        arguments: [~, AppBundle\Entity\User, ~]
+        tags:
+            - name: sonata.admin
+              manager_type: orm
+              group: "Gestion Utilisateur"
+              label: "Gestion Utilisateur"
+        public: true
+
     admin.media:
         class: AppBundle\Admin\MediaAdmin
         arguments: [~, AppBundle\Entity\Media, ~]
