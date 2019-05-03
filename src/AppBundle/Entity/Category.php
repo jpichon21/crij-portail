@@ -351,6 +351,12 @@ class Category implements RouteReferrersInterface
         return $this->articles->removeElement($article);
     }
 
+    public function setArticles($articles)
+    {
+        $this->articles = $articles;
+        return $this;
+    }
+
     /**
      * Set logoId.
      *

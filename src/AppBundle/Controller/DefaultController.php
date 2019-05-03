@@ -27,7 +27,11 @@ class DefaultController extends Controller
     {
         $serializer = SerializerBuilder::create()->build();
         $categories = $categoryRepository->findPublished();
-        $jsonCategories = $serializer->serialize($categories, 'json', SerializationContext::create()->setGroups(['Category:details']));
+        $jsonCategories = $serializer->serialize(
+            $categories,
+            'json',
+            SerializationContext::create()->setGroups(['Category:details'])
+        );
         
         $jsonConfig = $serializer->serialize($this->getParameter('site_config'), 'json');
 

@@ -9,7 +9,6 @@ namespace AppBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use JMS\Serializer\SerializerBuilder;
 use JMS\Serializer\SerializationContext;
-use AppBundle\Repository\CategoryRepository;
 
 /**
  * Router Controller
@@ -22,12 +21,16 @@ class RouterController extends Controller
      * @param Category|Section|Content $contentDocument
      * @return void
      */
-    public function defaultAction($contentDocument) 
+    public function defaultAction($contentDocument)
     {
         $serializer = SerializerBuilder::create()->build();
         $serializerGroups = $this->setSerializerGroups($contentDocument->getClassName());
 
-        $jsonContent = $serializer->serialize($contentDocument, 'json', SerializationContext::create()->setGroups($serializerGroups));
+        $jsonContent = $serializer->serialize(
+            $contentDocument,
+            'json',
+            SerializationContext::create()->setGroups($serializerGroups)
+        );
 
         $jsonConfig = $serializer->serialize($this->getParameter('site_config'), 'json');
         

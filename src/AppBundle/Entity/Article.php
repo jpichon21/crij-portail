@@ -75,7 +75,7 @@ class Article
      *
      * @ORM\ManyToOne(targetEntity="Category", inversedBy="articles", cascade={"persist"})
      * @Serializer\Expose()
-     * @Serializer\Groups({"Article:list", "Article:details"})
+     * @Serializer\Groups({"Article:details"})
      */
     private $category;
 
