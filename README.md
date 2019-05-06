@@ -58,3 +58,12 @@ Exécuter yarn
 
 Exécuter le contrôle de qualité du code
 `script/cq`  
+
+### Peupler la base de données
+
+Pour peupler la base de donnée
+`script/sf doctrine:fixtures:load`
+
+Login d'administration
+login : superadmin@fixt.com
+mdp   : admin
