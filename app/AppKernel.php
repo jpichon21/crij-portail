@@ -29,10 +29,12 @@ class AppKernel extends Kernel
             new Knp\Bundle\MarkdownBundle\KnpMarkdownBundle(),
             new FOS\CKEditorBundle\FOSCKEditorBundle(),
             new Sonata\FormatterBundle\SonataFormatterBundle(),
+            new Doctrine\Bundle\FixturesBundle\DoctrineFixturesBundle(),
             new Symfony\Cmf\Bundle\RoutingBundle\CmfRoutingBundle(),
             new Doctrine\Bundle\MigrationsBundle\DoctrineMigrationsBundle(),
             new WhiteOctober\PagerfantaBundle\WhiteOctoberPagerfantaBundle(),
-            
+
+            new SimpleThings\EntityAudit\SimpleThingsEntityAuditBundle(),
             new AppBundle\AppBundle(),
         ];
 
