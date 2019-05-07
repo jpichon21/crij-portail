@@ -56,6 +56,7 @@ class Article
 
     /**
      * @ORM\ManyToOne(targetEntity="Media", cascade={"persist"})
+     * @ORM\JoinColumn(name="background_id", referencedColumnName="id", nullable=true, onDelete="SET NULL")
      * @Serializer\Expose()
      * @Serializer\Groups({"Article:details"})
      */
@@ -64,7 +65,8 @@ class Article
     /**
      * @var string
      *
-     * @ORM\ManyToOne(targetEntity="Section", inversedBy="articles", cascade={"persist"})
+     * @ORM\ManyToOne(targetEntity="Section", cascade={"persist"})
+     * @ORM\JoinColumn(name="section_id", referencedColumnName="id", nullable=true, onDelete="SET NULL")
      * @Serializer\Expose()
      * @Serializer\Groups({"Article:list", "Article:details"})
      */

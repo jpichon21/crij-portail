@@ -17,7 +17,7 @@ stof_doctrine_extensions:
             timestampable: true
             sortable: true
     uploadable:
-        default_file_path:       "%kernel.root_dir%/../web/uploads"
+        default_file_path:       '%upload_path%'
         mime_type_guesser_class: Stof\DoctrineExtensionsBundle\Uploadable\MimeTypeGuesserAdapter
         default_file_info_class: Stof\DoctrineExtensionsBundle\Uploadable\UploadedFileInfo
 
@@ -117,6 +117,7 @@ nelmio_cors:
           max_age: 3600
 
 sonata_admin:
+    show_mosaic_button: false
     title: Crij 
     dashboard:
         blocks:

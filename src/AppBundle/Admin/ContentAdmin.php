@@ -11,12 +11,12 @@ use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Sonata\AdminBundle\Form\Type\ModelType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use AppBundle\Entity\Section;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Sonata\FormatterBundle\Form\Type\SimpleFormatterType;
 use Sonata\Form\Type\CollectionType;
+use Sonata\AdminBundle\Form\Type\ModelListType;
 
 /**
  * Content Admin class
@@ -33,6 +33,9 @@ final class ContentAdmin extends AbstractAdmin
         foreach ($content->getContentBlocks() as $contentBlock) {
             $contentBlock->setContent($content);
         }
+        if (!$this->getUser()->allowedToPublish()) {
+            $content->setPublished(false);
+        }
     }
     /**
      * Configure admin form.
@@ -43,7 +46,23 @@ final class ContentAdmin extends AbstractAdmin
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
-            ->tab('Configuration')
+            ->tab('Configuration');
+        if ($this->getUser()->allowedToPublish()) {
+            $formMapper
+            ->add('published', CheckboxType::class, [
+                'label' => 'Publier',
+                'required' => false,
+            ]);
+        }
+                $formMapper
+                ->add('type', ChoiceType::class, [
+                    'label' => 'Type de sous rubrique',
+                    'choices' => [
+                        'Type 1' => 'type_1',
+                        'Type 2' => 'type_2',
+                        'Type 3' => 'type_3',
+                    ],
+                ])
                 ->add('title', TextType::class, [
                     'label' => 'Titre',
                     'required' => true
@@ -55,36 +74,23 @@ final class ContentAdmin extends AbstractAdmin
                         'class' => 'ckeditor'
                     ],
                 ])
-                ->add('type', ChoiceType::class, [
-                    'label' => 'Type de sous rubrique',
-                    'choices' => [
-                        'Type 1' => 'type_1',
-                        'Type 2' => 'type_2',
-                        'Type 3' => 'type_3',
-                    ],
-                ])
-                ->add('published', CheckboxType::class, [
-                    'label' => 'Publier',
+                ->add('section', EntityType::class, [
+                    'class' => Section::class,
+                    'label' => 'Rubrique',
                     'required' => false,
                 ])
             ->end()
             ->end()
             ->tab('Média')
-                ->add('logo', ModelType::class, [
+                ->add('logo', ModelListType::class, [
                     'label' => 'Logo',
                     'required' => false,
+                    'btn_list' => true
                 ])
-                ->add('background', ModelType::class, [
+                ->add('background', ModelListType::class, [
                     'label' => 'Arrière-plan',
                     'required' => false,
-                ])
-            ->end()
-            ->end()
-            ->tab('Rubrique')
-                ->add('section', EntityType::class, [
-                    'class' => Section::class,
-                    'label' => 'section',
-                    'required' => false,
+                    'btn_list' => true
                 ])
             ->end()
             ->end()
@@ -111,11 +117,14 @@ final class ContentAdmin extends AbstractAdmin
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)
     {
         $datagridMapper
-            ->add('intro', null, [
-                'label' => 'Introduction',
+            ->add('title', null, [
+                'label' => 'Titre de la rubrique',
             ])
             ->add('section', null, [
                 'label' => 'Rubrique',
+            ])
+            ->add('published', null, [
+                'label' => 'Publiée'
             ]);
     }
 
@@ -128,8 +137,35 @@ final class ContentAdmin extends AbstractAdmin
     protected function configureListFields(ListMapper $listMapper)
     {
         $listMapper
-            ->addIdentifier('title', null, [
+            ->add('title', null, [
                 'label' => 'Titre',
+            ])
+            ->add('section', null, [
+                'label' => 'Rubrique',
             ]);
+        if ($this->getUser()->allowedToPublish()) {
+            $listMapper
+            ->add('published', null, [
+                'editable' => true,
+                'label' => 'Publiée'
+            ]);
+        } else {
+            $listMapper
+            ->add('published', null, [
+                'label' => 'Publiée'
+            ]);
+        }
+            $listMapper
+            ->add('_action', null, [
+                'actions' => [
+                    'edit' => [],
+                    'delete' => [],
+                ]
+            ]);
+    }
+
+    private function getUser()
+    {
+        return $this->getConfigurationPool()->getContainer()->get('security.token_storage')->getToken()->getUser();
     }
 }

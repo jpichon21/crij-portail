@@ -66,7 +66,8 @@ class ContentBlock
 
     /**
      * @var string
-     * @ORM\ManyToOne(targetEntity="Query", cascade={"persist", "remove"})
+     * @ORM\ManyToOne(targetEntity="Query", cascade={"persist"})
+     * @ORM\JoinColumn(name="query_id", referencedColumnName="id", nullable=true, onDelete="SET NULL")
      */
     private $query;
 

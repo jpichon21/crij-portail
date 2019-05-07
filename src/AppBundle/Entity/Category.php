@@ -94,6 +94,7 @@ class Category implements RouteReferrersInterface
 
     /**
      * @ORM\ManyToOne(targetEntity="Media", cascade={"persist", "remove"})
+     * @ORM\JoinColumn(name="logo_id", referencedColumnName="id", nullable=true, onDelete="SET NULL")
      * @Serializer\Expose()
      * @Serializer\Groups({"Category:list", "Category:details"})
      */
@@ -121,6 +122,15 @@ class Category implements RouteReferrersInterface
      * @ORM\Column(name="slug", type="string", length=255, unique=false)
      */
     private $slug;
+
+    /**
+     * var string
+     *
+     * @ORM\Column(name="color", type="string", length=255)
+     * @Serializer\Expose()
+     * @Serializer\Groups({"Category:list", "Category:details"})
+     */
+    private $color;
 
     /**
      * Constructor
@@ -463,6 +473,30 @@ class Category implements RouteReferrersInterface
         $this->published = $published;
 
         return $this;
+    }
+
+    /**
+     * Set color.
+     *
+     * @param string $color
+     *
+     * @return Section
+     */
+    public function setColor($color)
+    {
+        $this->color = $color;
+
+        return $this;
+    }
+
+    /**
+     * Get color.
+     *
+     * @return string
+     */
+    public function getColor()
+    {
+        return $this->color;
     }
     
     /**

@@ -1,0 +1,19 @@
+job_maps: Job - cartes
+job_offers: Job - offres
+job_requests: Job - demandes
+flora: Contenu flora
+text: Texte
+ROLE_USER: Utilisateur 
+ROLE_EDITOR: Éditeur 
+ROLE_ADMIN: Administrateur 
+ROLE_SUPER_ADMIN: Super Administrateur 
+male: Homme
+female: Femme
+schoolboy: Collégien
+high_school_student: Lycéen
+student: Etudiant
+jobseeker: Demandeur d'emploi
+employed: En emploi
+apprentice: Apprenti
+training: En formation
+other: Autre

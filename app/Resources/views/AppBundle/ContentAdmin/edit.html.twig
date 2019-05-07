@@ -9,10 +9,9 @@
         
         function changeEventHandler(event) {
             setTimeout(() =>{
-                contentBlocks = document.querySelectorAll('#tab_s6de8891210_4 textarea.ckeditor')
+                contentBlocks = document.querySelectorAll('#tab_s6de8891210_3 textarea.ckeditor')
                 contentBlocks.forEach((contentBlock, iteration) => {
                     id = contentBlock.getAttribute('id')
-                    console.log(document.querySelector('#cke_'+id))
                     if (document.querySelector('#cke_'+id) === null) {
                         if (CKEDITOR.instances[id]) {
                             CKEDITOR.instances[id].destroy()

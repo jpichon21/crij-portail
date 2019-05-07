@@ -14,7 +14,7 @@ use Doctrine\Common\Collections\ArrayCollection;
  *
  *
  * @ORM\Table(name="query")
- * @ORM\Entity()
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\QueryRepository")
  */
 class Query
 {

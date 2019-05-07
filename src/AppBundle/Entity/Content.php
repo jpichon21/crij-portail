@@ -96,6 +96,7 @@ class Content implements RouteReferrersInterface
 
     /**
      * @ORM\ManyToOne(targetEntity="Media", cascade={"persist", "remove"})
+     * @ORM\JoinColumn(name="background_id", referencedColumnName="id", nullable=true, onDelete="SET NULL")
      * @Serializer\Expose()
      * @Serializer\Groups({"Content:details"})
      */
@@ -103,6 +104,7 @@ class Content implements RouteReferrersInterface
 
     /**
      * @ORM\ManyToOne(targetEntity="Media", cascade={"persist", "remove"})
+     * @ORM\JoinColumn(name="logo_id", referencedColumnName="id", nullable=true, onDelete="SET NULL")
      * @Serializer\Expose()
      * @Serializer\Groups({"Content:list", "Content:details"})
      */
@@ -118,7 +120,7 @@ class Content implements RouteReferrersInterface
     
     /**
      * @Orm\OrderBy({"position" = "ASC"})
-     * @ORM\OneToMany(targetEntity="ContentBlock", mappedBy="content", cascade={"persist"}, orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity="ContentBlock", mappedBy="content", cascade={"persist", "remove"})
      * @Serializer\Expose()
      * @Serializer\Groups({"Content:details"})
     */
