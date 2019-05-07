@@ -7,7 +7,6 @@ namespace AppBundle\Exception;
 
 use Symfony\Component\Security\Core\Exception\AccountStatusException;
 
-
 /**
  * AccountDisabledException is thrown when the user account is disabled.
  *

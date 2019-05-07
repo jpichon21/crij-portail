@@ -43,7 +43,7 @@ security:
             - ROLE_APP_ADMIN_ARTICLE_LIST
             - ROLE_APP_ADMIN_ARTICLE_CREATE
             - ROLE_APP_ADMIN_MEDIA_ALL
-            
+            - ROLE_APP_ADMIN_PUBLIC_MEDIA_ALL
         ROLE_USER: [ROLE_USER]
         ROLE_EDITOR: [ROLE_EDITOR]
         ROLE_ADMIN: [ROLE_ADMIN]
@@ -94,3 +94,4 @@ sonata_admin:
             EXPORT: EXPORT
             OPERATOR: OPERATOR
             MASTER: MASTER
+            PUBLIC: PUBLIC

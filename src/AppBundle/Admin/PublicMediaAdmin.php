@@ -12,6 +12,7 @@ use Sonata\AdminBundle\Form\FormMapper;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 
 /**
  * Media Admin class
@@ -28,8 +29,7 @@ final class PublicMediaAdmin extends AbstractAdmin
     public function prePersist($media)
     {
         $this->manageFileUpload($media);
-        $media->setAuthor($this->getUser());
-        $media->setPublic(false);
+        $media->setPublic(true);
     }
 
     /**
@@ -59,6 +59,10 @@ final class PublicMediaAdmin extends AbstractAdmin
             ->add('altText', TextType::class, [
                 'label' => 'Texte de la balise alt',
                 'required' => true,
+            ])
+            ->add('public', CheckboxType::class, [
+                'label' => 'Rendre l\'image publique',
+                'required' => false
             ]);
         if ($this->isCurrentRoute('edit')) {
             $formMapper
@@ -134,16 +138,16 @@ final class PublicMediaAdmin extends AbstractAdmin
         }
     }
 
-    public function createQuery($context = 'list')
-    {
-        $query = parent::createQuery($context);
-        $query->andWhere($query->expr()->eq($query->getRootAliases()[0] . '.author', ':userId'));
-        $query->setParameter('userId', $this->getUser()->getId());
-        return $query;
-    }
+    // public function createQuery($context = 'list')
+    // {
+    //     $query = parent::createQuery($context);
+    //     $query->andWhere($query->expr()->eq($query->getRootAliases()[0] . '.author', ':userId'));
+    //     $query->setParameter('userId', $this->getUser()->getId());
+    //     return $query;
+    // }
 
-    private function getUser()
-    {
-        return $this->getConfigurationPool()->getContainer()->get('security.token_storage')->getToken()->getUser();
-    }
+    // private function getUser()
+    // {
+    //     return $this->getConfigurationPool()->getContainer()->get('security.token_storage')->getToken()->getUser();
+    // }
 }

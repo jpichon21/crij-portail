@@ -151,6 +151,8 @@ services:
               label: "Medias"
               show_in_dashboard: false
         label: "Media"
+        calls:
+            - [ setTemplate, [edit, AppBundle/MediaAdmin/edit.html.twig]]
 
     Symfony\Cmf\Bundle\RoutingBundle\Doctrine\Orm\RouteProvider: '@cmf_routing.route_provider'
     Symfony\Cmf\Bundle\RoutingBundle\Doctrine\Orm\ContentRepository: '@cmf_routing.orm_content_repository'

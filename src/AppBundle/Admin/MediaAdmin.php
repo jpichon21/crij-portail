@@ -12,6 +12,7 @@ use Sonata\AdminBundle\Form\FormMapper;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 
 /**
  * Media Admin class
@@ -28,8 +29,15 @@ final class MediaAdmin extends AbstractAdmin
     public function prePersist($media)
     {
         $this->manageFileUpload($media);
-        $media->setAuthor($this->getUser());
-        $media->setPublic(false);
+        if (!$media->getPublic()) {
+            $media->setAuthor($this->getUser());
+        } else {
+            $media->setAuthor(null);
+        }
+        if (!$this->getUser()->hasRole('ROLE_ADMIN')) {
+            $media->setAuthor($this->getUser())
+            ->setPublic(false);
+        }
     }
 
     /**
@@ -60,6 +68,12 @@ final class MediaAdmin extends AbstractAdmin
                 'label' => 'Texte de la balise alt',
                 'required' => true,
             ]);
+        if ($this->getUser()->hasRole('ROLE_SUPER_ADMIN')) {
+            $formMapper->add('public', CheckboxType::class, [
+                'label' => 'Rendre l\'image publique',
+                'required' => false
+            ]);
+        }
         if ($this->isCurrentRoute('edit')) {
             $formMapper
             ->add('file', FileType::class, [
@@ -104,13 +118,18 @@ final class MediaAdmin extends AbstractAdmin
             ])
             ->add('title', null, [
                 'label' => 'Titre',
-            ])
-            ->add('_action', null, [
-                'actions' => [
-                    'edit' => [],
-                    'delete' => [],
-                ]
             ]);
+        if ($this->getUser()->hasRole('ROLE_SUPER_ADMIN')) {
+            $listMapper->add('public', null, [
+                'label' => 'Publique'
+            ]);
+        }
+        $listMapper->add('_action', null, [
+            'actions' => [
+                'edit' => [],
+                'delete' => [],
+            ]
+        ]);
     }
 
     /**
@@ -137,13 +156,18 @@ final class MediaAdmin extends AbstractAdmin
     public function createQuery($context = 'list')
     {
         $query = parent::createQuery($context);
-        $query->andWhere($query->expr()->eq($query->getRootAliases()[0] . '.author', ':userId'));
+        $query->where($query->expr()->eq($query->getRootAliases()[0] . '.author', ':userId'));
+        $query->orWhere($query->expr()->andX(
+            $query->expr()->isNull($query->getRootAliases()[0] . '.author'),
+            $query->expr()->eq($query->getRootAliases()[0] . '.public', true)
+        ));
         $query->setParameter('userId', $this->getUser()->getId());
         return $query;
     }
 
     private function getUser()
     {
-        return $this->getConfigurationPool()->getContainer()->get('security.token_storage')->getToken()->getUser();
+        $tokenStorage = $this->getConfigurationPool()->getContainer()->get('security.token_storage')->getToken();
+        return ($tokenStorage) ? $tokenStorage->getUser() : null;
     }
 }
