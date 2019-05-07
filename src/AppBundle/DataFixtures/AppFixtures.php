@@ -78,7 +78,7 @@ class AppFixtures extends Fixture
         $query->setFilters([
             'field' => 'name',
             'value' => 'Un nom'
-        ],[
+        ], [
             'field' => 'zipcode',
             'value' => '21000'
         ]);

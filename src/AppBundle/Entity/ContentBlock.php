@@ -109,6 +109,14 @@ class ContentBlock
      */
     private $results;
 
+        /**
+     * @var string
+     *
+     * @Serializer\Expose()
+     * @Serializer\Groups({"Content:list", "Content:details"})
+     */
+    private $publicFilters;
+
     /**
      * to string method
      *
@@ -343,5 +351,26 @@ class ContentBlock
     public function getResults()
     {
         return $this->results;
+    }
+
+    public function setPublicFilters($publicFilters)
+    {
+        $sanitizePublicFilters = [];
+        foreach ($publicFilters as $publicFilter) {
+            $sanitizePublicFilters[] = $publicFilter;
+        }
+        $this->publicFilters = $sanitizePublicFilters;
+
+        return $this;
+    }
+
+    /**
+     * Get publicFilters.
+     *
+     * @return bool
+     */
+    public function getPublicFilters()
+    {
+        return $this->publicFilters;
     }
 }

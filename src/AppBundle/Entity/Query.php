@@ -58,6 +58,12 @@ class Query
     private $filters;
 
     /**
+     * @var string
+     * @ORM\Column(name="public_filters", type="json")
+     */
+    private $publicFilters;
+
+    /**
      * @var datetime $created
      *
      * @Gedmo\Timestampable(on="create")
@@ -88,6 +94,7 @@ class Query
     public function __construct()
     {
         $this->filters = new ArrayCollection();
+        $this->publicFilters = new ArrayCollection();
     }
 
     /**
@@ -276,5 +283,29 @@ class Query
     public function getFilters()
     {
         return $this->filters;
+    }
+
+        /**
+     * Set publicFilters.
+     *
+     * @param json $publicFilters
+     *
+     * @return Query
+     */
+    public function setPublicFilters($publicFilters)
+    {
+        $this->publicFilters = $publicFilters;
+
+        return $this;
+    }
+
+    /**
+     * Get publicFilters.
+     *
+     * @return json
+     */
+    public function getPublicFilters()
+    {
+        return $this->publicFilters;
     }
 }
