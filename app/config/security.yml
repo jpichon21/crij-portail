@@ -75,9 +75,11 @@ security:
             guard:
                 authenticators:
                     - AppBundle\Security\AdminLoginAuthenticator
+            user_checker: AppBundle\Security\UserChecker
         main:
             pattern: ^/
             anonymous: ~
+            user_checker: AppBundle\Security\UserChecker
     access_control:
         - { path: ^/admin/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/admin/logout$, role: IS_AUTHENTICATED_ANONYMOUSLY }

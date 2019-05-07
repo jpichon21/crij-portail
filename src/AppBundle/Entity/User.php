@@ -83,9 +83,9 @@ class User implements UserInterface
     /**
      * @var string
      *
-     * @ORM\Column(name="username", type="string", length=255)
+     * @ORM\Column(name="nickname", type="string", length=255)
      */
-    private $username;
+    private $nickname;
 
     /**
      * @var \DateTime
@@ -101,13 +101,6 @@ class User implements UserInterface
      */
     private $gender;
     
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="age", type="integer", length=255)
-     */
-    private $age;
-
     /**
      * @var string
      *
@@ -188,6 +181,18 @@ class User implements UserInterface
     private $consentNews;
     
     private $plainPassword;
+
+    /**
+     * @var bool
+     * @ORM\Column(name="enabled", type="boolean")
+     */
+    private $enabled;
+
+    /**
+     * @var bool
+     * @ORM\Column(name="deleted", type="boolean")
+     */
+    private $deleted;
 
 
     /**
@@ -292,13 +297,35 @@ class User implements UserInterface
     }
 
     /**
-     * Get username.
+     * Get username. (used by SonataAdminBundle)
      *
      * @return string
      */
     public function getUsername()
     {
         return $this->email;
+    }
+
+    /**
+     * Set nickname
+     *
+     * @param string $nickname
+     * @return User
+     */
+    public function setNickName($nickname)
+    {
+        $this->nickname = $nickname;
+        return $this;
+    }
+
+    /**
+     * Get nickname
+     *
+     * @return string
+     */
+    public function getNickName()
+    {
+        return $this->nickname;
     }
 
     /**
@@ -544,30 +571,6 @@ class User implements UserInterface
     public function getGender()
     {
         return $this->gender;
-    }
-
-    /**
-     * Set age.
-     *
-     * @param int $age
-     *
-     * @return User
-     */
-    public function setAge($age)
-    {
-        $this->age = $age;
-
-        return $this;
-    }
-
-    /**
-     * Get age.
-     *
-     * @return int
-     */
-    public function getAge()
-    {
-        return $this->age;
     }
 
     /**
@@ -856,5 +859,53 @@ class User implements UserInterface
     public function getConsentNews()
     {
         return $this->consentNews;
+    }
+
+    /**
+     * Set enabled.
+     *
+     * @param bool $enabled
+     *
+     * @return User
+     */
+    public function setEnabled($enabled)
+    {
+        $this->enabled = $enabled;
+
+        return $this;
+    }
+
+    /**
+     * Is enabled.
+     *
+     * @return bool
+     */
+    public function isEnabled()
+    {
+        return $this->enabled;
+    }
+
+    /**
+     * Set deleted.
+     *
+     * @param bool $deleted
+     *
+     * @return User
+     */
+    public function setDeleted($deleted)
+    {
+        $this->deleted = $deleted;
+
+        return $this;
+    }
+
+    /**
+     * Is deleted.
+     *
+     * @return bool
+     */
+    public function isDeleted()
+    {
+        return $this->deleted;
     }
 }

@@ -17,7 +17,6 @@ use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\BirthdayType;
-use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TelType;
 use Sonata\AdminBundle\Show\ShowMapper;
@@ -59,7 +58,12 @@ final class UserAdmin extends AbstractAdmin
                     'choices' => User::ROLES,
                     'multiple' => true,
                     'expanded' => true,
+                    'attr' => ['style' => 'margin-bottom:30px;']
                 ])
+                ->add('enabled', CheckboxType::class, [
+                    'label' => 'Utilisateur activé',
+                    'required' => false
+                    ])
             ->end()
             ->end()
             ->with('Identification', ['class' => 'col-md-6'])
@@ -67,18 +71,25 @@ final class UserAdmin extends AbstractAdmin
                     'label' => 'Nom',
                 ])
                 ->add('consentName', CheckboxType::class, [
-                    'label' => 'Nom',
+                    'label' => 'Accepte de diffuser son nom',
                     'required' => false,
                 ])
                 ->add('lastName', TextType::class, [
                     'label' => 'Prénom',
                 ])
                 ->add('consentLastName', CheckboxType::class, [
-                    'label' => 'Prénom',
+                    'label' => 'Accepte de diffuser son prénom',
                     'required' => false,
                 ])
-                ->add('username', TextType::class, [
-                    'label' => 'Identifiant/Pseudo',
+                ->add('email', EmailType::class, [
+                    'label' => 'Adresse Email',
+                ])
+                ->add('consentMail', CheckboxType::class, [
+                    'label' => 'Accepte de diffuser son adresse email',
+                    'required' => false,
+                ])
+                ->add('nickname', TextType::class, [
+                    'label' => 'Pseudo',
                 ]);
         if ($this->isCurrentRoute('edit')) {
             $formMapper
@@ -90,7 +101,7 @@ final class UserAdmin extends AbstractAdmin
             ]);
         } else {
             $formMapper
-            ->add('plainePassword', RepeatedType::class, [
+            ->add('plainPassword', RepeatedType::class, [
                 'type' => PasswordType::class,
                 'first_options' => ['label' => 'Mot de passe'],
                 'second_options' => ['label' => 'Répéter le mot de passe'],
@@ -111,19 +122,9 @@ final class UserAdmin extends AbstractAdmin
                     'expanded' => true,
                     'required' => true,
                 ])
-                ->add('age', IntegerType::class, [
-                    'label' => 'age',
-                ])
                 ->add('status', ChoiceType::class, [
                     'label' => 'Statut',
                     'choices' => User::STATUT,
-                    'required' => false,
-                ])
-                ->add('email', EmailType::class, [
-                    'label' => 'Adresse Email',
-                ])
-                ->add('consentMail', CheckboxType::class, [
-                    'label' => 'Ne souhaite pas diffuser son mail',
                     'required' => false,
                 ])
             ->end()
@@ -241,8 +242,8 @@ final class UserAdmin extends AbstractAdmin
             ->add('consentLastName', null, [
                 'label' => 'Diffuse son prénom:',
             ])
-            ->add('username', null, [
-                'label' => 'Identifiant/Pseudo:',
+            ->add('nickname', null, [
+                'label' => 'Pseudo:',
             ])
             ->add('birthdate', 'datetime', [
                 'label' => 'Date de naissance:',
@@ -251,9 +252,6 @@ final class UserAdmin extends AbstractAdmin
             ->add('gender', null, [
                 'label' => 'Sexe:',
                 'template' => 'AppBundle/UserAdmin/show_trans_gender.html.twig'
-            ])
-            ->add('age', null, [
-                'label' => 'Age:',
             ])
             ->add('status', null, [
                 'label' => 'Statut:',
