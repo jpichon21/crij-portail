@@ -86,11 +86,15 @@ final class ContentAdmin extends AbstractAdmin
                     'label' => 'Logo',
                     'required' => false,
                     'btn_list' => true
+                ], [
+                    'admin_code' => 'app.admin.media'
                 ])
                 ->add('background', ModelListType::class, [
                     'label' => 'Arrière-plan',
                     'required' => false,
                     'btn_list' => true
+                ], [
+                    'admin_code' => 'app.admin.media'
                 ])
             ->end()
             ->end()

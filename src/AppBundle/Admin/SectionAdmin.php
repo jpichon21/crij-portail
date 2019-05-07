@@ -109,11 +109,15 @@ final class SectionAdmin extends AbstractAdmin
                     'label' => 'Arrière-plan',
                     'required' => false,
                     'btn_list' => true
+                ], [
+                    'admin_code' => 'app.admin.media'
                 ])
                 ->add('thumb', ModelListType::class, [
                     'label' => 'Miniature',
                     'required' => false,
-                    'btn_list' => true,
+                    'btn_list' => true
+                ], [
+                    'admin_code' => 'app.admin.media'
                 ])
             ->end()
             ->end();

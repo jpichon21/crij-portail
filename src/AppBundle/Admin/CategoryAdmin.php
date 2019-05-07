@@ -107,7 +107,9 @@ final class CategoryAdmin extends AbstractAdmin
                 ->add('logo', ModelListType::class, [
                     'label' => 'Logo',
                     'required' => false,
-                    'btn_list' => true,
+                    'btn_list' => true
+                ], [
+                    'admin_code' => 'app.admin.media'
                 ]);
     }
 
