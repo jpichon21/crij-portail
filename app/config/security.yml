@@ -2,6 +2,10 @@ security:
     providers:
         users:
             id: AppBundle\Security\UserProvider
+        admin_db_provider:
+            entity:
+                class: AppBundle:User
+                property: username
         in_memory:
             memory:
                 users:
@@ -77,7 +81,14 @@ security:
                     - AppBundle\Security\AdminLoginAuthenticator
         main:
             pattern: ^/
+            provider: admin_db_provider
             anonymous: ~
+            json_login:
+                check_path: /api/login
+            logout:
+                path:   /api/logout
+                invalidate_session: true
+                target: /
     access_control:
         - { path: ^/admin/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/admin/logout$, role: IS_AUTHENTICATED_ANONYMOUSLY }

@@ -90,7 +90,7 @@ final class UserAdmin extends AbstractAdmin
             ]);
         } else {
             $formMapper
-            ->add('plainePassword', RepeatedType::class, [
+            ->add('plainPassword', RepeatedType::class, [
                 'type' => PasswordType::class,
                 'first_options' => ['label' => 'Mot de passe'],
                 'second_options' => ['label' => 'Répéter le mot de passe'],

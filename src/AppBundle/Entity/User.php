@@ -4,12 +4,15 @@ namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
+use JMS\Serializer\Annotation as Serializer;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * User
  *
  * @ORM\Table(name="user")
  * @ORM\Entity
+ * @Serializer\ExclusionPolicy("all")
  */
 class User implements UserInterface
 {
@@ -35,11 +38,20 @@ class User implements UserInterface
      * @ORM\Id
      * @ORM\Column(type="integer")
      * @ORM\GeneratedValue(strategy="AUTO")
+     * @Serializer\Expose()
+     * @Serializer\Groups({"User:details"})
      */
     private $id;
 
     /**
      * @ORM\Column(name="email", type="string", unique=true)
+     * @Serializer\Expose()
+     * @Serializer\Groups({"User:details"})
+     * @Assert\Email(
+     *     message = "The email '{{ value }}' is not a valid email.",
+     *     checkMX = true
+     * )
+     * @Assert\NotNull
      */
     private $email;
     
@@ -58,12 +70,20 @@ class User implements UserInterface
      * @var string
      *
      * @ORM\Column(name="name", type="string", length=255)
+     * @Serializer\Expose()
+     * @Serializer\Groups({"User:details"})
+     * @Assert\NotNull
+     * @Assert\NotBlank
      */
     private $name;
 
     /**
      * @var bool
      * @ORM\Column(name="consentName", type="boolean")
+     * @Serializer\Expose()
+     * @Serializer\Groups({"User:details"})
+     * @Assert\NotNull
+     * @Assert\Type("boolean")
      */
     private $consentName;
 
@@ -71,12 +91,20 @@ class User implements UserInterface
      * @var string
      *
      * @ORM\Column(name="lastName", type="string", length=255)
+     * @Serializer\Expose()
+     * @Serializer\Groups({"User:details"})
+     * @Assert\NotNull
+     * @Assert\NotBlank
      */
     private $lastName;
 
     /**
      * @var bool
      * @ORM\Column(name="consentLastName", type="boolean")
+     * @Serializer\Expose()
+     * @Serializer\Groups({"User:details"})
+     * @Assert\NotNull
+     * @Assert\Type("boolean")
      */
     private $consentLastName;
     
@@ -84,6 +112,10 @@ class User implements UserInterface
      * @var string
      *
      * @ORM\Column(name="username", type="string", length=255)
+     * @Serializer\Expose()
+     * @Serializer\Groups({"User:details"})
+     * @Assert\NotNull
+     * @Assert\NotBlank
      */
     private $username;
 
@@ -91,6 +123,8 @@ class User implements UserInterface
      * @var \DateTime
      *
      * @ORM\Column(name="birthdate", type="datetime")
+     * @Serializer\Expose()
+     * @Serializer\Groups({"User:details"})
      */
     private $birthdate;
 
@@ -98,6 +132,10 @@ class User implements UserInterface
      * @var string
      *
      * @ORM\Column(name="gender", type="string", length=255)
+     * @Serializer\Expose()
+     * @Serializer\Groups({"User:details"})
+     * @Assert\NotNull
+     * @Assert\NotBlank
      */
     private $gender;
     
@@ -105,19 +143,29 @@ class User implements UserInterface
      * @var string
      *
      * @ORM\Column(name="age", type="integer", length=255)
+     * @Serializer\Expose()
+     * @Serializer\Groups({"User:details"})
+     * @Assert\NotNull
+     * @Assert\NotBlank
      */
     private $age;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="status", type="string", length=255)
+     * @ORM\Column(name="status", type="string", length=255, nullable=true)
+     * @Serializer\Expose()
+     * @Serializer\Groups({"User:details"})
      */
     private $status;
 
     /**
      * @var bool
      * @ORM\Column(name="consentMail", type="boolean")
+     * @Serializer\Expose()
+     * @Serializer\Groups({"User:details"})
+     * @Assert\NotNull
+     * @Assert\Type("boolean")
      */
     private $consentMail;
     
@@ -125,6 +173,10 @@ class User implements UserInterface
      * @var string
      *
      * @ORM\Column(name="address", type="string", length=255)
+     * @Serializer\Expose()
+     * @Serializer\Groups({"User:details"})
+     * @Assert\NotNull
+     * @Assert\NotBlank
      */
     private $address;
 
@@ -132,6 +184,10 @@ class User implements UserInterface
      * @var string
      *
      * @ORM\Column(name="zipcode", type="string", length=255)
+     * @Serializer\Expose()
+     * @Serializer\Groups({"User:details"})
+     * @Assert\NotNull
+     * @Assert\NotBlank
      */
     private $zipcode;
     
@@ -139,6 +195,10 @@ class User implements UserInterface
      * @var string
      *
      * @ORM\Column(name="city", type="string", length=255)
+     * @Serializer\Expose()
+     * @Serializer\Groups({"User:details"})
+     * @Assert\NotNull
+     * @Assert\NotBlank
      */
     private $city;
 
@@ -146,47 +206,76 @@ class User implements UserInterface
      * @var string
      *
      * @ORM\Column(name="department", type="string", length=255)
+     * @Serializer\Expose()
+     * @Serializer\Groups({"User:details"})
+     * @Assert\NotNull
+     * @Assert\NotBlank
      */
     private $department;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="phone", type="string", length=255)
+     * @ORM\Column(name="phone", type="string", length=255, nullable=true)
+     * @Serializer\Expose()
+     * @Serializer\Groups({"User:details"})
      */
     private $phone;
 
     /**
      * @var bool
      * @ORM\Column(name="usePhone", type="boolean")
+     * @Serializer\Expose()
+     * @Serializer\Groups({"User:details"})
+     * @Assert\NotNull
+     * @Assert\Type("boolean")
      */
     private $usePhone;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="mobile", type="string", length=255)
+     * @ORM\Column(name="mobile", type="string", length=255, nullable=true)
+     * @Serializer\Expose()
+     * @Serializer\Groups({"User:details"})
      */
     private $mobile;
 
     /**
      * @var bool
      * @ORM\Column(name="useMobile", type="boolean")
+     * @Serializer\Expose()
+     * @Serializer\Groups({"User:details"})
+     * @Assert\NotNull
+     * @Assert\Type("boolean")
      */
     private $useMobile;
 
     /**
      * @var bool
      * @ORM\Column(name="consentTerms", type="boolean")
+     * @Serializer\Expose()
+     * @Serializer\Groups({"User:details"})
+     * @Assert\NotNull
+     * @Assert\IsTrue
      */
     private $consentTerms;
 
     /**
      * @var bool
      * @ORM\Column(name="consentNews", type="boolean")
+     * @Serializer\Expose()
+     * @Serializer\Groups({"User:details"})
+     * @Assert\NotNull
+     * @Assert\Type("boolean")
      */
     private $consentNews;
-    
+
+    /**
+     * @var string
+     * @Serializer\Expose()
+     * @Serializer\Type("string")
+     */
     private $plainPassword;
 
 
@@ -208,6 +297,20 @@ class User implements UserInterface
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * Set id.
+     *
+     * @param bool $id
+     *
+     * @return User
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+
+        return $this;
     }
 
     /**

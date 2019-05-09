@@ -7,3 +7,9 @@ content:
 section:
   type: rest
   resource: AppBundle\Controller\SectionController
+user:
+  type: rest
+  resource: AppBundle\Controller\UserController
+security:
+  type: rest
+  resource: AppBundle\Controller\SecurityController

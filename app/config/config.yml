@@ -88,8 +88,9 @@ swiftmailer:
     spool: { type: memory }
 
 sensio_framework_extra:
-   router:
+    router:
         annotations: false
+    request: { converters: true }
 webpack_encore:
     output_path: '%kernel.project_dir%/web/build'
 fos_rest:
@@ -106,6 +107,10 @@ fos_rest:
         view_response_listener: 'force'
     serializer:
         serialize_null:  true
+    body_converter:
+        enabled: true
+        validate: true
+        validation_errors_argument: validationErrors
 
 nelmio_cors:
     paths:
