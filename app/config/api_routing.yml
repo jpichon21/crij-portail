@@ -10,6 +10,9 @@ section:
 user:
   type: rest
   resource: AppBundle\Controller\UserController
+article:
+  type: rest
+  resource: AppBundle\Controller\ArticleController
 security:
   type: rest
   resource: AppBundle\Controller\SecurityController

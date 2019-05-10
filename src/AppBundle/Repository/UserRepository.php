@@ -6,7 +6,7 @@ use Symfony\Bridge\Doctrine\Security\User\UserLoaderInterface;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\EntityRepository;
 use AppBundle\Entity\User;
-use Pagerfanta\Pagerfanta;
+
 /**
  * UserRepository
  *
@@ -38,13 +38,13 @@ class UserRepository extends AbstractRepository implements UserLoaderInterface
      * Find User by id
      *
      * @param int $id
-     * @return Section
+     * @return User
      */
     public function find($id)
     {
-        $qb = $this->repository->createQueryBuilder('s')
-        ->select('s')
-        ->where('s.id = :id')
+        $qb = $this->repository->createQueryBuilder('u')
+        ->select('u')
+        ->where('u.id = :id')
         ->setParameter('id', $id);
 
         return $qb->getQuery()->getOneOrNullResult();

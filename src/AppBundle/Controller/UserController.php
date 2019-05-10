@@ -107,7 +107,7 @@ class UserController extends Controller
         $currentUser = $this->getUser();
         if($currentUser->getId() !== intval($id)) {
                 return new JsonResponse([
-                    'message' => 'error different id between current user and requested user',
+                    'message' => 'user.different',
                 ], 
                 Response::HTTP_UNPROCESSABLE_ENTITY
             );
@@ -140,102 +140,102 @@ class UserController extends Controller
 
         if ($userRequested->getEmail() !== $userModified->getEmail()) {
             $userModified->setEmail($userRequested->getEmail());
-            $editedField[] = ['email'=>'updated successfully'];
+            $editedField[] = ['email'=>'updated.successfully'];
         }
 
         if ($userRequested->getName() !== $userModified->getName()) {
             $userModified->setName($userRequested->getName());
-            $editedField[] = ['name'=>'updated successfully'];
+            $editedField[] = ['name'=>'updated.successfully'];
         }
 
         if ($userRequested->getConsentName() !== $userModified->getConsentName()) {
             $userModified->setConsentName($userRequested->getConsentName());
-            $editedField[] = ['consent_name'=>'updated successfully'];
+            $editedField[] = ['consent_name'=>'updated.successfully'];
         }
 
         if ($userRequested->getLastName() !== $userModified->getLastName()) {
             $userModified->setLastName($userRequested->getLastName());
-            $editedField[] = ['las_name'=>'updated successfully'];
+            $editedField[] = ['las_name'=>'updated.successfully'];
         }
 
         if ($userRequested->getConsentLastName() !== $userModified->getConsentLastName()) {
             $userModified->setConsentLastName($userRequested->getConsentLastName());
-            $editedField[] = ['consent_last_name'=>'updated successfully'];
+            $editedField[] = ['consent_last_name'=>'updated.successfully'];
         }
 
         if ($userRequested->getUsername() !== $userModified->getUsername()) {
             $userModified->setUsername($userRequested->getUsername());
-            $editedField[] = ['username'=>'updated successfully'];
+            $editedField[] = ['username'=>'updated.successfully'];
         }
 
         if ($userRequested->getBirthdate() !== $userModified->getBirthdate()) {
             $userModified->setBirthdate($userRequested->getBirthdate());
-            $editedField[] = ['birthdate'=>'updated successfully'];
+            $editedField[] = ['birthdate'=>'updated.successfully'];
         }
 
         if ($userRequested->getGender() !== $userModified->getGender()) {
             $userModified->setGender($userRequested->getGender());
-            $editedField[] = ['gender'=>'updated successfully'];
+            $editedField[] = ['gender'=>'updated.successfully'];
         }
 
         if ($userRequested->getAge() !== $userModified->getAge()) {
             $userModified->setAge($userRequested->getAge());
-            $editedField[] = ['age'=>'updated successfully'];
+            $editedField[] = ['age'=>'updated.successfully'];
         }
 
         if ($userRequested->getStatus() !== $userModified->getStatus()) {
             $userModified->setStatus($userRequested->getStatus());
-            $editedField[] = ['status'=>'updated successfully'];
+            $editedField[] = ['status'=>'updated.successfully'];
         }
 
         if ($userRequested->getConsentMail() !== $userModified->getConsentMail()) {
             $userModified->setConsentMail($userRequested->getConsentMail());
-            $editedField[] = ['consent_mail'=>'updated successfully'];
+            $editedField[] = ['consent_mail'=>'updated.successfully'];
         }
 
         if ($userRequested->getAddress() !== $userModified->getAddress()) {
             $userModified->setAddress($userRequested->getAddress());
-            $editedField[] = ['address'=>'updated successfully'];
+            $editedField[] = ['address'=>'updated.successfully'];
         }
 
         if ($userRequested->getZipcode() !== $userModified->getZipcode()) {
             $userModified->setZipcode($userRequested->getZipcode());
-            $editedField[] = ['zipcode'=>'updated successfully'];
+            $editedField[] = ['zipcode'=>'updated.successfully'];
         }
 
         if ($userRequested->getCity() !== $userModified->getCity()) {
             $userModified->setCity($userRequested->getCity());
-            $editedField[] = ['city'=>'updated successfully'];
+            $editedField[] = ['city'=>'updated.successfully'];
         }
 
         if ($userRequested->getDepartment() !== $userModified->getDepartment()) {
             $userModified->setDepartment($userRequested->getDepartment());
-            $editedField[] = ['department'=>'updated successfully'];
+            $editedField[] = ['department'=>'updated.successfully'];
         }
 
         if ($userRequested->getPhone() !== $userModified->getPhone()) {
             $userModified->setPhone($userRequested->getPhone());
-            $editedField[] = ['phone'=>'updated successfully'];
+            $editedField[] = ['phone'=>'updated.successfully'];
         }
 
         if ($userRequested->getUsePhone() !== $userModified->getUsePhone()) {
             $userModified->setUsePhone($userRequested->getUsePhone());
-            $editedField[] = ['use_phone'=>'updated successfully'];
+            $editedField[] = ['use_phone'=>'updated.successfully'];
         }
 
         if ($userRequested->getMobile() !== $userModified->getMobile()) {
             $userModified->setMobile($userRequested->getMobile());
-            $editedField[] = ['mobile'=>'updated successfully'];
+            $editedField[] = ['mobile'=>'updated.successfully'];
         }
 
         if ($userRequested->getUseMobile() !== $userModified->getUseMobile()) {
             $userModified->setUseMobile($userRequested->getUseMobile());
-            $editedField[] = ['use_mobile'=>'updated successfully'];
+            $editedField[] = ['use_mobile'=>'updated.successfully'];
         }
 
         if ($userRequested->getConsentNews() !== $userModified->getConsentNews()) {
             $userModified->setConsentNews($userRequested->getConsentNews());
-            $editedField[] = ['use_mobile'=>'updated successfully'];
+            $editedField[] = ['use_mobile'=>'updated.successfully'];
         }
         if ($userRequested->getPlainPassword() !== null) {
             $encoder = $this->get('security.password_encoder');
@@ -243,7 +243,7 @@ class UserController extends Controller
     
             if ($encodedUserRequestedPassword !== $userModified->getPassword()) {
                 $userRequested->setpassword($encodedUserRequestedPassword);
-                $editedField[] = ['password'=>'updated successfully'];
+                $editedField[] = ['password'=>'updated.successfully'];
             }
         }
 

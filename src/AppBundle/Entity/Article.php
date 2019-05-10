@@ -5,6 +5,7 @@ namespace AppBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use JMS\Serializer\Annotation as Serializer;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Article
@@ -33,6 +34,8 @@ class Article
      * @ORM\Column(name="title", type="string", length=255)
      * @Serializer\Expose()
      * @Serializer\Groups({"Article:list", "Article:details"})
+     * @Assert\NotNull
+     * @Assert\NotBlank
      */
     private $title;
 
@@ -116,6 +119,8 @@ class Article
      * @var \DateTime
      *
      * @ORM\Column(name="published", type="datetime", nullable=true)
+     * @Serializer\Expose()
+     * @Serializer\Groups({"Article:details"})
      */
     private $published;
 

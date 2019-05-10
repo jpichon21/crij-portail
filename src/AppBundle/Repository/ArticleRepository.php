@@ -25,6 +25,22 @@ class ArticleRepository extends AbstractRepository
     {
         $this->repository = $entityManager->getRepository(Article::class);
     }
+    
+    /**
+     * Find articles by Id
+     *
+     * @param iteger $id
+     * @return Null|Article
+     */
+    public function findById($id) 
+    {
+        $qb = $this->repository->createQueryBuilder('a')
+        ->select('a')
+        ->where('a.id = :id')
+        ->setParameters(['id' => $id]);
+
+        return $qb->getQuery()->getOneOrNullResult();
+    }
 
     /**
      * Find articles by Category
