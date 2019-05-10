@@ -19,7 +19,11 @@
                 <h3 class="box-title">{{ 'title_delete'|trans({}, 'SonataAdminBundle') }}</h3>
             </div>
             <div class="box-body">
-                {{ 'message_delete_confirmation'|trans({'%object%': admin.toString(object)}, 'SonataAdminBundle') }}
+                {% if object is instanceof('AppBundle\\Entity\\Category') or object is instanceof('AppBundle\\Entity\\Section') or object is instanceof('AppBundle\\Entity\\Content')  %}
+                    {{ 'message_delete_chain_confirmation'|trans({}, 'SonataAdminBundle') }}
+                {% else %}
+                    {{ 'message_delete_confirmation'|trans({'%object%': admin.toString(object)}, 'SonataAdminBundle') }}
+                {% endif %}
             </div>
             <div class="box-footer clearfix">
                 <form method="POST" action="{{ admin.generateObjectUrl('delete', object) }}">
