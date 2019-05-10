@@ -58,3 +58,45 @@ Exécuter yarn
 
 Exécuter le contrôle de qualité du code
 `script/cq`  
+
+### Samples
+
+Pour poster ou patcher un user :
+{
+	"birthdate": "2015-05-07T09:00:06+00:00",
+	"title": true,
+	"email": "Exemple@exemple.fr",
+	"consent_mail": false,
+	"name": "Jamie",
+	"consent_name": true,
+	"last_name": "ValJean",
+	"consent_last_name": false,
+	"gender": "male",
+	"age": 31,
+	"address": "24 grande rue",
+	"zipcode": "25000",
+	"city": "Dijon",
+	"department": "Cote d'or",
+	"username": "ytjytj@fixt.com",
+	"plain_password": null,
+	"consent_news": false,
+	"use_phone": true,
+	"use_mobile": false,
+	"consent_terms": true
+}
+
+Pour poster ou patcher un article :
+{
+	"title":"titre",
+    "introduction": "introduction",
+    "content":"Contenus",
+	"section": {
+		"id": 1
+	},
+    "background": {
+		"id": 1
+	},
+    "category": {
+		"id": 1
+	}
+}
