@@ -30,10 +30,9 @@ class AppFixtures extends Fixture
         $admin->setConsentName(false);
         $admin->setLastName('Admin');
         $admin->setConsentLastName(false);
-        $admin->setUsername('Admin');
+        $admin->setNickName('Admin');
         $admin->setBirthdate(new \Datetime('now'));
         $admin->setGender('male');
-        $admin->setAge(35);
         $admin->setStatus('employed');
         $admin->setConsentMail(true);
         $admin->setAddress('24 Grande Rue Dijon');
@@ -46,6 +45,8 @@ class AppFixtures extends Fixture
         $admin->setUseMobile(true);
         $admin->setConsentTerms(true);
         $admin->setConsentNews(true);
+        $admin->setEnabled(true);
+        $admin->setDeleted(false);
 
         $category->setTitle('Category-1');
         $category->setIntro('<p>Category 1</p>');
