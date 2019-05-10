@@ -88,7 +88,7 @@ class Content implements RouteReferrersInterface
 
     /**
      * @ORM\ManyToOne(targetEntity="Section", inversedBy="contents")
-     * @ORM\JoinColumn(name="section_id", referencedColumnName="id", nullable=true, onDelete="SET NULL")
+     * @ORM\JoinColumn(name="section_id", referencedColumnName="id", nullable=false)
      * @Serializer\Expose()
      * @Serializer\Groups({"Content:details"})
     */

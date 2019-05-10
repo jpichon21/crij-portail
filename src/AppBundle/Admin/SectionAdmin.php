@@ -92,7 +92,7 @@ final class SectionAdmin extends AbstractAdmin
                     ->add('category', EntityType::class, [
                         'class' => Category::class,
                         'label' => 'Catégorie',
-                        'required' => false,
+                        'required' => true,
                     ])
                 ->end();
         if ($this->isCurrentRoute('edit')) {

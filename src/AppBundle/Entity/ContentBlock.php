@@ -82,7 +82,7 @@ class ContentBlock
 
     /**
      * @ORM\ManyToOne(targetEntity="Content", inversedBy="contentBlocks")
-     * @ORM\JoinColumn(name="content_id", referencedColumnName="id", nullable=true, onDelete="SET NULL")
+     * @ORM\JoinColumn(name="content_id", referencedColumnName="id", nullable=false)
     */
     private $content;
 

@@ -109,7 +109,7 @@ class Section implements RouteReferrersInterface
 
     /**
      * @ORM\ManyToOne(targetEntity="Category", inversedBy="sections")
-     * @ORM\JoinColumn(name="category_id", referencedColumnName="id", nullable=true, onDelete="SET NULL")
+     * @ORM\JoinColumn(name="category_id", referencedColumnName="id", nullable=false)
      * @Serializer\Expose()
      * @Serializer\Groups({"Section:details", "Section:list"})
     */

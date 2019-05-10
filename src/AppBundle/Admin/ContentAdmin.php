@@ -32,7 +32,7 @@ final class ContentAdmin extends AbstractAdmin
 
         return $actions;
     }
-    
+
     public function prePersist($content)
     {
         $this->preUpdate($content);
@@ -86,7 +86,7 @@ final class ContentAdmin extends AbstractAdmin
                 ->add('section', EntityType::class, [
                     'class' => Section::class,
                     'label' => 'Rubrique',
-                    'required' => false,
+                    'required' => true,
                 ])
             ->end()
             ->end()
