@@ -13,6 +13,7 @@ use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Validator\Constraints\File;
 
 /**
  * Media Admin class
@@ -79,12 +80,44 @@ final class MediaAdmin extends AbstractAdmin
             ->add('file', FileType::class, [
                 'label' => 'Choisissez votre fichier',
                 'required' => false,
+                'attr' => [
+                    'accept' => "image/jpeg, image/jpg, image/pjpeg, image/png, image/x-png"
+                ],
+                'constraints' => [
+                    new File([
+                        'maxSize' => '2M',
+                        'mimeTypes' => [
+                            'image/jpeg',
+                            'image/jpg',
+                            'image/pjpeg',
+                            'image/png',
+                            'image/x-png',
+                        ],
+                        'mimeTypesMessage' => 'Please upload an image file',
+                    ])
+                ]
             ]);
         } else {
             $formMapper
             ->add('file', FileType::class, [
                 'label' => 'Choisissez votre fichier',
                 'required' => true,
+                'attr' => [
+                    'accept' => "image/jpeg, image/jpg, image/pjpeg, image/png, image/x-png"
+                ],
+                'constraints' => [
+                    new File([
+                        'maxSize' => '2M',
+                        'mimeTypes' => [
+                            'image/jpeg',
+                            'image/jpg',
+                            'image/pjpeg',
+                            'image/png',
+                            'image/x-png',
+                        ],
+                        'mimeTypesMessage' => 'Please upload an image file',
+                    ])
+                ]
             ]);
         }
     }

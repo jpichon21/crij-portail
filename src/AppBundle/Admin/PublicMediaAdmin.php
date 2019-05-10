@@ -69,12 +69,44 @@ final class PublicMediaAdmin extends AbstractAdmin
             ->add('file', FileType::class, [
                 'label' => 'Choisissez votre fichier',
                 'required' => false,
+                'attr' => [
+                    'accept' => "image/jpeg, image/jpg, image/pjpeg, image/png, image/x-png"
+                ],
+                'constraints' => [
+                    new File([
+                        'maxSize' => '2M',
+                        'mimeTypes' => [
+                            'image/jpeg',
+                            'image/jpg',
+                            'image/pjpeg',
+                            'image/png',
+                            'image/x-png',
+                        ],
+                        'mimeTypesMessage' => 'Please upload an image file',
+                    ])
+                ]
             ]);
         } else {
             $formMapper
             ->add('file', FileType::class, [
                 'label' => 'Choisissez votre fichier',
                 'required' => true,
+                'attr' => [
+                    'accept' => "image/jpeg, image/jpg, image/pjpeg, image/png, image/x-png"
+                ],
+                'constraints' => [
+                    new File([
+                        'maxSize' => '2M',
+                        'mimeTypes' => [
+                            'image/jpeg',
+                            'image/jpg',
+                            'image/pjpeg',
+                            'image/png',
+                            'image/x-png',
+                        ],
+                        'mimeTypesMessage' => 'Please upload an image file',
+                    ])
+                ]
             ]);
         }
     }
