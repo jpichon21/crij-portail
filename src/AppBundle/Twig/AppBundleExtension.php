@@ -18,7 +18,8 @@ class AppBundleExtension extends AbstractExtension
      * @param $class
      * @return bool
      */
-    public function isInstanceof($object, $class) {
+    public function isInstanceof($object, $class)
+    {
         $reflectionClass = new \ReflectionClass($class);
         return $reflectionClass->isInstance($object);
     }
