@@ -109,7 +109,7 @@ class ContentBlock
      */
     private $results;
 
-        /**
+    /**
      * @var string
      *
      * @Serializer\Expose()
