@@ -23,7 +23,16 @@ use Sonata\AdminBundle\Form\Type\ModelListType;
  */
 final class ContentAdmin extends AbstractAdmin
 {
+    public function getBatchActions()
+    {
+        $actions = parent::getBatchActions();
+        if (!$this->getUser()->hasRole('ROLE_SUPER_ADMIN')) {
+            unset($actions['delete']);
+        }
 
+        return $actions;
+    }
+    
     public function prePersist($content)
     {
         $this->preUpdate($content);

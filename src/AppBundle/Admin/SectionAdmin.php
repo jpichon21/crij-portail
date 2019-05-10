@@ -22,6 +22,16 @@ use Sonata\AdminBundle\Form\Type\ModelListType;
  */
 final class SectionAdmin extends AbstractAdmin
 {
+    public function getBatchActions()
+    {
+        $actions = parent::getBatchActions();
+        if (!$this->getUser()->hasRole('ROLE_SUPER_ADMIN')) {
+            unset($actions['delete']);
+        }
+
+        return $actions;
+    }
+
     /**
      * Hook prePersist event
      *

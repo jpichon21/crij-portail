@@ -21,6 +21,17 @@ use Symfony\Component\Form\Extension\Core\Type\ColorType;
  */
 final class CategoryAdmin extends AbstractAdmin
 {
+
+    public function getBatchActions()
+    {
+        $actions = parent::getBatchActions();
+        if (!$this->getUser()->hasRole('ROLE_SUPER_ADMIN')) {
+            unset($actions['delete']);
+        }
+
+        return $actions;
+    }
+
     /**
      * Hook prePersist event
      *

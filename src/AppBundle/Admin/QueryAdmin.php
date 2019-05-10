@@ -20,6 +20,16 @@ use AppBundle\Form\FilterType;
  */
 final class QueryAdmin extends AbstractAdmin
 {
+    public function getBatchActions()
+    {
+        $actions = parent::getBatchActions();
+        if (!$this->getUser()->hasRole('ROLE_SUPER_ADMIN')) {
+            unset($actions['delete']);
+        }
+
+        return $actions;
+    }
+
     public function prePersist($query)
     {
         $this->preUpdate($query);
@@ -156,5 +166,10 @@ final class QueryAdmin extends AbstractAdmin
             $result .= $key . $glue;
         }
         return substr($result, 0, -1);
+    }
+
+    private function getUser()
+    {
+        return $this->getConfigurationPool()->getContainer()->get('security.token_storage')->getToken()->getUser();
     }
 }

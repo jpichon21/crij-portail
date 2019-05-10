@@ -22,6 +22,17 @@ use Sonata\DoctrineORMAdminBundle\Filter\DateTimeRangeFilter;
  */
 final class ArticleAdmin extends AbstractAdmin
 {
+
+    public function getBatchActions()
+    {
+        $actions = parent::getBatchActions();
+        if (!$this->getUser()->hasRole('ROLE_SUPER_ADMIN')) {
+            unset($actions['delete']);
+        }
+
+        return $actions;
+    }
+    
     /**
      * Configure admin form.
      *

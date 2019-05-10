@@ -20,6 +20,15 @@ use Symfony\Component\Validator\Constraints\File;
  */
 final class MediaAdmin extends AbstractAdmin
 {
+    public function getBatchActions()
+    {
+        $actions = parent::getBatchActions();
+        if (!$this->getUser()->hasRole('ROLE_SUPER_ADMIN')) {
+            unset($actions['delete']);
+        }
+
+        return $actions;
+    }
 
     /**
      * Hook prePersist event to set media in a child form.

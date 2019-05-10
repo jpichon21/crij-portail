@@ -21,6 +21,16 @@ use Sonata\DoctrineORMAdminBundle\Filter\ChoiceFilter;
  */
 final class ContentBlockAdmin extends AbstractAdmin
 {
+    public function getBatchActions()
+    {
+        $actions = parent::getBatchActions();
+        if (!$this->getUser()->hasRole('ROLE_SUPER_ADMIN')) {
+            unset($actions['delete']);
+        }
+
+        return $actions;
+    }
+
     /**
      * Configure admin form.
      *
@@ -118,5 +128,9 @@ final class ContentBlockAdmin extends AbstractAdmin
                     'delete' => [],
                 ]
             ]);
+    }
+    private function getUser()
+    {
+        return $this->getConfigurationPool()->getContainer()->get('security.token_storage')->getToken()->getUser();
     }
 }

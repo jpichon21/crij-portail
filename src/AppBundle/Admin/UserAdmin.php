@@ -26,6 +26,17 @@ use Sonata\AdminBundle\Show\ShowMapper;
  */
 final class UserAdmin extends AbstractAdmin
 {
+
+    public function getBatchActions()
+    {
+        $actions = parent::getBatchActions();
+        if (!$this->getUser()->hasRole('ROLE_SUPER_ADMIN')) {
+            unset($actions['delete']);
+        }
+
+        return $actions;
+    }
+
     public function prePersist($object)
     {
         $this->preUpdate($object);
@@ -304,5 +315,10 @@ final class UserAdmin extends AbstractAdmin
             ])
         ->end()
         ->end();
+    }
+
+    private function getUser()
+    {
+        return $this->getConfigurationPool()->getContainer()->get('security.token_storage')->getToken()->getUser();
     }
 }

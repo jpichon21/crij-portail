@@ -17,6 +17,16 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 final class ActivityAdmin extends AbstractAdmin
 {
 
+    public function getBatchActions()
+    {
+        $actions = parent::getBatchActions();
+        if (!$this->getUser()->hasRole('ROLE_SUPER_ADMIN')) {
+            unset($actions['delete']);
+        }
+
+        return $actions;
+    }
+
     /**
      * Configure admin form.
      *
@@ -196,5 +206,10 @@ final class ActivityAdmin extends AbstractAdmin
             ->addIdentifier('aidName', null, [
                 'label' => 'Nom',
             ]);
+    }
+
+    private function getUser()
+    {
+        return $this->getConfigurationPool()->getContainer()->get('security.token_storage')->getToken()->getUser();
     }
 }

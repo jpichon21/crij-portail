@@ -19,6 +19,15 @@ use Symfony\Component\Form\Extension\Core\Type\TelType;
  */
 final class OrganismAdmin extends AbstractAdmin
 {
+    public function getBatchActions()
+    {
+        $actions = parent::getBatchActions();
+        if (!$this->getUser()->hasRole('ROLE_SUPER_ADMIN')) {
+            unset($actions['delete']);
+        }
+
+        return $actions;
+    }
 
     /**
      * Configure admin form.
@@ -211,5 +220,11 @@ final class OrganismAdmin extends AbstractAdmin
             ->addIdentifier('name', null, [
                 'label' => 'Nom',
             ]);
+    }
+
+    private function getUser()
+    {
+        $tokenStorage = $this->getConfigurationPool()->getContainer()->get('security.token_storage')->getToken();
+        return ($tokenStorage) ? $tokenStorage->getUser() : null;
     }
 }
