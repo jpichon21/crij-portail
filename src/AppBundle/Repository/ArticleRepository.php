@@ -32,7 +32,7 @@ class ArticleRepository extends AbstractRepository
      * @param iteger $id
      * @return Null|Article
      */
-    public function findById($id) 
+    public function findById($id)
     {
         $qb = $this->repository->createQueryBuilder('a')
         ->select('a')

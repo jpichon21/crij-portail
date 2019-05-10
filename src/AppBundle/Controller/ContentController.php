@@ -103,7 +103,7 @@ class ContentController extends Controller
             return new JsonResponse(['message' => 'Content not found'], Response::HTTP_NOT_FOUND);
         }
         foreach ($data->getContentBlocks() as $contentBlock) {
-            if($contentBlock->getQuery()){
+            if ($contentBlock->getQuery()) {
                 $results = $this->findResults($contentBlock->getQuery());
                 $contentBlock->setResults($results);
                 $contentBlock->setPublicFilters($contentBlock->getQuery()->getPublicFilters());

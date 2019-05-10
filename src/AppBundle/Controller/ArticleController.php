@@ -63,8 +63,7 @@ class ArticleController extends Controller
         SectionRepository $sectionRepository,
         MediaRepository $mediaRepository,
         CategoryRepository $categoryRepository
-        )
-    {
+    ) {
         $this->repository = $articleRepository;
         $this->sectionRepository = $sectionRepository;
         $this->mediaRepository = $mediaRepository;
@@ -90,29 +89,33 @@ class ArticleController extends Controller
      * @ParamConverter("article", converter="fos_rest.request_body")
      * @Rest\View
      */
-    public function postAction(Article $article, ConstraintViolationListInterface $validationErrors) {
+    public function postAction(Article $article, ConstraintViolationListInterface $validationErrors)
+    {
         $mappingError = $this->relationMapper($article)['error'];
         if ($mappingError !== false) {
-                return new JsonResponse([
+            return new JsonResponse(
+                [
                     'message' => $mappingError,
-                ], 
+                ],
                 Response::HTTP_FORBIDDEN
             );
         }
 
         if (count($validationErrors) > 0) {
-            return new JsonResponse([
+            return new JsonResponse(
+                [
                     'message' => $validationErrors[0]->getMessage(),
                     'field' => $validationErrors[0]->getPropertyPath()
-                ], 
+                ],
                 Response::HTTP_UNPROCESSABLE_ENTITY
             );
         }
 
         if ($article->getPublished() !== null) {
-            return new JsonResponse([
+            return new JsonResponse(
+                [
                     'message' => 'not.allowed.to.publish',
-                ], 
+                ],
                 Response::HTTP_FORBIDDEN
             );
         }
@@ -125,10 +128,12 @@ class ArticleController extends Controller
      * @param int $id
      * @Rest\View
      */
-    public function deleteAction($id) {
+    public function deleteAction($id)
+    {
         $article = $this->repository->findById($id);
         if ($article->getPublished() !== null) {
-            return new JsonResponse([
+            return new JsonResponse(
+                [
                     'message' => 'not.allowed.to.remove',
                 ],
                 Response::HTTP_FORBIDDEN
@@ -143,7 +148,8 @@ class ArticleController extends Controller
      * @param int $id
      * @Rest\View
      */
-    public function patchAction(Article $article, ConstraintViolationListInterface $validationErrors, $id) {
+    public function patchAction(Article $article, ConstraintViolationListInterface $validationErrors, $id)
+    {
         $articleModified = $this->repository->findById($id);
         
         if (!$articleModified) {
@@ -151,37 +157,41 @@ class ArticleController extends Controller
         }
         
         if (count($validationErrors) > 0) {
-            return new JsonResponse([
+            return new JsonResponse(
+                [
                     'message' => $validationErrors[0]->getMessage(),
                     'field' => $validationErrors[0]->getPropertyPath()
-                ], 
+                ],
                 Response::HTTP_UNPROCESSABLE_ENTITY
             );
         }
 
         if ($articleModified->getPublished() !== null) {
-            return new JsonResponse([
+            return new JsonResponse(
+                [
                     'message' => 'not.allowed.to.modify',
-                ], 
+                ],
                 Response::HTTP_FORBIDDEN
             );
         }
 
         if ($article->getPublished() !== null) {
-            return new JsonResponse([
+            return new JsonResponse(
+                [
                     'message' => 'not.allowed.to.publish',
-                ], 
+                ],
                 Response::HTTP_FORBIDDEN
             );
         }
 
         $message = $this->articleUpdater($article, $articleModified);
         if (array_key_exists('error', $message)) {
-                return new JsonResponse([
-                    'message' => $message['error'],
-                ],
-                Response::HTTP_FORBIDDEN
-            );
+                return new JsonResponse(
+                    [
+                        'message' => $message['error'],
+                    ],
+                    Response::HTTP_FORBIDDEN
+                );
         } else {
             return $message;
         }
@@ -238,7 +248,7 @@ class ArticleController extends Controller
      * @param Article $article
      * return Array
      */
-    private function relationMapper($article) 
+    private function relationMapper($article)
     {
         $error = [];
         if ($article->getSection()) {

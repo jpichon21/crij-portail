@@ -17,8 +17,6 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use AppBundle\Entity\User;
 use Symfony\Component\Validator\ConstraintViolationListInterface;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Component\BrowserKit\Request;
-use JMS\Serializer\SerializerInterface;
 
 /**
  * User Controller
@@ -41,17 +39,15 @@ class UserController extends Controller
      */
     private $paramFetcher;
 
-    /**
-     * @var Serializer
-     */
-    private $serializer;
 
-    public function __construct(UserRepository $userRepository, ParamFetcherInterface $paramFetcher,  EntityManagerInterface $em, SerializerInterface $serializer)
-    {
+    public function __construct(
+        UserRepository $userRepository,
+        ParamFetcherInterface $paramFetcher,
+        EntityManagerInterface $em
+    ) {
         $this->repository = $userRepository;
         $this->paramFetcher = $paramFetcher;
         $this->em = $em;
-        $this->serializer = $serializer;
     }
 
     /**
@@ -72,20 +68,23 @@ class UserController extends Controller
      * @ParamConverter("user", converter="fos_rest.request_body")
      * @Rest\View
      */
-    public function postAction(User $user, ConstraintViolationListInterface $validationErrors) {
+    public function postAction(User $user, ConstraintViolationListInterface $validationErrors)
+    {
         if (count($validationErrors) > 0) {
-            return new JsonResponse([
+            return new JsonResponse(
+                [
                     'message' => $validationErrors[0]->getMessage(),
                     'field' => $validationErrors[0]->getPropertyPath()
-                ], 
+                ],
                 Response::HTTP_UNPROCESSABLE_ENTITY
             );
         }
         if ($this->repository->findByEmail($user->getEmail())) {
-                return new JsonResponse([
+            return new JsonResponse(
+                [
                     'message' => "unique_email",
                     'field' => "Email"
-                ], 
+                ],
                 Response::HTTP_UNPROCESSABLE_ENTITY
             );
         }
@@ -103,30 +102,34 @@ class UserController extends Controller
      * @param int $id
      * @Rest\View
      */
-    public function patchAction(User $user, ConstraintViolationListInterface $validationErrors, $id) {
+    public function patchAction(User $user, ConstraintViolationListInterface $validationErrors, $id)
+    {
         $currentUser = $this->getUser();
-        if($currentUser->getId() !== intval($id)) {
-                return new JsonResponse([
+        if ($currentUser->getId() !== intval($id)) {
+            return new JsonResponse(
+                [
                     'message' => 'user.different',
-                ], 
+                ],
                 Response::HTTP_UNPROCESSABLE_ENTITY
             );
         }
         if ($currentUser->getEmail() !== $user->getEmail()) {
             if ($this->repository->findByEmail($user->getEmail())) {
-                    return new JsonResponse([
+                return new JsonResponse(
+                    [
                         'message' => "unique_email",
                         'field' => "Email"
-                    ], 
+                    ],
                     Response::HTTP_UNPROCESSABLE_ENTITY
                 );
             }
         }
         if (count($validationErrors) > 0) {
-            return new JsonResponse([
+            return new JsonResponse(
+                [
                     'message' => $validationErrors[0]->getMessage(),
                     'field' => $validationErrors[0]->getPropertyPath()
-                ], 
+                ],
                 Response::HTTP_UNPROCESSABLE_ENTITY
             );
         }
@@ -239,7 +242,10 @@ class UserController extends Controller
         }
         if ($userRequested->getPlainPassword() !== null) {
             $encoder = $this->get('security.password_encoder');
-            $encodedUserRequestedPassword = $encoder->encodePassword($userRequested, $userRequested->getPlainPassword());
+            $encodedUserRequestedPassword = $encoder->encodePassword(
+                $userRequested,
+                $userRequested->getPlainPassword()
+            );
     
             if ($encodedUserRequestedPassword !== $userModified->getPassword()) {
                 $userRequested->setpassword($encodedUserRequestedPassword);
