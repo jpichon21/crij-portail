@@ -138,6 +138,7 @@ sonata_admin:
             - bundles/sonataformatter/markitup/sets/textile/style.css
     templates:
         delete: AppBundle/CRUD/delete.html.twig
+        user_block: AppBundle/UserAdmin/user_block.html.twig
 
 sonata_block:
     blocks:
