@@ -13,7 +13,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * @ORM\Entity
  *
- * @Gedmo\Uploadable(callback="myCallbackMethod",
+ * @Gedmo\Uploadable(
  *  allowOverwrite=false,
  *  filenameGenerator="SHA1",
  *  appendNumber=true,
@@ -70,21 +70,21 @@ class Media
     /**
      * @Assert\File()
      */
-    public $file;
+    private $file;
     
     /**
      * @var string
      *
      * @ORM\Column(name="altText", type="string", length=255, nullable=true)
      */
-    public $altText;
+    private $altText;
 
     /**
      * @var string
      *
      * @ORM\Column(name="title", type="string", length=255, nullable=false)
      */
-    public $title;
+    private $title;
 
     /**
      * @ORM\ManyToOne(targetEntity="User", cascade={"persist"})
@@ -104,7 +104,7 @@ class Media
      *
      * @return Media
      */
-    public function setFile($file): self
+    public function setFile($file)
     {
         $this->file = $file;
 
@@ -121,18 +121,6 @@ class Media
         return $this->file;
     }
 
-    /**
-     * interfaced callbackmethod.
-     *
-     * @param array $info
-     *
-     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
-     * Interfaced void
-     */
-    public function myCallbackMethod(array $info)
-    {
-    }
-
     public function __construct()
     {
         $this->public = false;
@@ -145,7 +133,7 @@ class Media
      */
     public function __toString()
     {
-        return (string) $this->title;
+        return $this->title;
     }
 
     /**
