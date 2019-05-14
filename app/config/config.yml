@@ -196,5 +196,6 @@ cmf_routing:
 jms_serializer:
     handlers:
         datetime:
-            default_format: "Y-m-d\\TH:i:sP"
             default_timezone: "Europe/Paris"
+    property_naming: 
+        id: 'jms_serializer.identical_property_naming_strategy'

@@ -116,7 +116,7 @@ final class UserAdmin extends AbstractAdmin
                 ])
                 ->add('status', ChoiceType::class, [
                     'label' => 'Statut',
-                    'choices' => User::STATUT,
+                    'choices' => User::STATUS,
                     'required' => false,
                 ])
                 ->add('email', EmailType::class, [
