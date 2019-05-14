@@ -16,3 +16,6 @@ article:
 security:
   type: rest
   resource: AppBundle\Controller\SecurityController
+media:
+  type: rest
+  resource: AppBundle\Controller\MediaController

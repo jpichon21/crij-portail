@@ -75,7 +75,7 @@ class Media
     /**
      * @var string
      *
-     * @ORM\Column(name="altText", type="string", length=255, nullable=false)
+     * @ORM\Column(name="altText", type="string", length=255, nullable=true)
      */
     public $altText;
 
@@ -112,6 +112,16 @@ class Media
     }
 
     /**
+     * Get file.
+     *
+     * @return File
+     */
+    public function getFile()
+    {
+        return $this->file;
+    }
+
+    /**
      * interfaced callbackmethod.
      *
      * @param array $info
@@ -121,6 +131,11 @@ class Media
      */
     public function myCallbackMethod(array $info)
     {
+    }
+
+    public function __construct()
+    {
+        $this->public = false;
     }
 
     /**

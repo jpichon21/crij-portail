@@ -116,9 +116,9 @@ class Article
     private $archived;
 
     /**
-     * @var \DateTime
+     * @var bool
      *
-     * @ORM\Column(name="published", type="datetime", nullable=true)
+     * @ORM\Column(name="published", type="boolean", nullable=true)
      * @Serializer\Expose()
      * @Serializer\Groups({"Article:details"})
      */
@@ -131,6 +131,11 @@ class Article
      */
     private $unpublished;
 
+    public function __construct()
+    {
+        $this->published = false;
+    }
+    
     /**
      * to string method
      *
@@ -140,6 +145,7 @@ class Article
     {
         return $this->getTitle();
     }
+
 
     /**
      * Get id.
@@ -346,7 +352,7 @@ class Article
     /**
      * Set published.
      *
-     * @param \DateTime $published
+     * @param bool $published
      *
      * @return Article
      */
@@ -360,7 +366,7 @@ class Article
     /**
      * Get published.
      *
-     * @return \DateTime
+     * @return bool
      */
     public function getPublished()
     {

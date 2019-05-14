@@ -6,19 +6,19 @@
 
 namespace AppBundle\Controller;
 
+use Doctrine\ORM\EntityManagerInterface;
 use FOS\RestBundle\Controller\Annotations as Rest;
-use FOS\RestBundle\Request\ParamFetcherInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
-use AppBundle\Repository\ArticleRepository;
 use AppBundle\Entity\Article;
-use Symfony\Component\Validator\ConstraintViolationListInterface;
-use Doctrine\ORM\EntityManagerInterface;
-use AppBundle\Repository\SectionRepository;
-use AppBundle\Repository\MediaRepository;
+use AppBundle\Form\ArticleType;
+use AppBundle\Repository\ArticleRepository;
 use AppBundle\Repository\CategoryRepository;
+use AppBundle\Repository\MediaRepository;
+use AppBundle\Repository\SectionRepository;
 
 /**
  * Article Controller
@@ -37,11 +37,6 @@ class ArticleController extends Controller
     private $repository;
 
     /**
-     * @var ParamFetcherInterface
-     */
-    private $paramFetcher;
-
-    /**
      * @var SectionRepository
      */
     private $sectionRepository;
@@ -58,7 +53,6 @@ class ArticleController extends Controller
 
     public function __construct(
         ArticleRepository $articleRepository,
-        ParamFetcherInterface $paramFetcher,
         EntityManagerInterface $em,
         SectionRepository $sectionRepository,
         MediaRepository $mediaRepository,
@@ -68,7 +62,6 @@ class ArticleController extends Controller
         $this->sectionRepository = $sectionRepository;
         $this->mediaRepository = $mediaRepository;
         $this->categoryRepository = $categoryRepository;
-        $this->paramFetcher = $paramFetcher;
         $this->em = $em;
     }
 
@@ -80,62 +73,50 @@ class ArticleController extends Controller
     {
         $article = $this->repository->findById($id);
         if (!$article) {
-            return new JsonResponse(['message' => 'article.not.found'], Response::HTTP_NOT_FOUND);
+            return new JsonResponse(['message' => 'error.article_not_found'], Response::HTTP_NOT_FOUND);
         }
         return ['data' => $article];
     }
     
     /**
-     * @ParamConverter("article", converter="fos_rest.request_body")
      * @Rest\View
+     * @Security("has_role('ROLE_USER')")
      */
-    public function postAction(Article $article, ConstraintViolationListInterface $validationErrors)
+    public function postAction(Request $request)
     {
-        $mappingError = $this->relationMapper($article)['error'];
-        if ($mappingError !== false) {
-            return new JsonResponse(
-                [
-                    'message' => $mappingError,
-                ],
-                Response::HTTP_FORBIDDEN
-            );
-        }
+        return $this->createOrEdit($request);
+    }
 
-        if (count($validationErrors) > 0) {
-            return new JsonResponse(
-                [
-                    'message' => $validationErrors[0]->getMessage(),
-                    'field' => $validationErrors[0]->getPropertyPath()
-                ],
-                Response::HTTP_UNPROCESSABLE_ENTITY
-            );
-        }
-
-        if ($article->getPublished() !== null) {
-            return new JsonResponse(
-                [
-                    'message' => 'not.allowed.to.publish',
-                ],
-                Response::HTTP_FORBIDDEN
-            );
-        }
-
-        $this->em->persist($article);
-        $this->em->flush();
+     /**
+     * @param int $id
+     * @Rest\View
+     * @Security("has_role('ROLE_USER')")
+     */
+    public function patchAction($id, Request $request)
+    {
+        return $this->createOrEdit($request, $id);
     }
 
     /**
      * @param int $id
      * @Rest\View
+     * @Security("has_role('ROLE_USER')")
      */
     public function deleteAction($id)
     {
         $article = $this->repository->findById($id);
-        if ($article->getPublished() !== null) {
+
+        if (!$article) {
+            return new JsonResponse(['message' => 'error.article_not_found'], Response::HTTP_NOT_FOUND);
+        }
+
+        if ($article->getPublished()) {
+            return new JsonResponse(['message' => 'error.article_published'], Response::HTTP_FORBIDDEN);
+        }
+
+        if ($article->getAuthor() !== $this->getUser()) {
             return new JsonResponse(
-                [
-                    'message' => 'not.allowed.to.remove',
-                ],
+                ['message' => 'error.not_allowed_to_update_this_resource'],
                 Response::HTTP_FORBIDDEN
             );
         }
@@ -143,146 +124,81 @@ class ArticleController extends Controller
         $this->em->flush();
     }
 
-    /**
-     * @ParamConverter("article", converter="fos_rest.request_body")
-     * @param int $id
-     * @Rest\View
-     */
-    public function patchAction(Article $article, ConstraintViolationListInterface $validationErrors, $id)
+    private function createOrEdit(Request $request, $id = null)
     {
-        $articleModified = $this->repository->findById($id);
+        if ($id) {
+            $article = $this->repository->findById($id);
         
-        if (!$articleModified) {
-            return new JsonResponse(['message' => 'article.not.found'], Response::HTTP_NOT_FOUND);
-        }
-        
-        if (count($validationErrors) > 0) {
-            return new JsonResponse(
-                [
-                    'message' => $validationErrors[0]->getMessage(),
-                    'field' => $validationErrors[0]->getPropertyPath()
-                ],
-                Response::HTTP_UNPROCESSABLE_ENTITY
-            );
-        }
-
-        if ($articleModified->getPublished() !== null) {
-            return new JsonResponse(
-                [
-                    'message' => 'not.allowed.to.modify',
-                ],
-                Response::HTTP_FORBIDDEN
-            );
-        }
-
-        if ($article->getPublished() !== null) {
-            return new JsonResponse(
-                [
-                    'message' => 'not.allowed.to.publish',
-                ],
-                Response::HTTP_FORBIDDEN
-            );
-        }
-
-        $message = $this->articleUpdater($article, $articleModified);
-        if (array_key_exists('error', $message)) {
+            if (!$article) {
+                return new JsonResponse(['message' => 'error.article_not_found'], Response::HTTP_NOT_FOUND);
+            }
+            
+            if ($article->getAuthor() !== $this->getUser()) {
                 return new JsonResponse(
-                    [
-                        'message' => $message['error'],
-                    ],
+                    ['message' => 'error.not_allowed_to_update_this_resource'],
                     Response::HTTP_FORBIDDEN
                 );
+            }
+
+            if ($article->getPublished()) {
+                return new JsonResponse(['message' => 'error.article_published'], Response::HTTP_FORBIDDEN);
+            }
         } else {
-            return $message;
+            $article = new Article();
+            $article->setAuthor($this->getUser());
         }
-    }
-
-    private function articleUpdater(Article $articleRequested, Article $articleModified)
-    {
-        $editedField = [];
-
-        $mappingError = $this->relationMapper($articleRequested);
-        if ($mappingError['error'] !== false) {
-            return $mappingError;
+        
+        $section = null;
+        if ($request->request->has('section')) {
+            $section = $this->sectionRepository->find($request->request->get('section'));
+            if (!$section) {
+                return new JsonResponse(['message' => 'error.section_not_found'], Response::HTTP_NOT_FOUND);
+            }
         }
-
-        if ($articleRequested->getTitle() !== $articleModified->getTitle()) {
-            $articleModified->setTitle($articleRequested->getTitle());
-            $editedField[] = ['title'=>'updated.successfully'];
-        }
-
-        if ($articleRequested->getIntroduction() !== $articleModified->getIntroduction()) {
-            $articleModified->setIntroduction($articleRequested->getIntroduction());
-            $editedField[] = ['introduction'=>'updated.successfully'];
+        
+        $category = null;
+        if ($request->request->has('category')) {
+            $category = $this->categoryRepository->find($request->request->get('category'));
+            if (!$category) {
+                return new JsonResponse(['message' => 'error.category_not_found'], Response::HTTP_NOT_FOUND);
+            }
         }
 
-        if ($articleRequested->getContent() !== $articleModified->getContent()) {
-            $articleModified->setContent($articleRequested->getContent());
-            $editedField[] = ['content'=>'updated.successfully'];
+        $background = null;
+        if ($request->request->has('background')) {
+            $background = $this->mediaRepository->find($request->request->get('background'));
+            if (!$background) {
+                return new JsonResponse(['message' => 'error.background_not_found'], Response::HTTP_NOT_FOUND);
+            }
         }
 
-        if ($articleRequested->getSection() !== $articleModified->getSection()) {
-            $articleModified->setSection($articleRequested->getSection());
-            $editedField[] = ['section'=>'updated.successfully'];
-        }
+        $form = $this->createForm(ArticleType::class, $article);
 
-        if ($articleRequested->getBackground() !== $articleModified->getBackground()) {
-            $articleModified->setBackground($articleRequested->getBackground());
-            $editedField[] = ['background'=>'updated.successfully'];
-        }
+        // Remove linked entities from request's body, we will set them after
+        $formParams = $request->request->all();
+        unset($formParams['section']);
+        unset($formParams['category']);
+        unset($formParams['background']);
+        $form->submit($formParams, true);
 
-        if ($articleRequested->getCategory() !== $articleModified->getCategory()) {
-            $articleModified->setCategory($articleRequested->getCategory());
-            $editedField[] = ['category'=>'updated.successfully'];
-        }
-
-        $this->em->remove($articleRequested);
-        $this->em->persist($articleModified);
-        $this->em->flush();
-
-        return $editedField;
-    }
-
-    /**
-     * Check if sub entity posted by client exist if yes they map sub entity to the article
-     * @param Article $article
-     * return Array
-     */
-    private function relationMapper($article)
-    {
-        $error = [];
-        if ($article->getSection()) {
-            $section = $this->sectionRepository->find($article->getSection()->getId());
+        if ($form->isValid()) {
             if ($section) {
                 $article->setSection($section);
-            } else {
-                $error = ['error' => 'unexpected.or.not.found.section'];
             }
-        }
-
-        if ($article->getBackground()) {
-            $media = $this->mediaRepository->find($article->getBackground()->getId());
-            if ($media) {
-                $article->setBackground($media);
-            } else {
-                $error = ['error' => 'unexpected.or.not.found.background'];
-            }
-        }
-
-        if ($article->getCategory()) {
-            $category = $this->categoryRepository->find($article->getCategory()->getId());
             if ($category) {
                 $article->setCategory($category);
-            } else {
-                $error = ['error' => 'unexpected.or.not.found.category'];
             }
-        }
-
-        if (!array_key_exists('error', $error)) {
+            if ($background) {
+                $article->setBackground($background);
+            }
             $this->em->persist($article);
-            $error = ['error' => false];
+            $this->em->flush();
+            return $article;
+        } else {
+            return new JsonResponse(
+                ['message' => 'error.unknown_error', 'error' => $form->getErrors()],
+                Response::HTTP_INTERNAL_SERVER_ERROR
+            );
         }
-
-        return $error;
     }
 }

@@ -27,17 +27,17 @@ class MediaRepository extends AbstractRepository
         $this->repository = $entityManager->getRepository(Media::class);
     }
 
-        /**
-     * Find User by id
+    /**
+     * Find Media by id
      *
      * @param int $id
-     * @return Section
+     * @return Media
      */
     public function find($id)
     {
-        $qb = $this->repository->createQueryBuilder('a')
-        ->select('a')
-        ->where('a.id = :id')
+        $qb = $this->repository->createQueryBuilder('m')
+        ->select('m')
+        ->where('m.id = :id')
         ->setParameter('id', $id);
 
         return $qb->getQuery()->getOneOrNullResult();
