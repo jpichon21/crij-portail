@@ -6,15 +6,15 @@
 
 namespace AppBundle\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use FOS\RestBundle\Controller\Annotations as Rest;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
+use JMS\Serializer\SerializationContext;
 
 /**
  * User Controller
- * @Rest\RouteResource("User")
  */
 final class SecurityController extends Controller
 {
@@ -29,12 +29,11 @@ final class SecurityController extends Controller
     }
 
     /**
-     * @Rest\Route("login", name="login_form", requirements={"methods": "POST"})
-
+     * @Rest\Route("/login", name="api_login", requirements={"methods": "POST"}, options={"method_prefix" = false})
      * @Rest\View(serializerGroups={"User:details"})
      * @return \FOS\RestBundle\View\View
      */
-    public function postLoginAction()
+    public function postAction()
     {
         /**
          * @var AppBundle\Entity\User
@@ -42,37 +41,17 @@ final class SecurityController extends Controller
         $user = $this->getUser();
 
         if (!$user) {
-            return new JsonResponse([
-                'status' => 'not logged in'
-            ], 201);
+            return new JsonResponse(['status' => 'not logged in'], Response::HTTP_FORBIDDEN);
         }
-        return new JsonResponse(["data" => [
-            "email" => $user->getEmail(),
-            "name" => $user->getName(),
-            "consent_name" => $user->getConsentName(),
-            "last_name" => $user->getLastName(),
-            "consent_last_name" => $user->getConsentLastName(),
-            "username" => $user->getUsername(),
-            "birthdate" => $user->getBirthdate(),
-            "gender" => $user->getGender(),
-            "status" => $user->getStatus(),
-            "consent_mail" => $user->getConsentMail(),
-            "address" => $user->getAddress(),
-            "zipcode" => $user->getZipcode(),
-            "city" => $user->getCity(),
-            "department" => $user->getDepartment(),
-            "phone" => $user->getPhone(),
-            "use_phone" => $user->getUsePhone(),
-            "mobile" => $user->getMobile(),
-            "use_mobile" => $user->getUseMobile(),
-            "consent_news" => $user->getConsentNews(),
-        ]]);
+        $serializer = $this->get('jms_serializer');
+        $data = $serializer->serialize($user, 'json', SerializationContext::create()->setGroups(array('User:details')));
+        return new Response($data);
     }
 
     /**
-     * @Rest\Route("logout", name="logout_form")
+     * @Rest\Route("/logout", name="api_logout", options={"method_prefix" = false})
      */
-    public function logoutAction(): void
+    public function logoutAction()
     {
         // Left empty intentionally because this will be handled by Symfony.
     }
