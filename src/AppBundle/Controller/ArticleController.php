@@ -193,11 +193,18 @@ class ArticleController extends Controller
             }
             $this->em->persist($article);
             $this->em->flush();
-            return $article;
+            return ['data' => $article];
         } else {
+            $invalidParams = [];
+            foreach ($form->getErrors(true) as $error) {
+                $invalidParams[] = ['error' => $error->getMessage(), 'field' => $error->getCause()->getPropertyPath()];
+            }
             return new JsonResponse(
-                ['message' => 'error.unknown_error', 'error' => $form->getErrors()],
-                Response::HTTP_INTERNAL_SERVER_ERROR
+                [
+                    'message' => 'error.validation_error',
+                    'invalidParams' => $invalidParams
+                ],
+                Response::HTTP_UNPROCESSABLE_ENTITY
             );
         }
     }
