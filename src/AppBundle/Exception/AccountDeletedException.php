@@ -8,16 +8,16 @@ namespace AppBundle\Exception;
 use Symfony\Component\Security\Core\Exception\AccountStatusException;
 
 /**
- * AccountDisabledException is thrown when the user account is disabled.
+ * AccountDeletedException is thrown when the user account is deleted.
  *
  */
-class AccountDisabledException extends AccountStatusException
+class AccountDeletedException extends AccountStatusException
 {
     /**
      * {@inheritdoc}
      */
     public function getMessageKey()
     {
-        return 'error.account_disabled';
+        return 'error.account_deleted';
     }
 }
