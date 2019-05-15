@@ -13,12 +13,12 @@ class Categories
 {
     /**
      * @Type("array<AppBundle\Entity\Category>")
-     * @Serializer\Groups({"Category:list", "Category:details"})
+     * @Serializer\Groups({"Category:list", "Category:details", "Article:list"})
      */
     private $data;
 
     /**
-    * @Serializer\Groups({"Category:list", "Category:details"})
+    * @Serializer\Groups({"Category:list", "Category:details", "Article:list"})
     */
     private $meta;
 

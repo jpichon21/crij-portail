@@ -6,9 +6,7 @@
 
 namespace AppBundle\Controller;
 
-use FOS\RestBundle\Controller\Annotations\QueryParam;
-use FOS\RestBundle\Controller\Annotations\RouteResource;
-use FOS\RestBundle\Controller\Annotations\View;
+use FOS\RestBundle\Controller\Annotations as Rest;
 use FOS\RestBundle\Request\ParamFetcherInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -18,7 +16,7 @@ use AppBundle\Repository\SectionRepository;
 
 /**
  * Section Controller
- * @RouteResource("Section")
+ * @Rest\RouteResource("Section")
  */
 class SectionController extends Controller
 {
@@ -40,15 +38,15 @@ class SectionController extends Controller
     }
 
     /**
-     * @View(serializerGroups={"Section:list", "Content:list"})
+     * @Rest\View(serializerGroups={"Section:list", "Content:list"})
      *
-     * @QueryParam(
+     * @Rest\QueryParam(
      *     name="limit",
      *     requirements="\d+",
      *     default="50",
      *     description="Max number of items per page."
      * )
-     * @QueryParam(
+     * @Rest\QueryParam(
      *     name="page",
      *     requirements="\d+",
      *     default="1",
@@ -67,31 +65,31 @@ class SectionController extends Controller
     }
 
     /**
-     * @View(serializerGroups={"Section:details", "Content:list"})
+     * @Rest\View(serializerGroups={"Section:details", "Content:list", "Article:list"})
      *
      * @param int $id
      * @return \FOS\RestBundle\View\View
      */
     public function getAction($id)
     {
-        $data = $this->repository->find($id);
+        $section = $this->repository->find($id);
 
-        if (!$data) {
+        if (!$section) {
             return new JsonResponse(['message' => 'Section not found'], Response::HTTP_NOT_FOUND);
         }
-        return ['data' => $data];
+        return ['data' => $section];
     }
 
     /**
-     * @View(serializerGroups={"Article:list"})
+     * @Rest\View(serializerGroups={"Article:list"})
      *
-     * @QueryParam(
+     * @Rest\QueryParam(
      *     name="limit",
      *     requirements="\d+",
      *     default="50",
      *     description="Max number of items per page."
      * )
-     * @QueryParam(
+     * @Rest\QueryParam(
      *     name="page",
      *     requirements="\d+",
      *     default="1",
@@ -103,11 +101,17 @@ class SectionController extends Controller
      */
     public function getArticlesAction($id)
     {
-        $pager = $this->repository->findArticles(
-            $id,
+        $section = $this->repository->find($id);
+        if (!$section) {
+            return new JsonResponse(['message' => 'Section not found'], Response::HTTP_NOT_FOUND);
+        }
+        $pager = $this->articleRepository->findBySection(
+            $section,
+            true,
             $this->paramFetcher->get('limit'),
             $this->paramFetcher->get('page')
         );
-        return new Sections($pager);
+
+        return new Articles($pager);
     }
 }

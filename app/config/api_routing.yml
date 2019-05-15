@@ -1,6 +1,21 @@
 category:
   type: rest
   resource: AppBundle\Controller\CategoryController
+content:
+  type: rest
+  resource: AppBundle\Controller\ContentController
 section:
   type: rest
   resource: AppBundle\Controller\SectionController
+user:
+  type: rest
+  resource: AppBundle\Controller\UserController
+article:
+  type: rest
+  resource: AppBundle\Controller\ArticleController
+security:
+  type: rest
+  resource: AppBundle\Controller\SecurityController
+media:
+  type: rest
+  resource: AppBundle\Controller\MediaController

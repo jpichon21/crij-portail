@@ -7,6 +7,7 @@ namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
+use JMS\Serializer\Annotation as Serializer;
 use Doctrine\Common\Collections\ArrayCollection;
 
 /**
@@ -14,6 +15,8 @@ use Doctrine\Common\Collections\ArrayCollection;
  *
  * @ORM\Table(name="content_block")
  * @ORM\Entity(repositoryClass="Gedmo\Sortable\Entity\Repository\SortableRepository")
+ *
+ * @Serializer\ExclusionPolicy("all")
  */
 class ContentBlock
 {
@@ -31,6 +34,8 @@ class ContentBlock
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
+     * @Serializer\Expose()
+     * @Serializer\Groups({"Content:list", "Content:details"})
      */
     private $id;
 
@@ -45,6 +50,8 @@ class ContentBlock
      * @var string
      *
      * @ORM\Column(name="title", type="string", length=255)
+     * @Serializer\Expose()
+     * @Serializer\Groups({"Content:list", "Content:details"})
      */
     private $title;
 
@@ -52,6 +59,8 @@ class ContentBlock
      * @var string
      *
      * @ORM\Column(name="text", type="string", length=255, nullable=true)
+     * @Serializer\Expose()
+     * @Serializer\Groups({"Content:list", "Content:details"})
      */
     private $text;
 
@@ -91,6 +100,22 @@ class ContentBlock
      * @ORM\Column(name="position", type="integer")
      */
     private $position;
+
+    /**
+     * @var string
+     *
+     * @Serializer\Expose()
+     * @Serializer\Groups({"Content:list", "Content:details"})
+     */
+    private $results;
+
+    /**
+     * @var string
+     *
+     * @Serializer\Expose()
+     * @Serializer\Groups({"Content:list", "Content:details"})
+     */
+    private $publicFilters;
 
     /**
      * to string method
@@ -309,5 +334,43 @@ class ContentBlock
     public function getQuery()
     {
         return $this->query;
+    }
+
+    public function setResults($results)
+    {
+        $this->results = $results;
+
+        return $this;
+    }
+
+    /**
+     * Get results.
+     *
+     * @return bool
+     */
+    public function getResults()
+    {
+        return $this->results;
+    }
+
+    public function setPublicFilters($publicFilters)
+    {
+        $sanitizePublicFilters = [];
+        foreach ($publicFilters as $publicFilter) {
+            $sanitizePublicFilters[] = $publicFilter;
+        }
+        $this->publicFilters = $sanitizePublicFilters;
+
+        return $this;
+    }
+
+    /**
+     * Get publicFilters.
+     *
+     * @return bool
+     */
+    public function getPublicFilters()
+    {
+        return $this->publicFilters;
     }
 }

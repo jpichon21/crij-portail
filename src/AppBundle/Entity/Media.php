@@ -6,18 +6,20 @@
 namespace AppBundle\Entity;
 
 use Gedmo\Mapping\Annotation as Gedmo;
+use JMS\Serializer\Annotation as Serializer;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity
  *
- * @Gedmo\Uploadable(callback="myCallbackMethod",
+ * @Gedmo\Uploadable(
  *  allowOverwrite=false,
  *  filenameGenerator="SHA1",
  *  appendNumber=true,
  *  allowedTypes="image/jpeg,image/jpg,image/pjpeg,image/png,image/x-png"
  * )
+ * @Serializer\ExclusionPolicy("NONE")
  */
 class Media
 {
@@ -32,6 +34,15 @@ class Media
      * @ORM\Column
      *
      * @Gedmo\UploadableFilePath
+     * @Serializer\Expose()
+     * @Serializer\Groups({
+     * "Category:list",
+     * "Category:details",
+     * "Section:list",
+     * "Section:details",
+     * "Content:list",
+     * "Content:details"
+     * })
      */
     private $path;
 
@@ -59,21 +70,21 @@ class Media
     /**
      * @Assert\File()
      */
-    public $file;
+    private $file;
     
     /**
      * @var string
      *
-     * @ORM\Column(name="altText", type="string", length=255, nullable=false)
+     * @ORM\Column(name="altText", type="string", length=255, nullable=true)
      */
-    public $altText;
+    private $altText;
 
     /**
      * @var string
      *
      * @ORM\Column(name="title", type="string", length=255, nullable=false)
      */
-    public $title;
+    private $title;
 
     /**
      * @ORM\ManyToOne(targetEntity="User", cascade={"persist"})
@@ -93,7 +104,7 @@ class Media
      *
      * @return Media
      */
-    public function setFile($file): self
+    public function setFile($file)
     {
         $this->file = $file;
 
@@ -101,15 +112,18 @@ class Media
     }
 
     /**
-     * interfaced callbackmethod.
+     * Get file.
      *
-     * @param array $info
-     *
-     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
-     * Interfaced void
+     * @return File
      */
-    public function myCallbackMethod(array $info)
+    public function getFile()
     {
+        return $this->file;
+    }
+
+    public function __construct()
+    {
+        $this->public = false;
     }
 
     /**
@@ -119,7 +133,7 @@ class Media
      */
     public function __toString()
     {
-        return (string) $this->title;
+        return $this->title;
     }
 
     /**

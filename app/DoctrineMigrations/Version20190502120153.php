@@ -25,7 +25,7 @@ final class Version20190502120153 extends AbstractMigration
         $this->addSql('ALTER TABLE section DROP FOREIGN KEY FK_2D737AEFF98F144A');
         $this->addSql('DROP INDEX IDX_2D737AEFF98F144A ON section');
         $this->addSql('ALTER TABLE section DROP logo_id');
-        $this->addSql('ALTER TABLE section_audit DROP logo_id');
+        // $this->addSql('ALTER TABLE section_audit DROP logo_id');
     }
 
     public function down(Schema $schema) : void
@@ -36,6 +36,6 @@ final class Version20190502120153 extends AbstractMigration
         $this->addSql('ALTER TABLE section ADD logo_id INT DEFAULT NULL');
         $this->addSql('ALTER TABLE section ADD CONSTRAINT FK_2D737AEFF98F144A FOREIGN KEY (logo_id) REFERENCES media (id) ON DELETE SET NULL');
         $this->addSql('CREATE INDEX IDX_2D737AEFF98F144A ON section (logo_id)');
-        $this->addSql('ALTER TABLE section_audit ADD logo_id INT DEFAULT NULL');
+        // $this->addSql('ALTER TABLE section_audit ADD logo_id INT DEFAULT NULL');
     }
 }

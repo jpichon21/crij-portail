@@ -153,6 +153,16 @@ class Content implements RouteReferrersInterface
     }
 
     /**
+     * get class Name
+     * @return string
+     */
+    public function getClassName()
+    {
+        $path = explode('\\', __CLASS__);
+        return array_pop($path);
+    }
+
+    /**
      * Get id.
      *
      * @return int
@@ -281,7 +291,7 @@ class Content implements RouteReferrersInterface
      * Set logoId.
      *
      * @param int $logoId
-     * @return Category
+     * @return Content
      */
     public function setLogoId($logoId)
     {
@@ -350,7 +360,7 @@ class Content implements RouteReferrersInterface
      * Set logo.
      *
      * @param Media $logo
-     * @return Category
+     * @return Content
      */
     public function setLogo($logo)
     {

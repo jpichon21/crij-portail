@@ -108,10 +108,15 @@ final class ArticleAdmin extends AbstractAdmin
                 ])
             ->end()
             ->end()
-            ->tab('Rubrique')
+            ->tab('Publier dans')
                 ->add('section', EntityType::class, [
                     'class' => Section::class,
                     'label' => 'Rubrique',
+                    'required' => false,
+                ])
+                ->add('category', EntityType::class, [
+                    'class' => Category::class,
+                    'label' => 'Catégorie',
                     'required' => false,
                 ]);
     }

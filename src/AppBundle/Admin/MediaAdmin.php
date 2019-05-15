@@ -188,10 +188,10 @@ final class MediaAdmin extends AbstractAdmin
                                 ->getContainer()
                                 ->get('stof_doctrine_extensions.uploadable.manager');
 
-        $media->file = $uploadedFile;
+        $media->setFile($uploadedFile);
 
-        if ($media->file instanceof UploadedFile) {
-            $uploadableManager->markEntityToUpload($media, $media->file);
+        if ($media->getFile() instanceof UploadedFile) {
+            $uploadableManager->markEntityToUpload($media, $media->getFile());
         }
     }
 

@@ -1,13 +1,20 @@
 security:
     providers:
-        users:
+        admin_provider:
             id: AppBundle\Security\UserProvider
+        main_provider:
+            entity:
+                class: AppBundle:User
+                property: username
         in_memory:
             memory:
                 users:
                     admin:
                         password: '%admin_password%'
                         roles: 'ROLE_ADMIN'
+
+    encoders:
+        AppBundle\Entity\User: bcrypt
     
     role_hierarchy:
         ROLE_SUPER_ADMIN:
@@ -15,6 +22,7 @@ security:
             - ROLE_APP_ADMIN_ORGANISM_ALL
             - ROLE_APP_ADMIN_USER_ALL
             - ROLE_APP_ADMIN_ACTIVITY_ALL
+            - ROLE_ADMIN
         ROLE_ADMIN:
             - ROLE_SONATA_ADMIN
             - ROLE_APP_ADMIN_CATEGORY_ALL
@@ -23,8 +31,8 @@ security:
             - ROLE_APP_ADMIN_CONTENTBLOCK_ALL
             - ROLE_APP_ADMIN_QUERY_ALL
             - ROLE_APP_ADMIN_ARTICLE_ALL
-            - ROLE_APP_ADMIN_MEDIA_ALL
-            - ROLE_APP_ADMIN_PUBLIC_MEDIA_ALL
+            - ROLE_ADMIN_MEDIA_ALL
+            - ROLE_EDITOR
         ROLE_EDITOR:
             - ROLE_SONATA_ADMIN
             - ROLE_APP_ADMIN_CATEGORY_LIST
@@ -42,15 +50,9 @@ security:
             - ROLE_APP_ADMIN_QUERY_LIST
             - ROLE_APP_ADMIN_ARTICLE_LIST
             - ROLE_APP_ADMIN_ARTICLE_CREATE
-            - ROLE_APP_ADMIN_MEDIA_ALL
-            - ROLE_APP_ADMIN_PUBLIC_MEDIA_ALL
-        ROLE_USER: [ROLE_USER]
-        ROLE_EDITOR: [ROLE_EDITOR]
-        ROLE_ADMIN: [ROLE_ADMIN]
-        ROLE_SUPER_ADMIN: [ROLE_USER, ROLE_EDITOR, ROLE_ADMIN]
-
-    encoders:
-        AppBundle\Entity\User: bcrypt
+            - ROLE_ADMIN_MEDIA_ALL
+            - ROLE_USER
+        SONATA: ROLE_SONATA_PAGE_ADMIN_PAGE_EDIT
 
     firewalls:
         dev:
@@ -59,7 +61,7 @@ security:
         admin:
             pattern:            /admin(.*)
             form_login:
-                provider:       users
+                provider:       admin_provider
                 login_path:     admin_login
                 use_forward:    false
                 check_path:     admin_login
@@ -74,13 +76,19 @@ security:
             user_checker: AppBundle\Security\UserChecker
         main:
             pattern: ^/
+            provider: main_provider
             anonymous: ~
             user_checker: AppBundle\Security\UserChecker
+            json_login:
+                check_path: /api/login
+            logout:
+                path:   /api/logout
+                invalidate_session: true
+                target: /
     access_control:
         - { path: ^/admin/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/admin/logout$, role: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/admin/, role: [ROLE_ADMIN, ROLE_SUPER_ADMIN, ROLE_EDITOR] }
-        - { path: ^/.*, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/admin/, role: ROLE_EDITOR }
 
 sonata_admin:
     security:

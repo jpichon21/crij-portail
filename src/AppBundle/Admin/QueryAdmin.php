@@ -14,6 +14,7 @@ use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use AppBundle\Form\FilterType;
+use AppBundle\Form\PublicFilterType;
 
 /**
  * Query Admin class
@@ -97,11 +98,14 @@ final class QueryAdmin extends AbstractAdmin
             ->add('entity', ChoiceType::class, [
                 'label' => 'Table à interroger',
                 'choices' => $this->getConfigurationPool()->getContainer()->getParameter('entity'),
-            ]);
+            ])
+            ->end()
+            ->end();
         if ($display) {
             $formMapper
+            ->with('Configurations des filtres', ['class' => 'col-md-6'])
                 ->add('filters', CollectionType::class, [
-                    'label' => 'Filtre',
+                    'label' => false,
                     'entry_type'   => FilterType::class,
                     'allow_add' => true,
                     'allow_delete' => true,
@@ -114,7 +118,24 @@ final class QueryAdmin extends AbstractAdmin
                     ], [
                     'edit' => 'inline',
                     'inline' => 'table',
-                    'sortable' => 'position',
+                    ])
+            ->end()
+            ->end()
+            ->with('Configurations des filtres publique', ['class' => 'col-md-6'])
+                ->add('publicFilters', CollectionType::class, [
+                    'label' => false,
+                    'entry_type'   => PublicFilterType::class,
+                    'allow_add' => true,
+                    'allow_delete' => true,
+                    'entry_options' => [
+                        'attr' => [
+                            'keys' => $keys,
+                            'fields' => $fields,
+                        ],
+                    ],
+                    ], [
+                    'edit' => 'inline',
+                    'inline' => 'table',
                     ]);
         }
     }

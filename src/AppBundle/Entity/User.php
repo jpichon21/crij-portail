@@ -4,12 +4,17 @@ namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
+use JMS\Serializer\Annotation as Serializer;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * User
  *
  * @ORM\Table(name="user")
  * @ORM\Entity
+ * @Serializer\ExclusionPolicy("all")
+ * @UniqueEntity(fields={"email"})
  */
 class User implements UserInterface
 {
@@ -20,7 +25,7 @@ class User implements UserInterface
         'Super Administrateur' => 'ROLE_SUPER_ADMIN',
     ];
 
-    const STATUT = [
+    const STATUS = [
         'Collégien' => 'schoolboy',
         'Lycéen' => 'high_school_student',
         'Etudiant' => 'student',
@@ -35,15 +40,21 @@ class User implements UserInterface
      * @ORM\Id
      * @ORM\Column(type="integer")
      * @ORM\GeneratedValue(strategy="AUTO")
+     * @Serializer\Expose()
+     * @Serializer\Groups({"User:details"})
      */
     private $id;
 
     /**
      * @ORM\Column(name="email", type="string", unique=true)
+     * @Serializer\Expose()
+     * @Serializer\Groups({"User:details"})
+     * @Assert\Email
+     * @Assert\NotNull
      */
     private $email;
-    
 
+    
     /**
      * @ORM\Column(name="password", type="string", nullable=true)
      */
@@ -58,12 +69,18 @@ class User implements UserInterface
      * @var string
      *
      * @ORM\Column(name="name", type="string", length=255)
+     * @Serializer\Expose()
+     * @Serializer\Groups({"User:details"})
+     * @Assert\NotBlank
      */
     private $name;
 
     /**
      * @var bool
-     * @ORM\Column(name="consentName", type="boolean")
+     * @ORM\Column(name="consentName", type="boolean", nullable=true)
+     * @Serializer\Expose()
+     * @Serializer\Groups({"User:details"})
+     * @Assert\Type("boolean")
      */
     private $consentName;
 
@@ -71,12 +88,18 @@ class User implements UserInterface
      * @var string
      *
      * @ORM\Column(name="lastName", type="string", length=255)
+     * @Serializer\Expose()
+     * @Serializer\Groups({"User:details"})
+     * @Assert\NotBlank
      */
     private $lastName;
 
     /**
      * @var bool
-     * @ORM\Column(name="consentLastName", type="boolean")
+     * @ORM\Column(name="consentLastName", type="boolean", nullable=true)
+     * @Serializer\Expose()
+     * @Serializer\Groups({"User:details"})
+     * @Assert\Type("boolean")
      */
     private $consentLastName;
     
@@ -84,13 +107,21 @@ class User implements UserInterface
      * @var string
      *
      * @ORM\Column(name="nickname", type="string", length=255)
+     * @Serializer\Expose()
+     * @Serializer\Groups({"User:details"})
+     * @Assert\NotNull
+     * @Assert\NotBlank
      */
     private $nickname;
 
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="birthdate", type="datetime")
+     * @ORM\Column(name="birthdate", type="date")
+     * @Serializer\Expose()
+     * @Serializer\Groups({"User:details"})
+     * @Assert\NotBlank
+     * @Assert\Date()
      */
     private $birthdate;
 
@@ -98,19 +129,27 @@ class User implements UserInterface
      * @var string
      *
      * @ORM\Column(name="gender", type="string", length=255)
+     * @Serializer\Expose()
+     * @Serializer\Groups({"User:details"})
+     * @Assert\NotBlank
      */
     private $gender;
     
     /**
      * @var string
      *
-     * @ORM\Column(name="status", type="string", length=255)
+     * @ORM\Column(name="status", type="string", length=255, nullable=true)
+     * @Serializer\Expose()
+     * @Serializer\Groups({"User:details"})
      */
     private $status;
 
     /**
      * @var bool
-     * @ORM\Column(name="consentMail", type="boolean")
+     * @ORM\Column(name="consentMail", type="boolean", nullable=true)
+     * @Serializer\Expose()
+     * @Serializer\Groups({"User:details"})
+     * @Assert\Type("boolean")
      */
     private $consentMail;
     
@@ -118,6 +157,9 @@ class User implements UserInterface
      * @var string
      *
      * @ORM\Column(name="address", type="string", length=255)
+     * @Serializer\Expose()
+     * @Serializer\Groups({"User:details"})
+     * @Assert\NotBlank
      */
     private $address;
 
@@ -125,6 +167,9 @@ class User implements UserInterface
      * @var string
      *
      * @ORM\Column(name="zipcode", type="string", length=255)
+     * @Serializer\Expose()
+     * @Serializer\Groups({"User:details"})
+     * @Assert\NotBlank
      */
     private $zipcode;
     
@@ -132,54 +177,70 @@ class User implements UserInterface
      * @var string
      *
      * @ORM\Column(name="city", type="string", length=255)
+     * @Serializer\Expose()
+     * @Serializer\Groups({"User:details"})
+     * @Assert\NotBlank
      */
     private $city;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="department", type="string", length=255)
-     */
-    private $department;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="phone", type="string", length=255)
+     * @ORM\Column(name="phone", type="string", length=255, nullable=true)
+     * @Serializer\Expose()
+     * @Serializer\Groups({"User:details"})
      */
     private $phone;
 
     /**
      * @var bool
-     * @ORM\Column(name="usePhone", type="boolean")
+     * @ORM\Column(name="usePhone", type="boolean", nullable=true)
+     * @Serializer\Expose()
+     * @Serializer\Groups({"User:details"})
+     * @Assert\Type("boolean")
      */
     private $usePhone;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="mobile", type="string", length=255)
+     * @ORM\Column(name="mobile", type="string", length=255, nullable=true)
+     * @Serializer\Expose()
+     * @Serializer\Groups({"User:details"})
      */
     private $mobile;
 
     /**
      * @var bool
-     * @ORM\Column(name="useMobile", type="boolean")
+     * @ORM\Column(name="useMobile", type="boolean", nullable=true)
+     * @Serializer\Expose()
+     * @Serializer\Groups({"User:details"})
+     * @Assert\Type("boolean")
      */
     private $useMobile;
 
     /**
      * @var bool
-     * @ORM\Column(name="consentTerms", type="boolean")
+     * @ORM\Column(name="consentTerms", type="boolean", nullable=true)
+     * @Serializer\Expose()
+     * @Serializer\Groups({"User:details"})
+     * @Assert\Type("boolean")
      */
     private $consentTerms;
 
     /**
      * @var bool
-     * @ORM\Column(name="consentNews", type="boolean")
+     * @ORM\Column(name="consentNews", type="boolean", nullable=true)
+     * @Serializer\Expose()
+     * @Serializer\Groups({"User:details"})
+     * @Assert\Type("boolean")
      */
     private $consentNews;
-    
+
+    /**
+     * @var string
+     * @Serializer\Type("string")
+     */
     private $plainPassword;
 
     /**
@@ -213,6 +274,20 @@ class User implements UserInterface
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * Set id.
+     *
+     * @param bool $id
+     *
+     * @return User
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+
+        return $this;
     }
 
     /**
@@ -467,7 +542,6 @@ class User implements UserInterface
      * Set lastName.
      *
      * @param string $lastName
-     *
      * @return User
      */
     public function setLastName($lastName)
@@ -509,20 +583,6 @@ class User implements UserInterface
     public function getConsentLastName()
     {
         return $this->consentLastName;
-    }
-
-    /**
-     * Set username.
-     *
-     * @param string $username
-     *
-     * @return User
-     */
-    public function setUsername($username)
-    {
-        $this->username = $username;
-
-        return $this;
     }
 
     /**
@@ -691,30 +751,6 @@ class User implements UserInterface
     public function getCity()
     {
         return $this->city;
-    }
-
-    /**
-     * Set department.
-     *
-     * @param string $department
-     *
-     * @return User
-     */
-    public function setDepartment($department)
-    {
-        $this->department = $department;
-
-        return $this;
-    }
-
-    /**
-     * Get department.
-     *
-     * @return string
-     */
-    public function getDepartment()
-    {
-        return $this->department;
     }
 
     /**
