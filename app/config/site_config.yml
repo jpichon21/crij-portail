@@ -1,0 +1,16 @@
+parameters:
+  site_config:
+    title: Portail Du Crij BFC
+    metaDescription: Portail Du Crij BFC
+    domainDescription: Portail Du Crij BFC
+    partners:
+      - 
+        title: Logomotion
+        image: uploads/partners/logomotion.jpg
+        url: 'https://logomotion.fr'
+        external: true
+    links:
+      - 
+        title: Mentions légales
+        url: /mentions-legales
+        external: false

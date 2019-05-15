@@ -7,3 +7,15 @@ content:
 section:
   type: rest
   resource: AppBundle\Controller\SectionController
+user:
+  type: rest
+  resource: AppBundle\Controller\UserController
+article:
+  type: rest
+  resource: AppBundle\Controller\ArticleController
+security:
+  type: rest
+  resource: AppBundle\Controller\SecurityController
+media:
+  type: rest
+  resource: AppBundle\Controller\MediaController

@@ -53,10 +53,15 @@ class Query
 
     /**
      * @var string
-     *
-     * @ORM\ManyToMany(targetEntity="QueryFilter", cascade={"persist", "remove"})
+     * @ORM\Column(name="filters", type="json")
      */
     private $filters;
+
+    /**
+     * @var string
+     * @ORM\Column(name="public_filters", type="json")
+     */
+    private $publicFilters;
 
     /**
      * @var datetime $created
@@ -77,12 +82,19 @@ class Query
     protected $updated;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="entity", type="string", length=255)
+     */
+    private $entity;
+
+    /**
      * construtor
      */
     public function __construct()
     {
-        $this->contentBlocks = new ArrayCollection();
         $this->filters = new ArrayCollection();
+        $this->publicFilters = new ArrayCollection();
     }
 
     /**
@@ -178,42 +190,6 @@ class Query
     }
 
     /**
-     * Get filters.
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getFilters()
-    {
-        return $this->filters;
-    }
-    
-    /**
-     * Add filter.
-     *
-     * @param QueryFilter $filter
-     *
-     * @return Query
-     */
-    public function addFilter($filter)
-    {
-        $this->filters[] = $filter;
-
-        return $this;
-    }
-
-    /**
-     * Remove filter.
-     *
-     * @param QueryFilter $filter
-     *
-     * @return boolean TRUE if this collection contained the specified element, FALSE otherwise.
-     */
-    public function removeFilter($filter)
-    {
-        return $this->filters->removeElement($filter);
-    }
-
-    /**
      * Set name.
      *
      * @param string $name
@@ -259,5 +235,77 @@ class Query
     public function getDescription()
     {
         return $this->description;
+    }
+
+    /**
+     * Set entity.
+     *
+     * @param string $entity
+     *
+     * @return Query
+     */
+    public function setEntity($entity)
+    {
+        $this->entity = $entity;
+
+        return $this;
+    }
+
+    /**
+     * Get entity.
+     *
+     * @return string
+     */
+    public function getEntity()
+    {
+        return $this->entity;
+    }
+
+    /**
+     * Set filters.
+     *
+     * @param json $filters
+     *
+     * @return Query
+     */
+    public function setFilters($filters)
+    {
+        $this->filters = $filters;
+
+        return $this;
+    }
+
+    /**
+     * Get filters.
+     *
+     * @return json
+     */
+    public function getFilters()
+    {
+        return $this->filters;
+    }
+
+        /**
+     * Set publicFilters.
+     *
+     * @param json $publicFilters
+     *
+     * @return Query
+     */
+    public function setPublicFilters($publicFilters)
+    {
+        $this->publicFilters = $publicFilters;
+
+        return $this;
+    }
+
+    /**
+     * Get publicFilters.
+     *
+     * @return json
+     */
+    public function getPublicFilters()
+    {
+        return $this->publicFilters;
     }
 }

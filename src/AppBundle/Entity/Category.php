@@ -94,6 +94,7 @@ class Category implements RouteReferrersInterface
 
     /**
      * @ORM\ManyToOne(targetEntity="Media", cascade={"persist", "remove"})
+     * @ORM\JoinColumn(name="logo_id", referencedColumnName="id", nullable=true, onDelete="SET NULL")
      * @Serializer\Expose()
      * @Serializer\Groups({"Category:list", "Category:details"})
      */
@@ -123,6 +124,15 @@ class Category implements RouteReferrersInterface
     private $slug;
 
     /**
+     * var string
+     *
+     * @ORM\Column(name="color", type="string", length=255)
+     * @Serializer\Expose()
+     * @Serializer\Groups({"Category:list", "Category:details"})
+     */
+    private $color;
+
+    /**
      * Constructor
     */
     public function __construct()
@@ -139,6 +149,16 @@ class Category implements RouteReferrersInterface
     public function __toString()
     {
         return $this->getTitle();
+    }
+
+    /**
+     * get class Name
+     * @return string
+     */
+    public function getClassName()
+    {
+        $path = explode('\\', __CLASS__);
+        return array_pop($path);
     }
 
     /**
@@ -274,7 +294,7 @@ class Category implements RouteReferrersInterface
     /**
      * Get sections
      *
-     * @return \Doctrine\Common\Collections\Collection
+     * @return Collection
      */
     public function getSections()
     {
@@ -339,6 +359,12 @@ class Category implements RouteReferrersInterface
     public function removeArticle($article)
     {
         return $this->articles->removeElement($article);
+    }
+
+    public function setArticles($articles)
+    {
+        $this->articles = $articles;
+        return $this;
     }
 
     /**
@@ -447,6 +473,30 @@ class Category implements RouteReferrersInterface
         $this->published = $published;
 
         return $this;
+    }
+
+    /**
+     * Set color.
+     *
+     * @param string $color
+     *
+     * @return Section
+     */
+    public function setColor($color)
+    {
+        $this->color = $color;
+
+        return $this;
+    }
+
+    /**
+     * Get color.
+     *
+     * @return string
+     */
+    public function getColor()
+    {
+        return $this->color;
     }
     
     /**

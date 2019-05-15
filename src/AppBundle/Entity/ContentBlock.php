@@ -14,12 +14,20 @@ use Doctrine\Common\Collections\ArrayCollection;
  * ContentBlock
  *
  * @ORM\Table(name="content_block")
- * @ORM\Entity()
+ * @ORM\Entity(repositoryClass="Gedmo\Sortable\Entity\Repository\SortableRepository")
  *
  * @Serializer\ExclusionPolicy("all")
  */
 class ContentBlock
 {
+    const TYPE = [
+        'Texte' => 'text',
+        'Job - cartes' => 'job_maps',
+        'Job - offres' => 'job_offers',
+        'Job - demandes' => 'job_requests',
+        'Contenu flora' => 'flora'
+    ];
+
     /**
      * @var int
      *
@@ -58,10 +66,10 @@ class ContentBlock
 
     /**
      * @var string
-     *
-     * @ORM\ManyToMany(targetEntity="Query")
+     * @ORM\ManyToOne(targetEntity="Query", cascade={"persist"})
+     * @ORM\JoinColumn(name="query_id", referencedColumnName="id", nullable=true, onDelete="SET NULL")
      */
-    private $queries;
+    private $query;
 
     /**
      * @var datetime $created
@@ -88,10 +96,10 @@ class ContentBlock
     private $content;
 
     /**
-     * @var bool
-     * @ORM\Column(type="boolean")
+     * @Gedmo\SortablePosition
+     * @ORM\Column(name="position", type="integer")
      */
-    private $published;
+    private $position;
 
     /**
      * @var string
@@ -100,6 +108,14 @@ class ContentBlock
      * @Serializer\Groups({"Content:list", "Content:details"})
      */
     private $results;
+
+    /**
+     * @var string
+     *
+     * @Serializer\Expose()
+     * @Serializer\Groups({"Content:list", "Content:details"})
+     */
+    private $publicFilters;
 
     /**
      * to string method
@@ -208,7 +224,7 @@ class ContentBlock
      *
      * @return Content
      */
-    public function setContent($content = null)
+    public function setContent($content)
     {
         $this->content = $content;
 
@@ -274,63 +290,50 @@ class ContentBlock
     }
 
     /**
-     * Get queries.
+     * Set position.
      *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getQueries()
-    {
-        return $this->queries;
-    }
-
-    /**
-     * Add query.
-     *
-     * @param Query $query
-     *
+     * @param bool $position
      * @return ContentBlock
      */
-    public function addQuery($query)
+    public function setPosition($position)
     {
-        $this->queries[] = $query;
+        $this->position = $position;
 
         return $this;
     }
 
     /**
-     * Remove query.
+     * Get Position.
      *
-     * @param Query $query
-     *
-     * @return boolean TRUE if this collection contained the specified element, FALSE otherwise.
+     * @return int
      */
-    public function removeQuery($query)
+    public function getPosition()
     {
-        return $this->queries->removeElement($query);
+        return $this->position;
     }
 
     /**
-     * Set published.
+     * Set query.
      *
-     * @param bool $published
+     * @param Query|null $query
      *
      * @return ContentBlock
      */
-    public function setPublished($published)
+    public function setQuery($query)
     {
-        $this->published = $published;
+        $this->query = $query;
 
         return $this;
     }
 
     /**
-     * Get published.
+     * Get query.
      *
-     * @return bool
+     * @return Query|null
      */
-    public function getPublished()
+    public function getQuery()
     {
-        return $this->published;
+        return $this->query;
     }
 
     public function setResults($results)
@@ -348,5 +351,26 @@ class ContentBlock
     public function getResults()
     {
         return $this->results;
+    }
+
+    public function setPublicFilters($publicFilters)
+    {
+        $sanitizePublicFilters = [];
+        foreach ($publicFilters as $publicFilter) {
+            $sanitizePublicFilters[] = $publicFilter;
+        }
+        $this->publicFilters = $sanitizePublicFilters;
+
+        return $this;
+    }
+
+    /**
+     * Get publicFilters.
+     *
+     * @return bool
+     */
+    public function getPublicFilters()
+    {
+        return $this->publicFilters;
     }
 }

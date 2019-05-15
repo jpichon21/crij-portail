@@ -13,9 +13,9 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * @ORM\Entity
  *
- * @Gedmo\Uploadable(callback="myCallbackMethod",
- *  allowOverwrite=true,
- *  filenameGenerator="ALPHANUMERIC",
+ * @Gedmo\Uploadable(
+ *  allowOverwrite=false,
+ *  filenameGenerator="SHA1",
  *  appendNumber=true,
  *  allowedTypes="image/jpeg,image/jpg,image/pjpeg,image/png,image/x-png"
  * )
@@ -70,7 +70,32 @@ class Media
     /**
      * @Assert\File()
      */
-    public $file;
+    private $file;
+    
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="altText", type="string", length=255, nullable=true)
+     */
+    private $altText;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="title", type="string", length=255, nullable=false)
+     */
+    private $title;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="User", cascade={"persist"})
+     */
+    private $author;
+
+    /**
+     * @var bool
+     * @ORM\Column(type="boolean")
+     */
+    private $public;
 
     /**
      * Set file.
@@ -79,7 +104,7 @@ class Media
      *
      * @return Media
      */
-    public function setFile($file): self
+    public function setFile($file)
     {
         $this->file = $file;
 
@@ -87,15 +112,18 @@ class Media
     }
 
     /**
-     * interfaced callbackmethod.
+     * Get file.
      *
-     * @param array $info
-     *
-     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
-     * Interfaced void
+     * @return File
      */
-    public function myCallbackMethod(array $info)
+    public function getFile()
     {
+        return $this->file;
+    }
+
+    public function __construct()
+    {
+        $this->public = false;
     }
 
     /**
@@ -105,7 +133,7 @@ class Media
      */
     public function __toString()
     {
-        return (string) $this->name;
+        return $this->title;
     }
 
     /**
@@ -156,5 +184,126 @@ class Media
     public function getName()
     {
         return $this->name;
+    }
+
+    /**
+     * Set altText.
+     *
+     * @param string $altText
+     *
+     * @return Media
+     */
+    public function setAltText($altText)
+    {
+        $this->altText = $altText;
+
+        return $this;
+    }
+
+    /**
+     * Get altText.
+     *
+     * @return string
+     */
+    public function getAltText()
+    {
+        return $this->altText;
+    }
+
+    /**
+     * Set title.
+     *
+     * @param string $title
+     *
+     * @return Media
+     */
+    public function setTitle($title)
+    {
+        $this->title = $title;
+
+        return $this;
+    }
+
+    /**
+     * Get title.
+     *
+     * @return string
+     */
+    public function getTitle()
+    {
+        return $this->title;
+    }
+
+
+    /**
+     * Set authorId.
+     *
+     * @param int $authorId
+     *
+     * @return Media
+     */
+    public function setAuthorId($authorId)
+    {
+        $this->authorId = $authorId;
+
+        return $this;
+    }
+
+    /**
+     * Get authorId.
+     *
+     * @return int
+     */
+    public function getAuthorId()
+    {
+        return $this->authorId;
+    }
+
+    /**
+     * Set author.
+     *
+     * @param Media $author
+     *
+     * @return User
+     */
+    public function setAuthor($author)
+    {
+        $this->author = $author;
+
+        return $this;
+    }
+
+    /**
+     * Get author.
+     *
+     * @return Media
+     */
+    public function getAuthor()
+    {
+        return $this->author;
+    }
+
+    /**
+     * Set public.
+     *
+     * @param bool $public
+     *
+     * @return Media
+     */
+    public function setPublic($public)
+    {
+        $this->public = $public;
+
+        return $this;
+    }
+    
+    /**
+     * Get public.
+     *
+     * @return bool
+     */
+    public function getPublic()
+    {
+        return $this->public;
     }
 }

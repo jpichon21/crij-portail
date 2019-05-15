@@ -65,19 +65,19 @@ class SectionController extends Controller
     }
 
     /**
-     * @Rest\View(serializerGroups={"Section:details", "Content:list"})
+     * @Rest\View(serializerGroups={"Section:details", "Content:list", "Article:list"})
      *
      * @param int $id
      * @return \FOS\RestBundle\View\View
      */
     public function getAction($id)
     {
-        $data = $this->repository->find($id);
+        $section = $this->repository->find($id);
 
-        if (!$data) {
+        if (!$section) {
             return new JsonResponse(['message' => 'Section not found'], Response::HTTP_NOT_FOUND);
         }
-        return ['data' => $data];
+        return ['data' => $section];
     }
 
     /**
@@ -101,11 +101,17 @@ class SectionController extends Controller
      */
     public function getArticlesAction($id)
     {
-        $pager = $this->repository->findArticles(
-            $id,
+        $section = $this->repository->find($id);
+        if (!$section) {
+            return new JsonResponse(['message' => 'Section not found'], Response::HTTP_NOT_FOUND);
+        }
+        $pager = $this->articleRepository->findBySection(
+            $section,
+            true,
             $this->paramFetcher->get('limit'),
             $this->paramFetcher->get('page')
         );
-        return new Sections($pager);
+
+        return new Articles($pager);
     }
 }

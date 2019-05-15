@@ -96,6 +96,7 @@ class Content implements RouteReferrersInterface
 
     /**
      * @ORM\ManyToOne(targetEntity="Media", cascade={"persist", "remove"})
+     * @ORM\JoinColumn(name="background_id", referencedColumnName="id", nullable=true, onDelete="SET NULL")
      * @Serializer\Expose()
      * @Serializer\Groups({"Content:details"})
      */
@@ -103,6 +104,7 @@ class Content implements RouteReferrersInterface
 
     /**
      * @ORM\ManyToOne(targetEntity="Media", cascade={"persist", "remove"})
+     * @ORM\JoinColumn(name="logo_id", referencedColumnName="id", nullable=true, onDelete="SET NULL")
      * @Serializer\Expose()
      * @Serializer\Groups({"Content:list", "Content:details"})
      */
@@ -117,7 +119,8 @@ class Content implements RouteReferrersInterface
     private $routes;
     
     /**
-     * @ORM\OneToMany(targetEntity="ContentBlock", mappedBy="content", cascade={"persist"}, orphanRemoval=true)
+     * @Orm\OrderBy({"position" = "ASC"})
+     * @ORM\OneToMany(targetEntity="ContentBlock", mappedBy="content", cascade={"persist", "remove"})
      * @Serializer\Expose()
      * @Serializer\Groups({"Content:details"})
     */
@@ -129,14 +132,6 @@ class Content implements RouteReferrersInterface
      * @ORM\Column(type="boolean")
      */
     private $published;
-
-     /**
-     * @var array
-     *
-     * @Serializer\Expose()
-     * @Serializer\Groups({"Content:list", "Content:details"})
-     */
-    private $results;
 
     /**
      * Constructor
@@ -154,7 +149,17 @@ class Content implements RouteReferrersInterface
      */
     public function __toString()
     {
-        return $this->getIntro();
+        return $this->getTitle();
+    }
+
+    /**
+     * get class Name
+     * @return string
+     */
+    public function getClassName()
+    {
+        $path = explode('\\', __CLASS__);
+        return array_pop($path);
     }
 
     /**
@@ -375,55 +380,52 @@ class Content implements RouteReferrersInterface
     }
 
     /**
-     * Set contentBlocks.
+     * Set contentBlocks
      *
-     * @param string $contentBlocks
+     * @param Contentblock $contentBlocks
+     *
      * @return Content
      */
-    public function setContentBlock($contentBlocks)
+    public function setContentblocks($contentBlocks)
     {
         $this->contentBlocks = $contentBlocks;
-
-        return $this;
     }
 
-    /**
-     * Get contentBlocks
+/**
+     * Get contentBlocks.
      *
-     * @return ContentBlock
+     * @return Collection
      */
-    public function getContentBlock()
+    public function getContentBlocks()
     {
         return $this->contentBlocks;
     }
-
+    
     /**
-     * Add contentBlocks
+     * Add contentblock.
      *
-     * @param ContentBlock $contentBlocks
+     * @param ContentBlock $contentblock
+     *
      * @return Content
      */
-    public function addContentBlock($contentBlocks)
+    public function addContentBlock($contentblock)
     {
-        $contentBlocks->setContent($this);
-        $this->contentBlocks[] = $contentBlocks;
+        $contentblock->setContent($this);
+        $this->contentBlocks[] = $contentblock;
 
         return $this;
     }
 
     /**
-     * Remove contentBlocks
+     * Remove contentblock.
      *
-     * @param ContentBlock $contentBlocks
-     * @return ContentBlock
+     * @param ContentBlock $contentblock
+     *
+     * @return boolean TRUE if this collection contained the specified element, FALSE otherwise.
      */
-    public function removeContentBlock($contentBlocks)
+    public function removeContentBlock($contentblock)
     {
-        if ($this->contentBlocks->contains($contentBlocks)) {
-            $this->contentBlocks->removeElement($contentBlocks);
-        }
-
-        return $this;
+        return $this->contentBlocks->removeElement($contentblock);
     }
 
     /**
@@ -541,24 +543,5 @@ class Content implements RouteReferrersInterface
     public function getPublished()
     {
         return $this->published;
-    }
-
-
-
-    public function setResults($results)
-    {
-        $this->results = $results;
-
-        return $this;
-    }
-
-    /**
-     * Get results.
-     *
-     * @return bool
-     */
-    public function getResults()
-    {
-        return $this->results;
     }
 }

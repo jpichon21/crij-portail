@@ -1,0 +1,26 @@
+{% extends get_global_template('edit') %}
+
+
+{% block form %}
+{{ block('parentForm') }}
+<script>
+    document.addEventListener('DOMContentLoaded', function(event) {
+        document.querySelector('#sonata-ba-field-container-s6de8891210_contentBlocks ').onclick=changeEventHandler
+        
+        function changeEventHandler(event) {
+            setTimeout(() =>{
+                contentBlocks = document.querySelectorAll('#tab_s6de8891210_3 textarea.ckeditor')
+                contentBlocks.forEach((contentBlock, iteration) => {
+                    id = contentBlock.getAttribute('id')
+                    if (document.querySelector('#cke_'+id) === null) {
+                        if (CKEDITOR.instances[id]) {
+                            CKEDITOR.instances[id].destroy()
+                        }
+                        CKEDITOR.replace(id)
+                    }
+                })     
+            }, 500)
+        }
+    });
+</script>
+{% endblock %}

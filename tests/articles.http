@@ -1,0 +1,29 @@
+POST http://127.0.0.1/api/articles
+Accept: */*
+# Content-Type: application/json
+
+{
+  "title": "test",
+  "introduction": "test",
+  "content": "test",
+  "background": "1",
+  "section": "1"
+}
+
+###
+PATCH http://127.0.0.1/api/articles/1
+Accept: */*
+Content-Type: application/json
+
+{
+  "title": "test",
+  "introduction": "test",
+  "content": "test",
+  "background": "1",
+  "section": "1"
+}
+
+###
+DELETE http://127.0.0.1/api/articles/6
+Accept: */*
+Content-Type: application/json

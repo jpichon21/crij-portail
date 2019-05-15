@@ -9,6 +9,7 @@ parameters:
     mailer_host: smtp:2525
     mailer_user: smtp
     mailer_password: smtp
+    upload_path: ../web/uploads
 
     secret: ThisTokenIsNotSoSecretChangeIt
 

@@ -7,10 +7,9 @@ namespace AppBundle\Repository;
 
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\EntityRepository;
-use AppBundle\Entity\Activity;
-use Pagerfanta\Pagerfanta;
-use AppBundle\Entity\QueryFilter;
 use Doctrine\ORM\QueryBuilder;
+use Pagerfanta\Pagerfanta;
+use AppBundle\Entity\Activity;
 use AppBundle\Entity\Query;
 
 class ActivityRepository extends AbstractRepository
@@ -56,10 +55,9 @@ class ActivityRepository extends AbstractRepository
      */
     private function addFilter($qb, $filter, $type)
     {
-        
-        if ($type === QueryFilter::TYPE_AND) {
-            $qb->andWhere('a.' . $filter->getField() . '=' . ':' . $filter->getField());
-            $qb->setParameter(':'.$filter->getField(), $filter->getValue());
+        if ($type === Query::TYPE_AND) {
+            $qb->andWhere('a.' . $filter['field'] . '=' . ':' . $filter['field']);
+            $qb->setParameter(':'.$filter['field'], $filter['value']);
         }
         return $qb;
     }

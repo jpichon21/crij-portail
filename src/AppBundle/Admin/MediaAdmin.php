@@ -11,12 +11,14 @@ use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 
 /**
  * Media Admin class
  */
 final class MediaAdmin extends AbstractAdmin
 {
+
     /**
      * Hook prePersist event to set media in a child form.
      *
@@ -26,6 +28,8 @@ final class MediaAdmin extends AbstractAdmin
     public function prePersist($media)
     {
         $this->manageFileUpload($media);
+        $media->setAuthor($this->getUser());
+        $media->setPublic(false);
     }
 
     /**
@@ -48,9 +52,27 @@ final class MediaAdmin extends AbstractAdmin
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
-            ->add('file', FileType::class, [
+            ->add('title', TextType::class, [
+                'label' => 'Titre du média',
+                'required' => true,
+            ])
+            ->add('altText', TextType::class, [
+                'label' => 'Texte de la balise alt',
                 'required' => true,
             ]);
+        if ($this->isCurrentRoute('edit')) {
+            $formMapper
+            ->add('file', FileType::class, [
+                'label' => 'Choisissez votre fichier',
+                'required' => false,
+            ]);
+        } else {
+            $formMapper
+            ->add('file', FileType::class, [
+                'label' => 'Choisissez votre fichier',
+                'required' => true,
+            ]);
+        }
     }
 
     /**
@@ -76,8 +98,18 @@ final class MediaAdmin extends AbstractAdmin
     protected function configureListFields(ListMapper $listMapper)
     {
         $listMapper
-            ->addIdentifier('name', null, [
-                'label' => 'Nom du fichier',
+            ->add('thumb', null, [
+                'label' => 'Miniature',
+                'template' => 'AppBundle/MediaAdmin/thumbnail.html.twig'
+            ])
+            ->add('title', null, [
+                'label' => 'Titre',
+            ])
+            ->add('_action', null, [
+                'actions' => [
+                    'edit' => [],
+                    'delete' => [],
+                ]
             ]);
     }
 
@@ -95,10 +127,23 @@ final class MediaAdmin extends AbstractAdmin
                                 ->getContainer()
                                 ->get('stof_doctrine_extensions.uploadable.manager');
 
-        $media->file = $uploadedFile;
+        $media->setFile($uploadedFile);
 
-        if ($media->file instanceof UploadedFile) {
-            $uploadableManager->markEntityToUpload($media, $media->file);
+        if ($media->getFile() instanceof UploadedFile) {
+            $uploadableManager->markEntityToUpload($media, $media->getFile());
         }
+    }
+
+    public function createQuery($context = 'list')
+    {
+        $query = parent::createQuery($context);
+        $query->andWhere($query->expr()->eq($query->getRootAliases()[0] . '.author', ':userId'));
+        $query->setParameter('userId', $this->getUser()->getId());
+        return $query;
+    }
+
+    private function getUser()
+    {
+        return $this->getConfigurationPool()->getContainer()->get('security.token_storage')->getToken()->getUser();
     }
 }

@@ -4,6 +4,7 @@ imports:
     - { resource: services.yml }
     - { resource: entity_list.yml }
     - { resource: entity_field.yml }
+    - { resource: site_config.yml }
 
 # Put parameters here that don't need to change on each machine where the app is deployed
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
@@ -14,8 +15,9 @@ stof_doctrine_extensions:
         default:
             uploadable: true
             timestampable: true
+            sortable: true
     uploadable:
-        default_file_path:       "%kernel.root_dir%/../web/uploads"
+        default_file_path:       '%upload_path%'
         mime_type_guesser_class: Stof\DoctrineExtensionsBundle\Uploadable\MimeTypeGuesserAdapter
         default_file_info_class: Stof\DoctrineExtensionsBundle\Uploadable\UploadedFileInfo
 
@@ -86,8 +88,9 @@ swiftmailer:
     spool: { type: memory }
 
 sensio_framework_extra:
-   router:
+    router:
         annotations: false
+    request: { converters: true }
 webpack_encore:
     output_path: '%kernel.project_dir%/web/build'
 fos_rest:
@@ -104,6 +107,10 @@ fos_rest:
         view_response_listener: 'force'
     serializer:
         serialize_null:  true
+    body_converter:
+        enabled: true
+        validate: true
+        validation_errors_argument: validationErrors
 
 nelmio_cors:
     paths:
@@ -115,6 +122,7 @@ nelmio_cors:
           max_age: 3600
 
 sonata_admin:
+    show_mosaic_button: false
     title: Crij 
     dashboard:
         blocks:
@@ -188,5 +196,6 @@ cmf_routing:
 jms_serializer:
     handlers:
         datetime:
-            default_format: "Y-m-d\\TH:i:sP"
             default_timezone: "Europe/Paris"
+    property_naming: 
+        id: 'jms_serializer.identical_property_naming_strategy'

@@ -10,15 +10,41 @@ use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Sonata\AdminBundle\Form\Type\ModelType;
+use Sonata\AdminBundle\Form\Type\ModelListType;
 use Sonata\FormatterBundle\Form\Type\SimpleFormatterType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Sonata\AdminBundle\Show\ShowMapper;
+use Symfony\Component\Form\Extension\Core\Type\ColorType;
 
 /**
  * Category Admin class
  */
 final class CategoryAdmin extends AbstractAdmin
 {
+    /**
+     * Hook prePersist event
+     *
+     * @param Category $category
+     *
+     */
+    public function prePersist($category)
+    {
+        $this->preUpdate($category);
+    }
+
+    /**
+     *  Hook prePersist event
+     *
+     * @param Category $category
+     *
+     */
+    public function preUpdate($category)
+    {
+        if (!$this->getUser()->allowedToPublish()) {
+            $category->setPublished(false);
+        }
+    }
+
     /**
      * Configure admin form.
      *
@@ -28,7 +54,15 @@ final class CategoryAdmin extends AbstractAdmin
     protected function configureFormFields(FormMapper $formMapper)
     {
         $formMapper
-            ->tab($this->trans('Configuration'))
+            ->tab($this->trans('Configuration'));
+        if ($this->getUser()->allowedToPublish()) {
+            $formMapper
+            ->add('published', CheckboxType::class, [
+                'label' => 'Publier',
+                'required' => false,
+            ]);
+        }
+                $formMapper
                 ->add('title', TextType::class, [
                     'label' => 'Titre',
                 ])
@@ -45,6 +79,9 @@ final class CategoryAdmin extends AbstractAdmin
                     'attr' => [
                         'class' => 'ckeditor'
                     ]
+                ])
+                ->add('color', ColorType::class, [
+                    'label' => 'Couleur',
                 ]);
         if ($this->isCurrentRoute('edit')) {
             $formMapper
@@ -53,10 +90,6 @@ final class CategoryAdmin extends AbstractAdmin
             ]);
         }
                 $formMapper
-                ->add('published', CheckboxType::class, [
-                    'label' => 'Publier',
-                    'required' => false,
-                ])
             ->end()
             ->end()
             ->tab('Métadonnées')
@@ -71,9 +104,10 @@ final class CategoryAdmin extends AbstractAdmin
             ->end()
             ->end()
             ->tab('Média')
-                ->add('logo', ModelType::class, [
+                ->add('logo', ModelListType::class, [
                     'label' => 'Logo',
                     'required' => false,
+                    'btn_list' => true,
                 ]);
     }
 
@@ -87,7 +121,10 @@ final class CategoryAdmin extends AbstractAdmin
     {
         $datagridMapper
             ->add('title', null, [
-                'label' => 'Titre',
+                'label' => 'Titre des catégories',
+            ])
+            ->add('published', null, [
+                'label' => 'Publiée'
             ]);
     }
 
@@ -100,8 +137,41 @@ final class CategoryAdmin extends AbstractAdmin
     protected function configureListFields(ListMapper $listMapper)
     {
         $listMapper
-            ->addIdentifier('title', null, [
+            ->add('title', null, [
                 'label' => 'Titre',
             ]);
+        if ($this->getUser()->allowedToPublish()) {
+            $listMapper
+            ->add('published', null, [
+                'editable' => true,
+                'label' => 'Publiée'
+            ]);
+        } else {
+            $listMapper
+            ->add('published', null, [
+                'label' => 'Publiée'
+            ]);
+        }
+            $listMapper
+            ->add('_action', null, [
+                'actions' => [
+                    'edit' => [],
+                    'delete' => [],
+                ]
+            ]);
+    }
+
+    protected function configureShowFields(ShowMapper $showMapper)
+    {
+        $showMapper
+            ->tab('General') // the tab call is optional
+                ->add('title')
+            ->end()
+        ;
+    }
+
+    private function getUser()
+    {
+        return $this->getConfigurationPool()->getContainer()->get('security.token_storage')->getToken()->getUser();
     }
 }

@@ -13,6 +13,8 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use AppBundle\Representation\Categories;
 use AppBundle\Repository\CategoryRepository;
+use AppBundle\Repository\ArticleRepository;
+use AppBundle\Representation\Articles;
 
 /**
  * Category Controller
@@ -31,10 +33,19 @@ class CategoryController extends Controller
      */
     private $paramFetcher;
 
-    public function __construct(CategoryRepository $categoryRepository, ParamFetcherInterface $paramFetcher)
-    {
+    /**
+     * @var ArticleRepository
+     */
+    private $articleRepository;
+
+    public function __construct(
+        CategoryRepository $categoryRepository,
+        ParamFetcherInterface $paramFetcher,
+        ArticleRepository $articleRepository
+    ) {
         $this->repository = $categoryRepository;
         $this->paramFetcher = $paramFetcher;
+        $this->articleRepository = $articleRepository;
     }
 
     /**
@@ -58,6 +69,7 @@ class CategoryController extends Controller
     public function cgetAction()
     {
         $pager = $this->repository->findPublished(
+            true,
             $this->paramFetcher->get('limit'),
             $this->paramFetcher->get('page')
         );
@@ -65,19 +77,23 @@ class CategoryController extends Controller
     }
 
     /**
-     * @Rest\View(serializerGroups={"Category:details", "Section:list"})
+     * @Rest\View(serializerGroups={"Category:details", "Section:list", "Article:list"})
      *
      * @param int $id
      * @return \FOS\RestBundle\View\View
      */
     public function getAction($id)
     {
-        $data = $this->repository->find($id);
+        $category = $this->repository->find($id);
 
-        if (!$data) {
+        if (!$category) {
             return new JsonResponse(['message' => 'Category not found'], Response::HTTP_NOT_FOUND);
         }
-        return ['data' => $data];
+
+        $articles = $this->articleRepository->findByCategory($category, false, 5);
+        $category->setArticles($articles);
+        
+        return ['data' => $category];
     }
 
     /**
@@ -101,11 +117,18 @@ class CategoryController extends Controller
      */
     public function getArticlesAction($id)
     {
-        $pager = $this->repository->findArticles(
-            $id,
+
+        $category = $this->repository->find($id);
+        if (!$category) {
+            return new JsonResponse(['message' => 'Category not found'], Response::HTTP_NOT_FOUND);
+        }
+        $pager = $this->articleRepository->findByCategory(
+            $category,
+            true,
             $this->paramFetcher->get('limit'),
             $this->paramFetcher->get('page')
         );
-        return new Categories($pager);
+
+        return new Articles($pager);
     }
 }
