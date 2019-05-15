@@ -1,11 +1,7 @@
 security:
     providers:
-        admin_provider:
+        user_provider:
             id: AppBundle\Security\UserProvider
-        main_provider:
-            entity:
-                class: AppBundle:User
-                property: username
         in_memory:
             memory:
                 users:
@@ -61,7 +57,7 @@ security:
         admin:
             pattern:            /admin(.*)
             form_login:
-                provider:       admin_provider
+                provider:       user_provider
                 login_path:     admin_login
                 use_forward:    false
                 check_path:     admin_login
@@ -76,7 +72,7 @@ security:
             user_checker: AppBundle\Security\UserChecker
         main:
             pattern: ^/
-            provider: main_provider
+            provider: user_provider
             anonymous: ~
             user_checker: AppBundle\Security\UserChecker
             json_login:
